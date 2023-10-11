@@ -1,12 +1,14 @@
 export default class User {
-    _username
-    _email
-    _token
+    _name: string
+    _lastname: string
+    _email: string
+    _token: any
 
-    _isAdmin
+    _isAdmin: boolean
 
-    constructor(username, email, token) {
-        this._username = username
+    constructor(name: string, lastname: string, email: string, token: any) {
+        this._name = name
+        this._lastname = lastname
         this._email = email
         this._token = token
     }
