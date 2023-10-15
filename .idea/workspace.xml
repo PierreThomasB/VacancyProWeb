@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d53d0e60-5b19-4e61-9e97-b61ac644d585" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/Activity.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Period.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Place.ts" afterDir="false" />
+    <list default="true" id="d53d0e60-5b19-4e61-9e97-b61ac644d585" name="Changes" comment="Mise en place du modèle">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Activity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Activity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Period.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Period.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Place.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Place.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repositories/Api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/repositories/Api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +42,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "F:/VacancyPro/VacancyProWeb",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "F:\\JetBrainsToolBox\\apps\\WebStorm\\ch-0\\232.9921.42\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/VacancyPro/VacancyProWeb&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;F:\\JetBrainsToolBox\\apps\\WebStorm\\ch-0\\232.9921.42\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -65,16 +67,25 @@
       <option name="presentableId" value="Default" />
       <updated>1696498230837</updated>
       <workItem from="1696498231868" duration="69000" />
-      <workItem from="1697028715508" duration="2251000" />
+      <workItem from="1697028715508" duration="3833000" />
+      <workItem from="1697368770397" duration="5263000" />
     </task>
+    <task id="LOCAL-00001" summary="Mise en place du modèle">
+      <option name="closed" value="true" />
+      <created>1697031039509</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697031039510</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/src/repositories/Api.js" />
-      </list>
-    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Mise en place du modèle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mise en place du modèle" />
   </component>
 </project>

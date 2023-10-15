@@ -14,6 +14,6 @@ export default class Place {
     }
 
     get content(): string {
-        return `${this._street} ${this._number}, ${this._postalCode} ${this._locality}`
+        return `${this._street} ${this._number}, ${this._postalCode} ${this._locality}, ${this._country}`
     }
 }
