@@ -8,11 +8,11 @@ export default class User {
     _periods: Set<Period>
     _isAdmin: boolean
 
-    constructor(username: string, email: string, token: string) {
+    constructor(username: string, email: string, token: string, isAdmin) {
         this._username = username
         this._email = email
         this._token = token
-
+        this._isAdmin = isAdmin
         this._periods = new Set<Period>()
     }
 
@@ -48,5 +48,17 @@ export default class User {
 
     get token() {
         return this._token
+    }
+
+    get isAdmin() {
+        return this._isAdmin
+    }
+
+    set isAdmin(isAdmin) {
+        this._isAdmin = isAdmin
+    }
+
+    get periods() {
+        return this._periods
     }
 }

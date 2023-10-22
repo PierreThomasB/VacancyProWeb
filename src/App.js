@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/index.css';
+import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
+import {ObservedHome} from "./components/pages/Home.tsx";
 
 function App() {
+  const routes = require('./routes.json')
+  /*const AuthenticatedRoute = ({children}) => {
+    if (!sessionStore.user) {
+      // This way we could give to authentication a callback to redirect to the page the user wanted to access
+      return <Navigate to={routes.Authentication}/>
+    } else {
+      return children
+    }
+  }
+
+  const AdminRoute = ({children}) => {
+    if(!sessionStore.user.isAdmin) {
+      return <Navigate to={routes.Home}/>
+    } else {
+      return children
+    }
+  }*/
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path={routes.Home} element={<ObservedHome/>}/>
+      </Routes>
+    </Router>
   );
 }
 

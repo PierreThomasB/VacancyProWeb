@@ -29,4 +29,14 @@ class Api {
             }
         }).then(re => re.json())
     }
+
+    fetchUser(token: string) {
+        return fetch(`${this.base}/User`, {
+            headers: {
+                'Authorization': `bearer ${token}`
+            }
+        })
+            .then(resp => resp.status === 401 ? ({error: true, unauthorized: true}) : resp.json())
+    }
 }
+export const api = new Api()
