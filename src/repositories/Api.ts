@@ -1,3 +1,5 @@
+import Place from "../models/Place"
+
 const config = require(`../config.json`)
 
 class Api {
@@ -14,6 +16,31 @@ class Api {
     set base(base) {
         this._base = base
     }
+
+
+    newVacancy(vacancy: Place){
+        let data = JSON.stringify({
+
+        });
+        return fetch(`${this._base}`,{
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re => re.json())
+    }
+
+    
+
+
+
+
+
+
+
+
+
 
 
     signIn(email: string, password: string) {

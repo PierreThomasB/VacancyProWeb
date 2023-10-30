@@ -1,6 +1,8 @@
 import './styles/index.css';
 import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
 import {ObservedHome} from "./components/pages/Home.tsx";
+import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod";
+
 
 function App() {
   const routes = require('./routes.json')
@@ -22,11 +24,14 @@ function App() {
   }*/
 
   return (
+    
     <Router>
       <Routes>
         <Route exact path={routes.Home} element={<ObservedHome/>}/>
+          <Route path="/NewPeriod" exact component={<NewPeriodObserver/>} />
       </Routes>
     </Router>
+   
   );
 }
 
