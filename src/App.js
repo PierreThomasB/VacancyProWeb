@@ -1,7 +1,9 @@
 import './styles/index.css';
 import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
 import {ObservedHome} from "./components/pages/Home.tsx";
-import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod";
+import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
+import React from "react";
+
 
 
 function App() {
@@ -24,13 +26,17 @@ function App() {
   }*/
 
   return (
+
+      <React.Fragment>
     
-    <Router>
-      <Routes>
-        <Route exact path={routes.Home} element={<ObservedHome/>}/>
-          <Route path="/NewPeriod" exact component={<NewPeriodObserver/>} />
-      </Routes>
-    </Router>
+        <Router>
+          <Routes>
+              <Route exact path={routes.Home} element={<ObservedHome/>}/>
+              <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
+          </Routes>
+        </Router>
+
+      </React.Fragment>
    
   );
 }

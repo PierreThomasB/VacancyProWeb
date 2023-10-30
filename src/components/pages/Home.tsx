@@ -3,6 +3,7 @@ import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {ObservedNavBar} from '../templates/NavBar.tsx';
 import {observer} from "mobx-react";
+import {NewPeriodObserver} from "./NewPeriod/NewPeriod.tsx";
 
 
 function Home() {
@@ -13,6 +14,8 @@ function Home() {
         <div>
             <ObservedNavBar/>
             <div className={'home-main-container'}>
+
+                <NewPeriodObserver></NewPeriodObserver>
 
             </div>
         </div>
