@@ -3,5 +3,6 @@
     "Authentication": "/Authentication",
     "User": "/User",
     "About": "/About",
-    "Contact": "/Contact"
+    "Contact": "/Contact",
+    "Periods": "/Periods"
 }

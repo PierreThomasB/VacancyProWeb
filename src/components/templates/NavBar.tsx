@@ -6,9 +6,8 @@ import {navigationStore} from "../../stores/NavigationStore.ts";
 import DisplayUserInfo from "../molecules/DisplayUserInfo.tsx";
 import {observer} from 'mobx-react'
 import * as React from "react";
-import {Menu} from "@mui/material";
 import TitleNavButton from "../molecules/TitleNavButton.tsx";
-import {Close} from "@mui/icons-material";
+import {Close, Menu} from "@mui/icons-material";
 
 function NavBar() {
     const routes = require('../../routes.json')
@@ -65,7 +64,7 @@ function NavBar() {
     return (
         <nav className={'navbar'}>
             <ul className={'left'}>
-                <Menu className={'open'} onClick={() => showMenu()} open />
+                <Menu className={'open'} onClick={() => showMenu()} />
             </ul>
             <ul className={'center'}>
                 <TitleNavButton route={routes.Home} label={'Vacancy Pro'}/>
