@@ -37,7 +37,7 @@ function Home() {
                         <div className={'column'}>
                             <input type={'submit'} className={'btn-home-black'} value={'PLUS D\'INFORMATIONS'}
                                    onClick={navigateToAbout}/>
-                            <button></button>
+
                         </div>
                     </div>
                 </div>
