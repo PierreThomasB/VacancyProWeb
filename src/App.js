@@ -1,10 +1,8 @@
 import './styles/index.css';
 import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
 import {ObservedHome} from "./components/pages/Home.tsx";
-import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
-import React from "react";
-
-
+import routes from "./routes.json";
+import {ObservedAuthentication} from "./components/pages/Authentication.tsx";
 
 function App() {
   const routes = require('./routes.json')
@@ -26,18 +24,12 @@ function App() {
   }*/
 
   return (
-
-      <React.Fragment>
-    
-        <Router>
-          <Routes>
-              <Route exact path={routes.Home} element={<ObservedHome/>}/>
-              <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
-          </Routes>
-        </Router>
-
-      </React.Fragment>
-   
+    <Router>
+      <Routes>
+          <Route exact path={routes.Home} element={<ObservedHome/>}/>
+          <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
+      </Routes>
+    </Router>
   );
 }
 

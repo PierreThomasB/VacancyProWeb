@@ -26,7 +26,7 @@ class NavigationStore {
         this._element = value;
     }
 
-    handleOpenMenu(target) {
+    handleOpenMenu(target: any) {
         this.element = target
     }
 

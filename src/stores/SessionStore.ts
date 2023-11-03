@@ -3,7 +3,7 @@ import User from "../models/User.ts";
 import {api} from '../repositories/Api.ts'
 
 class SessionStore {
-    _user: User = undefined
+    private _user: User = undefined
 
     constructor() {
         makeAutoObservable(this)
