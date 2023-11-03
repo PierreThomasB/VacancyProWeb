@@ -181,7 +181,7 @@
   cursor: pointer;
   background-color: rgba(66, 165, 245, 0.8);
 }
-.btn-home-black {
+.btn-home-orange {
   margin: 5% 0 0 0;
   background-color: #ff7043 ;
   color: white;
@@ -196,7 +196,22 @@
 }
 
 
-.btn-home-black:hover {
+.btn-home-black {
+  margin: 5% 0 0 0;
+  background-color: #000000;
+  color: white;
+  border-radius: 10px;
+  width: 82%;
+  height: 56px;
+  font-weight: bold;
+  position: relative;
+  transition-property: background-color;
+  transition-duration: .5s;
+  animation: 6s anim-lineUp ease-out;
+}
+
+
+.btn-home-orange:hover {
   cursor: pointer;
   background-color: rgba( 255, 112, 67 , 0.8);
 }

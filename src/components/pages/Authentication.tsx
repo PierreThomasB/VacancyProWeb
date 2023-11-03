@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from "react";
 import {observer} from "mobx-react";
 import {ObservedNavBar} from "../templates/NavBar.tsx";

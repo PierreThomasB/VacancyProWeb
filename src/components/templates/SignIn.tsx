@@ -1,4 +1,5 @@
 import {observer} from "mobx-react";
+// @ts-ignore
 import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import DisplayForm from "../organisms/DisplayForm.tsx";

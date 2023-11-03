@@ -21,6 +21,11 @@ function Home() {
         navigate(routes.About)
     };
 
+
+    const navigateToCreatePeriod = () => {
+        navigate(routes.NewPeriod)
+    }
+
     return (
         <div>
             <ObservedNavBar/>
@@ -35,8 +40,15 @@ function Home() {
                                    onClick={sessionStore.user ? navigateToPeriods : navigateToAuthentication}/>
                         </div>
                         <div className={'column'}>
-                            <input type={'submit'} className={'btn-home-black'} value={'PLUS D\'INFORMATIONS'}
+                            <input type={'submit'} className={'btn-home-orange'} value={'PLUS D\'INFORMATIONS'}
                                    onClick={navigateToAbout}/>
+
+                        </div>
+
+                        <div className={'column'}>
+                            <input type={'submit'} className={'btn-home-black'} value={'New Period'}
+                                   onClick={navigateToCreatePeriod}/>
+
 
                         </div>
                     </div>
