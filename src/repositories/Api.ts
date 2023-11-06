@@ -1,4 +1,5 @@
 import Place from "../models/Place"
+import Period from "../models/Period.ts";
 
 const config = require(`../config.json`)
 
@@ -18,10 +19,8 @@ class Api {
     }
 
 
-    newVacancy(vacancy: Place){
-        let data = JSON.stringify({
-
-        });
+    newPeriod(period: Period){
+        let data = JSON.stringify(period);
         return fetch(`${this._base}`,{
             method: 'POST',
             body: data,
@@ -29,6 +28,17 @@ class Api {
                 'Content-Type':'application/json'
             }
         }).then(re => re.json())
+    }
+
+
+    getPeriodByUser(){
+        return fetch(`${this._base}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re => re.json())
+
     }
 
     

@@ -3,36 +3,49 @@ import * as React from "react";
 import Grid from '@mui/material/Grid';
 import { SimpleInput } from "../../molecules/SimpleInput.tsx";
 import {observer} from "mobx-react";
-import {Container, CssBaseline, TextField} from "@mui/material";
+import {Button, Container, CssBaseline, TextField} from "@mui/material";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {TextArea} from "../../molecules/TextArea.tsx";
 import { DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {useState} from "react";
 
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {Form} from "react-router-dom";
+
+// @ts-ignore
+import {api} from '../../../repositories/Api.ts'
+
+import Period from "../../../models/Period.ts";
 
 
-
+function SendIcon() {
+    return null;
+}
 
 function NewPeriod ()   {
 
+    let name = "";
+    let description = "";
+
     const handleNomChanged = (valeur) => {
         console.log(valeur)
+        name = valeur;
     }
 
 
     const handleDescriptionChanged = (valeur ) => {
-        console.log(description);
+        console.log(valeur);
+        description = valeur;
     }
-    const [description,setDescription] = useState("");
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
 
 
 
-    const doPost = () => {
+    const doPost = async () => {
+        //let period:Period = new Period(name,description,null,startDate,endDate,null);
 
+        console.log("hello");
+       // await api.newPeriod(period);
     }
 
 
@@ -48,7 +61,7 @@ function NewPeriod ()   {
                         <SimpleInput id={"Nom"} label={"Nom"} onInputChange={handleNomChanged} ></SimpleInput>
                     </Grid>
                       <Grid item xs={12} >
-                          <TextArea  id={"description"} label={"Description"} onTextAreaChanged={handleDescriptionChanged}/>
+                          <TextArea id={"description"} label={"Description"} onTextAreaChanged={handleDescriptionChanged}/>
                       </Grid>
                       <Grid item xs={6}>
                           <DesktopDatePicker
@@ -63,6 +76,11 @@ function NewPeriod ()   {
                               value={endDate}
                               onChange={(newValue) => setEndDate(newValue)}
                           />
+                      </Grid>
+                      <Grid item  style={{display:"flex" , alignItems:"center"}}>
+                          <Button size={"large"}  onClick={() => doPost()}>
+                              Valider
+                          </Button>
                       </Grid>
                   </Grid>
            </Container>

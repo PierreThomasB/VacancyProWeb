@@ -7,15 +7,18 @@ import {useState} from "react";
 
 export const  SimpleInput = ({id,label , onInputChange}) => {
 
+
+    const [errorMessage, setErrorMessage] = useState("");
+
     const message = document.getElementById(id+'message');
 
 
     const check = (input) => {
         const word = input.target.value;
         if (word.length < 3) {
-            message.textContent = 'Le nom doit contenir au moins 3 caractères.';
+            setErrorMessage("Le "+label+" doit contenir au moins 3 caractères ");
         } else {
-            message.textContent = '';
+            setErrorMessage("");
             onInputChange(word);
         }
     }
@@ -26,8 +29,8 @@ export const  SimpleInput = ({id,label , onInputChange}) => {
     return (
         <div>
             <TextField
-                        onChange={(newValue) => {
-                            check(newValue);
+                        onChange={(event) => {
+                            check(event);
                         }}
                         required
                         id={id}
@@ -36,7 +39,7 @@ export const  SimpleInput = ({id,label , onInputChange}) => {
                         fullWidth
                         variant="standard"
                       />
-                <span id={id+"message"} style={{color:"red"}}></span>
+                <span id={id+"message"} style={{color:"red"}}>{errorMessage}</span>
         </div>
 
 

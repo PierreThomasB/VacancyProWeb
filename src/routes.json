@@ -6,5 +6,6 @@
     "Contact": "/Contact",
     "NewPeriod" :"/NewPeriod",
     "Contact": "/Contact",
-    "Periods": "/Periods"
+    "Periods": "/Periods",
+    "PerdiodDetails": "/PeriodDetails",
 }

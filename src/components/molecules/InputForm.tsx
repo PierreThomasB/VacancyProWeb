@@ -1,4 +1,5 @@
 import {TextField} from "@mui/material";
+// @ts-ignore
 import React from "react";
 
 export default function InputForm({id, label, disabled, value}) {

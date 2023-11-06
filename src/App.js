@@ -5,6 +5,8 @@ import routes from "./routes.json";
 import {ObservedAuthentication} from "./components/pages/Authentication.tsx";
 import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
 import {ObservedNavBar} from "./components/templates/NavBar.tsx";
+import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
+import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDetails";
 
 function App() {
   const routes = require('./routes.json')
@@ -32,6 +34,8 @@ function App() {
           <Route exact path={routes.Home} element={<ObservedHome/>}/>
           <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
           <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
+          <Route exact path={routes.Periods} element={<ShowPeriodObserver/>} />
+          <Route exact path={routes.PerdiodDetails} element={<PeriodDetailsObserver/>} />
       </Routes>
     </Router>
   );
