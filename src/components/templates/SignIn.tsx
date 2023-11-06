@@ -1,5 +1,5 @@
 import {observer} from "mobx-react";
-import React from "react";
+import * as React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import DisplayForm from "../organisms/DisplayForm.tsx";
 import InputForm from "../molecules/InputForm.tsx";
