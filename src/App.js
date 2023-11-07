@@ -6,7 +6,7 @@ import {ObservedAuthentication} from "./components/pages/Authentication.tsx";
 import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
 import {ObservedNavBar} from "./components/templates/NavBar.tsx";
 import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
-import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDetails";
+import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDetails.tsx";
 
 function App() {
   const routes = require('./routes.json')
