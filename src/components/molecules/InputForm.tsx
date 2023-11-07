@@ -1,10 +1,10 @@
 import {TextField} from "@mui/material";
-import React from "react";
+import * as React from "react";
 
 export default function InputForm({id, label, disabled, value}) {
     return (
         <TextField
-            sx={{margin: '1%'}}
+            sx={{margin: '1%', marginBottom: "-1%"}}
             required
             type={id}
             value={value}

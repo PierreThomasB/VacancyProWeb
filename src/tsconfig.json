@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "sourceMap": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ]
   },
   "exclude": [
     "node_modules"

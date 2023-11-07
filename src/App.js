@@ -3,6 +3,7 @@ import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
 import {ObservedHome} from "./components/pages/Home.tsx";
 import routes from "./routes.json";
 import {ObservedAuthentication} from "./components/pages/Authentication.tsx";
+import {ObservedContact} from "./components/pages/Contact.tsx";
 
 function App() {
   const routes = require('./routes.json')
@@ -28,6 +29,7 @@ function App() {
       <Routes>
           <Route exact path={routes.Home} element={<ObservedHome/>}/>
           <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
+          <Route exact path={routes.Contact} element={<ObservedContact/>}/>
       </Routes>
     </Router>
   );

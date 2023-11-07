@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import {ObservedNavBar} from "../templates/NavBar.tsx";
 import {ObservedSignIn} from "../templates/SignIn.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
+import {ObservedSnackBar} from "../molecules/SnackBar.tsx";
 
 
 function Authentication() {
@@ -17,6 +18,7 @@ function Authentication() {
             <div>
                 <ObservedNavBar/>
                 <ObservedSignIn handleSubmit={handleSubmit}/>
+                <ObservedSnackBar open={authentificationStore.open} message={authentificationStore.errorMsg} severity={authentificationStore.severity}/>
             </div>
         )
     }
