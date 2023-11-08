@@ -8,8 +8,8 @@ import {ObservedContactForm} from "../templates/ContactForm.tsx";
 
 function Contact() {
     const handleSubmit = (event) => {
-      event.preventDefault();
-      let data = new FormData(event.currentTarget)
+        event.preventDefault();
+        let data = new FormData(event.currentTarget)
         contactStore.handleSubmit([...data.values()])
     }
     return (

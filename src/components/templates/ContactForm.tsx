@@ -18,8 +18,8 @@ function ContactForm({handleSubmit}) {
             </div>
             <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
                 <FormHeader inputs={[
-                    <Contacts className={'text-black overflow-y-hidden m-icon-auth scale-150'}/>,
-                    <h1 className={'text-black text-xl font-bold overflow-y-hidden'}>CONTACTER UN ADMINISTRATEUR</h1>
+                    <Contacts className={'text-black m-icon-auth scale-150'}/>,
+                    <h1 className={'text-black text-xl font-bold'}>CONTACTER UN ADMINISTRATEUR</h1>
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
                     <Box className={"flex w-[88%]"}>
@@ -27,7 +27,7 @@ function ContactForm({handleSubmit}) {
                         <InputForm id={'lastname'} label={'Nom de famille'} disabled={false} value={sessionStore.user?.lastname}/>
                     </Box>,
                     <InputForm id={'email'} label={'Adresse mail'} disabled={false} value={sessionStore.user?.email}/>,
-                    <InputForm id={'subject'} label={'Sujet'} disabled={false} value={''}/>,
+                    /*<InputForm id={'subject'} label={'Sujet'} disabled={false} value={''}/>,*/
                     <TextAreaForm id={'message'} label={'Votre message...'} />,
                     <input type={'submit'} className={'btn-home-blue mt-2'} value={'ENVOYER'}/>
                 ]}/>

@@ -16,27 +16,33 @@ class Api {
     }
 
 
-    signIn(email: string, password: string) {
+    async signIn(email: string, password: string): Promise<any> {
         let data = JSON.stringify({
             email: email,
             password: password
         })
-        return fetch(`${this._base}/User/SignIn`,{
+        const re = await fetch(`${this._base}/User/SignIn`, {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type': 'application/json'
             }
-        }).then(re => re.json())
+        })
+        return await re.json()
     }
 
-    fetchUser(token: string) {
-        return fetch(`${this.base}/User`, {
+    async fetchUser(token: string): Promise<any> {
+        const resp = await fetch(`${this.base}/User`, {
             headers: {
                 'Authorization': `bearer ${token}`
             }
         })
-            .then(resp => resp.status === 401 ? ({error: true, unauthorized: true}) : resp.json())
+        return resp.status === 401 ? ({error: true, unauthorized: true}) : resp.json()
+    }
+
+    sendContactForm(lastname, firstname, email, subject, message): Promise<any> {
+        //TODO Faire l'envoie de mail
+        return null
     }
 }
 export const api = new Api()

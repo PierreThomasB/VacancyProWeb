@@ -51,7 +51,6 @@ class AuthentificationStore {
     }
 
     handleSubmit(data: any[]) {
-
         switch (data.length) {
             case 2:
                 this.handleSignIn(...data.values())
