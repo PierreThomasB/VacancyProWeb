@@ -9,10 +9,10 @@ import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import {sessionStore} from "../../stores/SessionStore.ts";
 import TextAreaForm from "../molecules/TextAreaForm.tsx";
-const LeftImage = require('../../assets/images/sea.jpg');
+const LeftImage = require('../../assets/images/contact.jpg');
 function ContactForm({handleSubmit}) {
     return (
-        <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
+        <div /*className={'auth-grid'}*/ className={'flex m-[4%] rounded-xl shadow-custom'}>
             <div /*className={'column'}*/ className={'flex w-1/2 justify-center flex-row flex-wrap'} >
                 <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
             </div>
@@ -27,7 +27,7 @@ function ContactForm({handleSubmit}) {
                         <InputForm id={'lastname'} label={'Nom de famille'} disabled={false} value={sessionStore.user?.lastname}/>
                     </Box>,
                     <InputForm id={'email'} label={'Adresse mail'} disabled={false} value={sessionStore.user?.email}/>,
-                    /*<InputForm id={'subject'} label={'Sujet'} disabled={false} value={''}/>,*/
+                    <InputForm id={'subject'} label={'Sujet'} disabled={false} value={''}/>,
                     <TextAreaForm id={'message'} label={'Votre message...'} />,
                     <input type={'submit'} className={'btn-home-blue mt-2'} value={'ENVOYER'}/>
                 ]}/>

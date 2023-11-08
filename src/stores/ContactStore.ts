@@ -10,7 +10,7 @@ class ContactStore {
         return this._errorMsg;
     }
 
-    set errorMsg(value: any) {
+    set errorMsg(value: string) {
         this._errorMsg = value;
     }
 
@@ -31,15 +31,14 @@ class ContactStore {
     }
 
     handleSubmit(data: any[]) {
-
         this.handleContact(...data.values())
     }
 
-    private handleContact(lastname, firstname, email, subject, message) {
+    private handleContact(firstname: string, lastname: string, email: string, subject: string, message: string) {
+        console.log("Lastname : "+lastname)
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
         if (email === '') {
-
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire');
             return
         }
@@ -72,7 +71,6 @@ class ContactStore {
         this.open = true
         this.severity = 'error'
         this.errorMsg = message
-        console.log(this.open)
         setTimeout(() => {
             this.open = false
         }, 2500)
