@@ -27,10 +27,11 @@ function ContactForm({handleSubmit}) {
                         <InputForm id={'lastname'} label={'Nom de famille'} disabled={false} value={sessionStore.user?.lastname}/>
                     </Box>,
                     <InputForm id={'email'} label={'Adresse mail'} disabled={false} value={sessionStore.user?.email}/>,
-                    <InputForm id={'subject'} label={'Sujet'} disabled={false} value={''}/>,
+                    <InputForm id={'subject'} label={'Sujet'} disabled={false}/>,
                     <TextAreaForm id={'message'} label={'Votre message...'} />,
                     <input type={'submit'} className={'btn-home-blue mt-2'} value={'ENVOYER'}/>
                 ]}/>
+                <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
             </Box>
         </div>
     )

@@ -6,7 +6,7 @@ import InputForm from "../molecules/InputForm.tsx";
 import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import FormHeader from "../molecules/FormHeader.tsx";
-import {Box} from "@mui/material";
+import {Box, TextField} from "@mui/material";
 const LeftImage = require('../../assets/images/sea.jpg');
 
 
@@ -22,8 +22,8 @@ function SignIn({handleSubmit}) {
                     <h1 className={'text-black text-xl font-bold '}>CONNEXION</h1>
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
-                    <InputForm id={'email'} label={'Adresse mail'} disabled={false} value={''}/>,
-                    <InputForm id={'password'} label={'Mot de passe'} disabled={false} value={''}/>,
+                    <InputForm id={'email'} label={'Adresse mail'} disabled={false}/>,
+                    <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
                 ]}/>
                 <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
