@@ -1,6 +1,5 @@
 // @ts-ignore
-import React, {useState} from "react";
-import {Input} from "@mui/material";
+import React from "react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 
@@ -16,7 +15,7 @@ export const PlaceInput  = () => {
 
         <div>
             <GooglePlacesAutocomplete
-                apiKey="AIzaSyBps0FIYeTMYkzhg7KjTjl66nc3ZmlnoFM"
+                apiKey="AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s"
             />
         </div>
 

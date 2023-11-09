@@ -15,6 +15,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {api} from '../../../repositories/Api.ts'
 
 import Period from "../../../models/Period.ts";
+import {PlaceInput} from "../../molecules/PlaceInput.tsx";
 
 
 function SendIcon() {
@@ -45,7 +46,7 @@ function NewPeriod ()   {
         //let period:Period = new Period(name,description,null,startDate,endDate,null);
 
         console.log("hello");
-       // await api.newPeriod(period);
+        await api.newPeriod(period);
     }
 
 
@@ -77,11 +78,16 @@ function NewPeriod ()   {
                               onChange={(newValue) => setEndDate(newValue)}
                           />
                       </Grid>
+                  <Grid item xs={12}>
+                      <PlaceInput/>
+
+                  </Grid>
                       <Grid item  style={{display:"flex" , alignItems:"center"}}>
                           <Button size={"large"}  onClick={() => doPost()}>
                               Valider
                           </Button>
                       </Grid>
+
                   </Grid>
            </Container>
          </LocalizationProvider>

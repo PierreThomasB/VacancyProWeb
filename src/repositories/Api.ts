@@ -21,7 +21,7 @@ class Api {
 
     newPeriod(period: Period){
         let data = JSON.stringify(period);
-        return fetch(`${this._base}`,{
+        return fetch(`${this._base}`+"api/Period/NewVacances",{
             method: 'POST',
             body: data,
             headers: {
