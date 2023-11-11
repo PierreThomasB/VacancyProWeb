@@ -55,6 +55,9 @@ class AuthentificationStore {
             case 2:
                 this.handleSignIn(...data.values())
                 break
+            case 5:
+                this.handleSignUp(...data.values())
+                break
 
         }
     }
@@ -92,6 +95,41 @@ class AuthentificationStore {
             this.open = false
         }, 2500)
 
+    }
+
+    private handleSignUp(firstname: string, lastname:string, email: string, password: string, confirm:string) {
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (lastname === '') {
+            this.handleErrorMessage('Le champ "Nom de famille" est obligatoire')
+            return
+        }
+        if (firstname === '') {
+            this.handleErrorMessage('Le champ "Prénom" est obligatoire')
+            return
+        }
+        if (email === '') {
+            this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
+            return
+        }
+        if (!email.match(emailRegex)) {
+            this.handleErrorMessage('Veuillez encoder une adresse mail valide')
+            return
+        }
+
+        if (password === '') {
+            this.handleErrorMessage('Le champ "Mot de passe" est obligatoire')
+            return
+        }
+        if (confirm === '') {
+            this.handleErrorMessage('Le champ "Confirmation du mot de passe" est obligatoire')
+            return
+        }
+        if (password !== confirm) {
+            this.handleErrorMessage('Le mot de passe et sa confirmation doivent être identique')
+            return
+        }
+        api.signUp(firstname, lastname, email, password)
+            .then(data => data.error ? this.handleErrorMessage(data.message) : this.handleSignIn(email, password))
     }
 }
 

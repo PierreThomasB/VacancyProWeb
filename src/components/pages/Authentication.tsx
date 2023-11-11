@@ -4,10 +4,12 @@ import {ObservedNavBar} from "../templates/NavBar.tsx";
 import {ObservedSignIn} from "../templates/SignIn.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import {ObservedSnackBar} from "../molecules/SnackBar.tsx";
+import {ObservedSignUp} from "../templates/SignUp.tsx";
+import {FormEvent} from "react";
 
 
 function Authentication() {
-    const handleSubmit = (event) => {
+    const handleSubmit = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let data = new FormData(event.currentTarget)
         authentificationStore.handleSubmit([...data.values()])
@@ -27,7 +29,8 @@ function Authentication() {
         return (
             <div>
                 <ObservedNavBar/>
-
+                <ObservedSignUp handleSubmit={handleSubmit}/>
+                <ObservedSnackBar open={authentificationStore.open} message={authentificationStore.errorMsg} severity={authentificationStore.severity}/>
             </div>
         )
     }
