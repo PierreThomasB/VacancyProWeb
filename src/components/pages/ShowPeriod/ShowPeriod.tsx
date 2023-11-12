@@ -18,6 +18,7 @@ const ShowPeriod = () => {
     useEffect(() => {
         const getPeriod = async ( ) => {
             let res = await api.getPeriodByUser();
+            console.log(res)
             return res;
         }
 

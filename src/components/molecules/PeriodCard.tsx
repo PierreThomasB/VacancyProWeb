@@ -1,6 +1,6 @@
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 // @ts-ignore
-import React from "react";
+import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 
@@ -13,6 +13,10 @@ export const PeriodCard = () => {
         navigate("/PeriodDetails");
 
     }
+
+
+
+
     return(
 
 

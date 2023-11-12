@@ -38,7 +38,21 @@ class Api {
             headers: {
                 'Content-Type':'application/json'
             }
-        }).then(re => re.json())
+        }).then(re => re.json()
+        ).then((json) => {
+
+            let result = [];
+            json.forEach(objJson => {
+                let obj : Period = new Period(objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate)
+              result.push(obj)
+
+            })
+            return result;
+
+            }
+
+
+        )
 
     }
 

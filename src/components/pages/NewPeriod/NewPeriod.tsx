@@ -17,6 +17,7 @@ import {api} from '../../../repositories/Api.ts'
 import Period from "../../../models/Period.ts";
 import {PlaceInput} from "../../molecules/PlaceInput.tsx";
 import User from "../../../models/User.ts";
+import Place from "../../../models/Place.ts";
 
 
 function SendIcon() {
@@ -29,14 +30,16 @@ function NewPeriod ()   {
     const [description,setDescription] = useState();
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
-    const [place ,setPlace ] = useState();
+    const [place ,setPlace ] = useState(new Place("",""));
 
 
 
     const doPost = async () => {
-        let period:Period = new Period(name,description,place,startDate,endDate,new User("Hello","World","gdrko",true));
+        let user = new User("Hello","World","gdrko",true );
+        user.Periods = new Set<Period>();
+        let period:Period = new Period(name,description,place,startDate,endDate,user);
 
-        console.log("hello");
+        console.log(period);
         await api.newPeriod(period);
     }
 

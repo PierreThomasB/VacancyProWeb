@@ -1,6 +1,7 @@
 // @ts-ignore
 import React, {useState} from "react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import Place from "../../models/Place.ts";
 
 
 
@@ -10,13 +11,14 @@ export const PlaceInput  = ({updateLieu}) => {
 
 
 
-    const [value,setValue ] = useState(null);
+    const [value ] = useState(null);
 
 
 
     const handleInputChange = (e) => {
-        setValue(e);
-        updateLieu(e.description);
+        console.log(e);
+        let place :Place = new Place(e.description , e.place_id);
+        updateLieu(place)
     };
 
     return(
