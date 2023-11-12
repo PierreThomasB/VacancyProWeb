@@ -26,18 +26,17 @@ function SendIcon() {
 
 function NewPeriod ()   {
 
-    const [name,setName] = useState();
-    const [description,setDescription] = useState();
+    const [name,setName] = useState("");
+    const [description,setDescription] = useState("");
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
-    const [place ,setPlace ] = useState(new Place("",""));
+    const [place ,setPlace ] = useState(new Place("","",""));
 
 
 
     const doPost = async () => {
-        let user = new User("Hello","World","gdrko",true );
-        user.Periods = new Set<Period>();
-        let period:Period = new Period(name,description,place,startDate,endDate,user);
+
+        let period:Period = new Period(name,description,place,startDate,endDate,null);
 
         console.log(period);
         await api.newPeriod(period);

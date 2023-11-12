@@ -2,7 +2,7 @@ import {observer} from "mobx-react";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {useNavigate} from "react-router-dom";
 // @ts-ignore
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import {Button, Container, Paper, Stack} from "@mui/material";
 import {SimpleTable} from "../../molecules/SimpleTable.tsx";
@@ -14,6 +14,14 @@ const LeftImage = require('../../../assets/images/sea.jpg');
 const PeriodDetails = () => {
 
   const navigate = useNavigate();
+
+
+  const data = useState(0);
+
+
+  useEffect(() => {
+      console.log(data);
+  })
 
 
   const toAddActivity = () => {

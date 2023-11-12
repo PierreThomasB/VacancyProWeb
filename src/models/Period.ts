@@ -3,6 +3,7 @@ import Activity from "./Activity";
 import Place from "./Place.ts";
 
 export default class Period {
+    Id:number
     Name: string
     Description: string
     Place: Place
@@ -13,7 +14,8 @@ export default class Period {
     ListUser: Set<User>
     ListActivity: Array<Activity>
 
-    constructor(name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
+    constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
+        this.Id = id;
         this.Name = name
         this.Description = desc
         this.Place = place
@@ -24,4 +26,5 @@ export default class Period {
         this.ListUser = new Set<User>()
         this.ListActivity = new Array<Activity>()
     }
+
 }

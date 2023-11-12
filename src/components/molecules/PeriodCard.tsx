@@ -1,10 +1,11 @@
 import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
 // @ts-ignore
 import React, {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import Period from "../../models/Period.ts";
 
 
-export const PeriodCard = () => {
+export const PeriodCard = (period : Period) => {
 
     const navigate = useNavigate();
 
@@ -24,23 +25,22 @@ export const PeriodCard = () => {
         <Card sx={{minWidth:"100%"}}>
             <CardMedia
                 sx={{ height: 140 }}
-                image="https://www.vivinter.fr/wp-content/uploads/2023/08/44_Vacances-dete-Comment-bien-se-detendre-2023-560x270.png"
+                image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.UrlPhoto}
                 title="img"
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    {period.Name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     By Pierre Thomas
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
+                    {period.Description}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button  onClick={ () => navigateToDetail()} size="small">Learn More</Button>
+            <CardActions style={{display:"flex",justifyContent:"center"}}>
+                <Link to='/PeriodDetails' state={{id:period.Id}} >Details </Link>
             </CardActions>
 
 

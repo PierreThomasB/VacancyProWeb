@@ -3,10 +3,14 @@ import Activity from "./Activity";
 
 export default class Place {
     Name: string
-    PlaceId : string
+    ID : string
+    UrlPhoto : string
 
-    constructor(Name: string, PlaceId: string) {
+    constructor(Name: string, PlaceId: string, PhotoUrl : string = "") {
         this.Name = Name;
-        this.PlaceId = PlaceId;
+        this.ID = PlaceId;
+        this.UrlPhoto = PhotoUrl
     }
+
+
 }

@@ -21,6 +21,7 @@ class Api {
     newPeriod(period: Period){
         let data = JSON.stringify(period);
         console.log(data);
+        console.log(data);
         return fetch(`${this._base}`+"/api/Period/NewVacances",{
             method: 'POST',
             body: data,
@@ -43,7 +44,8 @@ class Api {
 
             let result = [];
             json.forEach(objJson => {
-                let obj : Period = new Period(objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate)
+                let obj : Period = new Period(objJson.Id,objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate);
+
               result.push(obj)
 
             })
