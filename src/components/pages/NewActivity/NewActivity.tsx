@@ -79,7 +79,7 @@ function NewActivity ()   {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <PlaceInput
+                            <PlaceInput updateLieu={() => {}}
                             />
                         </Grid>
                         <Grid item  style={{display:"flex" , alignItems:"center"}}>

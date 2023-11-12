@@ -21,7 +21,7 @@ class Api {
     newPeriod(period: Period){
         let data = JSON.stringify(period);
         console.log(data);
-        return fetch(`${this._base}`+"api/Period/NewVacances",{
+        return fetch(`${this._base}`+"/api/Period/NewVacances",{
             method: 'POST',
             body: data,
             headers: {
@@ -33,7 +33,7 @@ class Api {
 
 
     getPeriodByUser(){
-        return fetch(`${this._base}`,{
+        return fetch(`${this._base}`+"/api/Period/AllPeriods",{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'

@@ -18,11 +18,16 @@ const ShowPeriod = () => {
     useEffect(() => {
         const getPeriod = async ( ) => {
             let res = await api.getPeriodByUser();
+            return res;
         }
 
 
+         getPeriod();
 
-    })
+    }
+
+
+    )
 
 
     const navigateToUrl = (url) => {

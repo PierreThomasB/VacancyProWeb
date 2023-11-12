@@ -16,6 +16,7 @@ import {api} from '../../../repositories/Api.ts'
 
 import Period from "../../../models/Period.ts";
 import {PlaceInput} from "../../molecules/PlaceInput.tsx";
+import User from "../../../models/User.ts";
 
 
 function SendIcon() {
@@ -33,7 +34,7 @@ function NewPeriod ()   {
 
 
     const doPost = async () => {
-        let period:Period = new Period(name,description,place,startDate,endDate,null);
+        let period:Period = new Period(name,description,place,startDate,endDate,new User("Hello","World","gdrko",true));
 
         console.log("hello");
         await api.newPeriod(period);
@@ -69,7 +70,11 @@ function NewPeriod ()   {
                           />
                       </Grid>
                   <Grid item xs={12}>
-                      <PlaceInput updateLieu={(val) => setPlace(val)}/>
+                      <PlaceInput updateLieu={(val) => {
+                          console.log(val)
+                          setPlace(val)
+
+                      }}/>
                   </Grid>
                       <Grid item  style={{display:"flex" , alignItems:"center"}}>
                           <Button size={"large"}  onClick={() => doPost()}>
