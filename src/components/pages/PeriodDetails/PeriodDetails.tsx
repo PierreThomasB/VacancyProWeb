@@ -6,6 +6,7 @@ import React, {useEffect} from "react";
 import Grid from "@mui/material/Grid";
 import {Button, Container, Paper, Stack} from "@mui/material";
 import {SimpleTable} from "../../molecules/SimpleTable.tsx";
+import {DialogInput} from "../../molecules/DialogInput.tsx";
 const LeftImage = require('../../../assets/images/sea.jpg');
 
 
@@ -14,6 +15,10 @@ const PeriodDetails = () => {
 
   const navigate = useNavigate();
 
+
+  const toAddActivity = () => {
+      navigate("/NewActivity");
+  }
 
 
     return(
@@ -35,6 +40,11 @@ const PeriodDetails = () => {
                     <SimpleTable colonnes={[{id:1,label:"Jour"},{id:2,label:"Nom"},{id:3,label:"Description"},{id:4,label:"Adresse"}]} lignes={[ {1:"item1col1" ,2: "item1col2"}, {1:"item2col1" ,2: "item2col2"}]} />
                 </Paper>
           </Stack>
+              <div style={{display:"flex",flexDirection:"column",margin:"5%"}}>
+                    <DialogInput buttonValue={"Add People"} contenu={"Ajouter des personnes"} champs={"Ajouter"} titre={"Ajouter des personnes"} />
+                    <Button onClick={() => toAddActivity()}>Add Activity</Button>
+                    <Button>Delete</Button>
+              </div>
 
         </Container>
 
