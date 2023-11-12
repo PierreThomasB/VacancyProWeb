@@ -5,9 +5,8 @@ import React from "react";
 export default function InputForm({id, label, disabled, value}) {
     return (
         <TextField
-            sx={{margin: '1%'}}
+            sx={{margin: '1%', marginBottom: "-1%"}}
             required
-            variant={"standard"}
             type={id}
             value={value}
             id={id}
@@ -15,7 +14,7 @@ export default function InputForm({id, label, disabled, value}) {
             label={label}
             name={id}
             autoComplete={id}
-            className={'input-auth'}
+            className={'w-[86%] h-[56px] m-[100px] bg-white'}
             autoFocus
         />
     )

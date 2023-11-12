@@ -1,9 +1,6 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 * {
   margin: 0;
   padding: 0;
@@ -187,7 +184,7 @@
   cursor: pointer;
   background-color: rgba(66, 165, 245, 0.8);
 }
-.btn-home-orange {
+.btn-home-black {
   margin: 5% 0 0 0;
   background-color: #ff7043 ;
   color: white;
@@ -234,6 +231,7 @@ body {
     monospace;
 }*/
 .auth-grid {
+  @apply flex;
   margin: 8%;
   display: flex;
   border-radius: 10px;
@@ -246,23 +244,24 @@ body {
   clear: both;
 }
 
-.container-title-auth {
+/*.container-title-auth {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   flex-direction: column;
-}
+}*/
 
-.auth-grid .column {
-  float: left;
+/*.auth-grid .column {
+  @apply flex w-1/2 p-10 justify-center flex-row flex-wrap;
+  *float: left;
   width: 50%;
   padding: 40px;
   display: flex;
   justify-content: center;
   flex-direction: row;
-  flex-wrap: wrap;
-}
+  flex-wrap: wrap;*!
+}*/
 .form-auth {
   display: flex;
   flex-direction: row;
@@ -272,12 +271,12 @@ body {
   align-items: center;
 }
 
-.input-auth {
+/*.input-auth {
   width: 82%;
   height: 56px;
   margin: 100px;
   background-color: white;
-}
+}*/
 
 .hero-banner-img {
   max-height:100%;
