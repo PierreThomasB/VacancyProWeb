@@ -1,4 +1,3 @@
-import Place from "../models/Place"
 import Period from "../models/Period.ts";
 
 const config = require(`../config.json`)

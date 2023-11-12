@@ -5,7 +5,7 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 
 
 
-export const PlaceInput  = () => {
+export const PlaceInput  = ({updateLieu}) => {
 
 
 
@@ -15,6 +15,10 @@ export const PlaceInput  = () => {
 
         <div>
             <GooglePlacesAutocomplete
+                placeholder="Entrez le lieux"
+                onPress={(data, details = null) => {
+                   updateLieu(data);
+                }}
                 apiKey="AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s"
             />
         </div>

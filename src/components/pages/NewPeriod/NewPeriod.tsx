@@ -26,6 +26,7 @@ function NewPeriod ()   {
 
     let name = "";
     let description = "";
+    let lieu = "";
 
     const handleNomChanged = (valeur) => {
         console.log(valeur)
@@ -37,13 +38,21 @@ function NewPeriod ()   {
         console.log(valeur);
         description = valeur;
     }
+
+
+    const handleLieuChanged = (valeur) => {
+        console.log(valeur);
+        lieu = valeur;
+    }
+
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
+    const [place ,setPlace ] = useState();
 
 
 
     const doPost = async () => {
-        //let period:Period = new Period(name,description,null,startDate,endDate,null);
+        let period:Period = new Period(name,description,lieu,startDate,endDate,null);
 
         console.log("hello");
         await api.newPeriod(period);
@@ -79,8 +88,7 @@ function NewPeriod ()   {
                           />
                       </Grid>
                   <Grid item xs={12}>
-                      <PlaceInput/>
-
+                      <PlaceInput updateLieu={handleLieuChanged}/>
                   </Grid>
                       <Grid item  style={{display:"flex" , alignItems:"center"}}>
                           <Button size={"large"}  onClick={() => doPost()}>
