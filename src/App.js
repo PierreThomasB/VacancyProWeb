@@ -8,6 +8,7 @@ import {ObservedNavBar} from "./components/templates/NavBar.tsx";
 import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
 import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDetails.tsx";
 import {NewActivityObserver} from "./components/pages/NewActivity/NewActivity.tsx";
+import {ObservedContact} from "./components/pages/Contact.tsx";
 
 function App() {
   const routes = require('./routes.json')
@@ -29,7 +30,6 @@ function App() {
   }*/
 
   return (
-
     <Router>
       <Routes>
           <Route exact path={routes.Home} element={<ObservedHome/>}/>
@@ -38,6 +38,7 @@ function App() {
           <Route exact path={routes.Periods} element={<ShowPeriodObserver/>} />
           <Route exact path={routes.PerdiodDetails} element={<PeriodDetailsObserver/>} />
           <Route exact path={routes.NewActivity} element={<NewActivityObserver/>} />
+          <Route exact path={routes.Contact} element={<ObservedContact/>}/>
       </Routes>
     </Router>
   );
