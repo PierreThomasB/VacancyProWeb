@@ -1,6 +1,6 @@
 import * as React from "react";
 import {observer} from "mobx-react";
-import {Box, TextareaAutosize} from "@mui/material";
+import {Box} from "@mui/material";
 import FormHeader from "../molecules/FormHeader.tsx";
 import {Contacts} from "@mui/icons-material";
 import DisplayForm from "../organisms/DisplayForm.tsx";
@@ -12,8 +12,8 @@ import TextAreaForm from "../molecules/TextAreaForm.tsx";
 const LeftImage = require('../../assets/images/contact.jpg');
 function ContactForm({handleSubmit}) {
     return (
-        <div /*className={'auth-grid'}*/ className={'flex m-[4%] rounded-xl shadow-custom'}>
-            <div /*className={'column'}*/ className={'flex w-1/2 justify-center flex-row flex-wrap'} >
+        <div className={'flex m-[4%] rounded-xl shadow-custom'}>
+            <div className={'flex w-1/2 justify-center flex-row flex-wrap'} >
                 <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
             </div>
             <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>

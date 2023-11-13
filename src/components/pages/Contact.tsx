@@ -4,10 +4,11 @@ import {ObservedNavBar} from "../templates/NavBar.tsx";
 import {ObservedSnackBar} from "../molecules/SnackBar.tsx";
 import {contactStore} from "../../stores/ContactStore.ts";
 import {ObservedContactForm} from "../templates/ContactForm.tsx";
+import {FormEvent} from "react";
 
 
 function Contact() {
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let data = new FormData(event.currentTarget)
         contactStore.handleSubmit([...data.values()])
