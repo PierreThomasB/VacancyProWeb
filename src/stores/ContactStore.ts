@@ -31,6 +31,7 @@ class ContactStore {
     }
 
     handleSubmit(data: any[]) {
+        // @ts-ignore
         this.handleContact(...data.values())
     }
 

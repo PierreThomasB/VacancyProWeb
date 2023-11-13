@@ -1,4 +1,5 @@
 import Period from "../models/Period.ts";
+import Activity from "../models/Activity.ts";
 
 const config = require(`../config.json`)
 
@@ -18,7 +19,13 @@ class Api {
     }
 
 
-    newPeriod(period: Period){
+
+
+
+
+    /** PERIODS **/
+
+    async newPeriod(period: Period){
         let data = JSON.stringify(period);
 
         return fetch(`${this._base}`+"/api/Period/NewVacances",{
@@ -32,7 +39,7 @@ class Api {
     }
 
 
-    getPeriodByUser(){
+    async getPeriodByUser(){
         return fetch(`${this._base}`+"/api/Period/AllPeriods",{
             method: 'GET',
             headers: {
@@ -40,22 +47,88 @@ class Api {
             }
         }).then(re => re.json()
         ).then((json) => {
-
             let result = [];
             json.forEach(objJson => {
                 let obj : Period = new Period(objJson.Id,objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate);
-
               result.push(obj)
-
             })
             return result;
-
             }
+        )
+    }
 
+
+
+
+    /** ACTIVITY **/
+
+
+
+
+    async newActivity(activity: Activity) {
+        let data = JSON.stringify(activity);
+
+        console.log(data);
+
+        return fetch(`${this._base}`+"/api/Activity/NewActivity",{
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re =>
+            re.json())
+    }
+
+
+
+    async getActivityByPeriod(id:number)  {
+         return fetch(`${this._base}`+"/api/Activity/ActivityByPeriod?id="+id,{
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re =>
+            re.json()).then(
+
+
+                activities => {
+                    console.log(activities);
+                    let tempActivities = [];
+                    activities.forEach((activity) => {
+                        tempActivities.push(new Activity(activity.Id,activity.Name,activity.Description , activity.BeginDate , activity.EndDate , activity.Place , activity.Period))
+                    })
+                    return tempActivities;
+                }
 
         )
+    }
+
+
+
+
+
+
+    /** METEO **/
+
+
+    async getMeteo(lieux : string ){
+
+        return fetch(`${this._base}`+"/api/Meteo/GetMeteo?lieu="+lieux,{
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re =>
+            re.json())
 
     }
+
+
+
+
+
+    /** USER **/
 
     
 
@@ -105,5 +178,7 @@ class Api {
         //TODO Faire l'envoie de mail
         return null
     }
+
+
 }
 export const api = new Api()

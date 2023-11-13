@@ -12,5 +12,13 @@ export default class Place {
         this.UrlPhoto = PhotoUrl
     }
 
+    get nomPrincipal(){
+
+        return this.Name.split(',')[0];
+
+    }
+
+
+
 
 }

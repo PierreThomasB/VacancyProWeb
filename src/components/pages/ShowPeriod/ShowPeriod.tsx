@@ -44,8 +44,10 @@ const ShowPeriod = () => {
             <hr/>
             <Container sx={{padding:"5%"}} maxWidth="sm">
                 {items.map(item => {
+
                     return(
-                      <PeriodCard Id={item.Id} Name={item.Name} Description={item.Description} Place={item.Place} BeginDate={item.BeginDate} EndDate={item.EndDate} Creator={null} ListUser={null} ListActivity={null}  />
+                        // @ts-ignore
+                      <PeriodCard Id={item.Id} Name={item.Name} Description={item.Description} Place={item.Place} BeginDate={item.BeginDate} EndDate={item.EndDate} Creator={null} ListUser={null} ListActivity={null}/>
                     );
                 })}
 

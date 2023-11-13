@@ -11,8 +11,7 @@ export const PeriodCard = (period : Period) => {
 
 
     const navigateToDetail = () => {
-        navigate("/PeriodDetails");
-
+        navigate("/PeriodDetails", {state : period });
     }
 
 
@@ -40,7 +39,7 @@ export const PeriodCard = (period : Period) => {
                 </Typography>
             </CardContent>
             <CardActions style={{display:"flex",justifyContent:"center"}}>
-                <Link to='/PeriodDetails'  state={period} >Details</Link>
+                <Button onClick={() => {navigateToDetail()}} >Details</Button>
             </CardActions>
 
 
