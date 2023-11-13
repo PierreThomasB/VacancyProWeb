@@ -16,7 +16,7 @@ export const PlaceInput  = ({updateLieu}) => {
 
 
     const handleInputChange = (e) => {
-        console.log(e);
+
         let place :Place = new Place(e.description , e.place_id);
         updateLieu(place)
     };

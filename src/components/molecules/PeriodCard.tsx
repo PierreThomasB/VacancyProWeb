@@ -40,7 +40,7 @@ export const PeriodCard = (period : Period) => {
                 </Typography>
             </CardContent>
             <CardActions style={{display:"flex",justifyContent:"center"}}>
-                <Link to='/PeriodDetails' state={{id:period.Id}} >Details </Link>
+                <Link to='/PeriodDetails'  state={period} >Details</Link>
             </CardActions>
 
 

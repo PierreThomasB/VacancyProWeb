@@ -18,13 +18,23 @@ export default class Period {
         this.Id = id;
         this.Name = name
         this.Description = desc
-        this.Place = place
-        this.BeginDate = beginDate
-        this.EndDate = endDate
+        this.Place = place;
+        this.BeginDate = new Date(beginDate);
+        this.EndDate =  new Date(endDate);
         this.Creator = creator
 
         this.ListUser = new Set<User>()
         this.ListActivity = new Array<Activity>()
+    }
+
+
+
+    get jourMoisDebut(){
+        return this.BeginDate.getDate()+"/"+this.BeginDate.getMonth()+"/"+this.BeginDate.getFullYear();
+    }
+
+    get jourMoisFin(){
+        return this.EndDate.getDate()+"/"+this.EndDate.getMonth()+"/"+this.EndDate.getFullYear();
     }
 
 }

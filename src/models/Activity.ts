@@ -1,4 +1,5 @@
 import User from "./User";
+import Place from "./Place.ts";
 
 export default class Activity {
 
@@ -6,10 +7,10 @@ export default class Activity {
     _desc: string
     _beginDate: Date
     _endDate: Date
-    _place: string
+    _place: Place
 
 
-    constructor(name: string, desc:string, beginDate:Date,endDate:Date, place:string) {
+    constructor(name: string, desc:string, beginDate:Date,endDate:Date, place:Place) {
         this._name = name
         this._desc = desc
         this._beginDate = beginDate

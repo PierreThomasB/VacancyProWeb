@@ -28,13 +28,13 @@ function NewActivity ()   {
     let description = "";
 
     const handleNomChanged = (valeur) => {
-        console.log(valeur)
+
         name = valeur;
     }
 
 
     const handleDescriptionChanged = (valeur ) => {
-        console.log(valeur);
+
         description = valeur;
     }
     const [startDate , setStartDate] = useState();
@@ -45,7 +45,7 @@ function NewActivity ()   {
     const doPost = async () => {
         //let period:Period = new Period(name,description,null,startDate,endDate,null);
 
-        console.log("hello");
+
         // await api.newPeriod(period);
     }
 

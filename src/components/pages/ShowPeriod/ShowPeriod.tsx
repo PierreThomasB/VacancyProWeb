@@ -17,7 +17,7 @@ const ShowPeriod = () => {
 
     const getPeriod = async ( ) => {
         let res = await api.getPeriodByUser();
-        console.log(res);
+
         setItems(res);
 
     }

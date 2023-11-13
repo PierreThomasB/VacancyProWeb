@@ -36,9 +36,9 @@ function NewPeriod ()   {
 
     const doPost = async () => {
 
-        let period:Period = new Period(name,description,place,startDate,endDate,null);
+        let period:Period = new Period(-1,name,description,place,startDate,endDate,null);
 
-        console.log(period);
+
         await api.newPeriod(period);
     }
 
@@ -73,7 +73,7 @@ function NewPeriod ()   {
                       </Grid>
                   <Grid item xs={12}>
                       <PlaceInput updateLieu={(val) => {
-                          console.log(val)
+
                           setPlace(val)
 
                       }}/>
