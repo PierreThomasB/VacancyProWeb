@@ -24,6 +24,7 @@ const ShowPeriod = () => {
     }
 
     useEffect(() => {
+        console.log(items);
           getPeriod();
 
     }, [])
@@ -43,6 +44,7 @@ const ShowPeriod = () => {
                 <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"All Trips"}/></li>
             </ul>
             <hr/>
+
             <Container sx={{padding:"5%"}} maxWidth="sm">
                 {items.map(item => {
 

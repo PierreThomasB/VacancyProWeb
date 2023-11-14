@@ -24,7 +24,7 @@ export const PeriodCard = (period : Period) => {
         <Card sx={{minWidth:"100%"}}>
             <CardMedia
                 sx={{ height: 140 }}
-                image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.UrlPhoto}
+                image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.urlPhoto}
                 title="img"
             />
             <CardContent>

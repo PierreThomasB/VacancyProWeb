@@ -13,6 +13,7 @@ import {WeatherComponent} from "../../molecules/WeatherComponent.tsx";
 import {DialogConfirmation} from "../../molecules/DialogConfirmation.tsx";
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
+import {DialogWay} from "../../molecules/DialogWay.tsx";
 
 
 
@@ -73,7 +74,7 @@ const PeriodDetails:React.Fc = () => {
           <Container style={{paddingTop:"2%",display:"flex",flexDirection:"column",alignItems:"center" }} >
               <div style={{display:"flex",alignItems:"center" , flexDirection:"column" , gap:"1em" , paddingBottom:"2em" }} >
                   <Typography variant={"h3"}>{period.Name}</Typography>
-                  <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.UrlPhoto} />
+                  <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.urlPhoto} />
               </div>
               <Stack direction="row" spacing={10} style={{display:"flex",flexDirection:"row"}} >
                     <Card >
@@ -86,7 +87,7 @@ const PeriodDetails:React.Fc = () => {
                     </Card>
                   <Card >
                       <Typography variant="h4" gutterBottom>Météo</Typography>
-                      <WeatherComponent lieux={period.Place.Name}  />
+                      <WeatherComponent lieux={period.Place.name}  />
 
                   </Card>
               </Stack>
@@ -94,6 +95,8 @@ const PeriodDetails:React.Fc = () => {
                         <DialogInput buttonValue={"Add a People"} contenu={"Ajouter des personnes"} champs={"Ajouter"} titre={"Ajouter des personnes"} />
                         <Button ><Link to='/NewActivity' state={period} >Add an Activity</Link></Button>
                        <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
+                      <DialogWay lieux={period.Place.name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>
+
                   </div>
 
         </Container>

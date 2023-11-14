@@ -51,12 +51,15 @@ class Api {
                 }
                 return re.json();
             }).then((json) => {
+                console.log(json);
+
             // @ts-ignore
             let result : [Period] = [];
             json.forEach(objJson => {
-                let obj : Period = new Period(objJson.Id,objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate);
+                let obj : Period = new Period(objJson.id,objJson.name , objJson.description , objJson.place , objJson.beginDate , objJson.endDate , objJson.endDate);
               result.push(obj)
             })
+            console.log(result);
             return result;
             }
         )
