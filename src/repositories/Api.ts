@@ -58,6 +58,16 @@ class Api {
     }
 
 
+    async deletePeriod( id:number ){
+        return fetch(`${this._base}`+"/api/Period/Delete?id="+id,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re => re.json())
+}
+
+
 
 
     /** ACTIVITY **/

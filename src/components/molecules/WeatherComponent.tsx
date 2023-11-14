@@ -8,33 +8,33 @@ interface WeatherData {
     };
     current: {
         temperature: number;
-        weather_icons:string;
+        weather_icons:[string];
         weather_descriptions:[]
         wind_speed:number,
         presure:number,
     };
 }
 
-const WeatherWidget: React.FC = ({lieux}) => {
+export const WeatherComponent: React.FC = ({lieux}) => {
 
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
 
     const getWeather = async () => {
-        let res : WeatherData = await api.getMeteo(lieux);
+        let res:WeatherData  = await api.getMeteo(lieux);
+        console.log(res);
         setWeatherData(res);
     };
     useEffect(() => {
-
-
+        console.log(lieux);
         getWeather();
     }, []);
 
     return (
-        <div>
-            <h2>Météo</h2>
+        <div style={{display:"flex" , justifyContent:"center" , flexDirection:"column"}}>
             {weatherData && (
                 <>
+                    <img alt={""} src={weatherData.current.weather_icons[0]}/>
                     <p>Ville: {weatherData.location.name}</p>
                     <p>Température: {weatherData.current.temperature}°C</p>
                     <p>Description: {weatherData.current.weather_descriptions.at(0)}</p>
@@ -44,4 +44,3 @@ const WeatherWidget: React.FC = ({lieux}) => {
     );
 };
 
-export default WeatherWidget;

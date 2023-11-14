@@ -4,15 +4,13 @@ import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
-import {Button, Card, Container, Paper, Stack, Typography} from "@mui/material";
+import {Alert, Button, Card, Container, Paper, Stack, Typography} from "@mui/material";
 import {SimpleTable} from "../../molecules/SimpleTable.tsx";
 import {DialogInput} from "../../molecules/DialogInput.tsx";
 import Period from "../../../models/Period.ts";
 import {api} from "../../../repositories/Api.ts";
-import Place from "../../../models/Place.ts";
-import WeatherComponent from "../../molecules/WeatherComponent.tsx";
-import Activity from "../../../models/Activity.ts";
-const LeftImage = require('../../../assets/images/sea.jpg');
+import {WeatherComponent} from "../../molecules/WeatherComponent.tsx";
+import {DialogConfirmation} from "../../molecules/DialogConfirmation.tsx";
 
 
 
@@ -21,13 +19,8 @@ const PeriodDetails:React.Fc = () => {
     const navigate = useNavigate();
 
 
-    const [period,setPeriod] = useState(state["period"] as Period);
+    const [period,setPeriod] = useState(state as Period);
     const [activities , setActivities] = useState([]);
-
-
-
-
-
 
 
   const initActivities = async () => {
@@ -42,14 +35,29 @@ const PeriodDetails:React.Fc = () => {
   }
 
 
+  const deletePeriod = async () => {
+      await api.deletePeriod(period.Id);
+      navigate("/Periods");
+  }
+
 
 
   useEffect(() => {
-      setPeriod(state["period"]);
-      console.log(state);
-      //initActivities();
+      let tempPeriod : Period = state as Period;
+
+      console.log(tempPeriod)
+      if(period !== null) {
+          initActivities();
+      }
 
   },[period])
+
+
+    if(period == null){
+        return (
+            <Alert severity="error">Vous n'étes pas autorisé sur cette page </Alert>
+        );
+    }
 
 
 
@@ -58,20 +66,17 @@ const PeriodDetails:React.Fc = () => {
     return(
 
       <div>
+
         <ObservedNavBar/>
-
-
-          <Container style={{paddingTop:"10%",display:"flex",flexDirection:"column",alignItems:"center" }} >
-              <div>
-                  <h1>{period.Name}</h1>
-                  <p>{period.Description}</p>
+          <Container style={{paddingTop:"2%",display:"flex",flexDirection:"column",alignItems:"center" }} >
+              <div style={{display:"flex",alignItems:"center" , flexDirection:"column" , gap:"1em" , paddingBottom:"2em" }} >
+                  <Typography variant={"h3"}>{period.Name}</Typography>
+                  <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.UrlPhoto} />
               </div>
-
               <Stack direction="row" spacing={10} style={{display:"flex",flexDirection:"row"}} >
                     <Card >
                         <Typography variant="h4" gutterBottom>Informations</Typography>
-
-                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: period.jourMoisDebut+ " -> "+period.jourMoisFin}]} lignes={[ {1:"Avex qui ?" ,2: "X"}, {1:"item2col1" ,2: "item2col2"}]} />
+                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: period.jourMoisDebut+ " -> "+period.jourMoisFin}]} lignes={[{1:"Description",2: period.Description},{1:"Avex qui ?" ,2: "X"}]} />
                     </Card>
                     <Card >
                         <Typography variant="h4" gutterBottom>Activitées </Typography>
@@ -79,19 +84,21 @@ const PeriodDetails:React.Fc = () => {
                     </Card>
                   <Card >
                       <Typography variant="h4" gutterBottom>Météo</Typography>
+                      <WeatherComponent lieux={period.Place.Name}  />
 
                   </Card>
               </Stack>
-                  <div style={{display:"flex",flexDirection:"column",margin:"5%"}}>
+                  <div style={{display:"flex",flexDirection:"row",gap:"1em" , paddingTop:"2em"}}>
                         <DialogInput buttonValue={"Add a People"} contenu={"Ajouter des personnes"} champs={"Ajouter"} titre={"Ajouter des personnes"} />
                         <Button ><Link to='/NewActivity' state={period} >Add an Activity</Link></Button>
-                        <Button>Delete</Button>
+                       <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
                   </div>
 
         </Container>
 
 
       </div>
+
 
   );
 

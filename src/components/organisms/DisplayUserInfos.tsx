@@ -22,6 +22,7 @@ export default function DisplayUserInfos({label, handleMenu, anchorEl, handleClo
             >
                 {inputs.map(input => input)}
             </Menu>
+
         </div>
     )
 }
