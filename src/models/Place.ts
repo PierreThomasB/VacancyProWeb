@@ -1,19 +1,24 @@
+import User from "./User";
+import Activity from "./Activity";
+
 export default class Place {
-    private readonly _street: string
-    _postalCode: number
-    _number: number
-    _locality: string
-    _country: string
+    Name: string
+    ID : string
+    UrlPhoto : string
 
-    constructor(street: string, postalCode: number, number: number, locality: string, country: string) {
-        this._street = street
-        this._postalCode = postalCode
-        this._number = number
-        this._locality = locality
-        this._country = country
+    constructor(Name: string, PlaceId: string, PhotoUrl : string = "") {
+        this.Name = Name;
+        this.ID = PlaceId;
+        this.UrlPhoto = PhotoUrl
     }
 
-    get content(): string {
-        return `${this._street} ${this._number}, ${this._postalCode} ${this._locality}, ${this._country}`
+    get nomPrincipal(){
+
+        return this.Name.split(',')[0];
+
     }
+
+
+
+
 }

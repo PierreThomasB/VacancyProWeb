@@ -53,9 +53,11 @@ class AuthentificationStore {
     handleSubmit(data: any[]) {
         switch (data.length) {
             case 2:
+                // @ts-ignore
                 this.handleSignIn(...data.values())
                 break
             case 5:
+                // @ts-ignore
                 this.handleSignUp(...data.values())
                 break
 

@@ -1,27 +1,40 @@
 import User from "./User";
-import Place from "./Place";
 import Activity from "./Activity";
+import Place from "./Place.ts";
 
 export default class Period {
-    _name: string
-    _desc: string
-    _place: Place
-    _beginDate: Date
-    _endDate: Date
-    _creator: User
+    Id:number
+    Name: string
+    Description: string
+    Place: Place
+    BeginDate: Date
+    EndDate: Date
+    Creator: User
 
-    _listUser: Set<User>
-    _listActivity: Array<Activity>
+    ListUser: Set<User>
+    ListActivity: Array<Activity>
 
-    constructor(name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
-        this._name = name
-        this._desc = desc
-        this._place = place
-        this._beginDate = beginDate
-        this._endDate = endDate
-        this._creator = creator
+    constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
+        this.Id = id;
+        this.Name = name
+        this.Description = desc
+        this.Place = place;
+        this.BeginDate = new Date(beginDate);
+        this.EndDate =  new Date(endDate);
+        this.Creator = creator
 
-        this._listUser = new Set<User>()
-        this._listActivity = new Array<Activity>()
+        this.ListUser = new Set<User>()
+        this.ListActivity = new Array<Activity>()
     }
+
+
+
+    get jourMoisDebut(){
+        return this.BeginDate.getDate()+"/"+this.BeginDate.getMonth()+"/"+this.BeginDate.getFullYear();
+    }
+
+    get jourMoisFin(){
+        return this.EndDate.getDate()+"/"+this.EndDate.getMonth()+"/"+this.EndDate.getFullYear();
+    }
+
 }

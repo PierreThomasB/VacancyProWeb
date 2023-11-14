@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 // @ts-ignore
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {api} from "../../../repositories/Api.ts";
 import {AppBar, Container, IconButton, Typography} from "@mui/material";
 import {PeriodCard} from "../../molecules/PeriodCard.tsx";
@@ -13,16 +13,19 @@ const ShowPeriod = () => {
 
 
     const navigate = useNavigate();
+    const [items , setItems] = useState([]);
 
+    const getPeriod = async ( ) => {
+        let res = await api.getPeriodByUser();
+
+        setItems(res);
+
+    }
 
     useEffect(() => {
-        const getPeriod = async ( ) => {
-            let res = await api.getPeriodByUser();
-        }
+          getPeriod();
 
-
-
-    })
+    }, [])
 
 
     const navigateToUrl = (url) => {
@@ -40,7 +43,13 @@ const ShowPeriod = () => {
             </ul>
             <hr/>
             <Container sx={{padding:"5%"}} maxWidth="sm">
-                <PeriodCard></PeriodCard>
+                {items.map(item => {
+
+                    return(
+                        // @ts-ignore
+                      <PeriodCard Id={item.Id} Name={item.Name} Description={item.Description} Place={item.Place} BeginDate={item.BeginDate} EndDate={item.EndDate} Creator={null} ListUser={null} ListActivity={null}/>
+                    );
+                })}
 
             </Container>
         </div>
