@@ -31,7 +31,7 @@ function ContactForm({handleSubmit}) {
                     <TextAreaForm id={'message'} label={'Votre message...'} />,
                     <input type={'submit'} className={'btn-home-blue mt-2'} value={'ENVOYER'}/>
                 ]}/>
-                <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
+
             </Box>
         </div>
     )
