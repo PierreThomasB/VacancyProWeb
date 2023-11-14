@@ -7,6 +7,7 @@ import {PeriodCard} from "../../molecules/PeriodCard.tsx";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {useNavigate} from "react-router-dom";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import {periodStore} from "../../../stores/PeriodStore.ts";
 
 
 const ShowPeriod = () => {
@@ -16,10 +17,10 @@ const ShowPeriod = () => {
     const [items , setItems] = useState([]);
 
     const getPeriod = async ( ) => {
-        let res = await api.getPeriodByUser();
-
-        setItems(res);
-
+        let result = await periodStore.handleGetAllPeriod();
+        if(result != null) {
+            setItems(result);
+        }
     }
 
     useEffect(() => {

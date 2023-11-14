@@ -39,15 +39,20 @@ class Api {
     }
 
 
-    async getPeriodByUser(){
+    async getPeriodByUser() {
         return fetch(`${this._base}`+"/api/Period/AllPeriods",{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
             }
-        }).then(re => re.json()
-        ).then((json) => {
-            let result = [];
+        }).then(re => {
+                if (!re.ok) {
+                    throw Error("Erreur dans la requetes ");
+                }
+                return re.json();
+            }).then((json) => {
+            // @ts-ignore
+            let result : [Period] = [];
             json.forEach(objJson => {
                 let obj : Period = new Period(objJson.Id,objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate);
               result.push(obj)
