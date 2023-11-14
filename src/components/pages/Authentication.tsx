@@ -6,10 +6,20 @@ import {ObservedSignIn} from "../templates/SignIn.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import {ObservedSnackBar} from "../molecules/SnackBar.tsx";
 import {ObservedSignUp} from "../templates/SignUp.tsx";
-import {FormEvent} from "react";
+import {FormEvent, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {sessionStore} from "../../stores/SessionStore.ts";
 
 
 function Authentication() {
+    const routes = require('../../routes.json')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (sessionStore.user) navigate(routes.Home)
+        authentificationStore.onModeChange('signin')
+    }, [sessionStore.user])
+
     const handleSubmit = (event : FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let data = new FormData(event.currentTarget)

@@ -1,6 +1,7 @@
 import Place from "../models/Place"
 import Period from "../models/Period.ts";
 
+
 const config = require(`../config.json`)
 
 class Api {
@@ -41,21 +42,20 @@ class Api {
 
     }
 
-    
+
 
     async signIn(email: string, password: string): Promise<any> {
         let data = JSON.stringify({
             email: email,
             password: password
         })
-        const re = await fetch(`${this._base}/api/User/SignIn`, {
+        return fetch(`${this._base}/api/User/SignIn`, {
             method: 'POST',
             body: data,
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
-        return await re.json()
+        }).then(re => re.json())
     }
 
     async signUp(firstname:string, lastname:string, email: string, password:string) {
@@ -68,7 +68,6 @@ class Api {
         const re = await fetch(`${this._base}/api/User/SignUp`, {
             method: 'POST',
             headers:{
-                'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             },
             body: data
@@ -85,9 +84,22 @@ class Api {
         return resp.status === 401 ? ({error: true, unauthorized: true}) : resp.json()
     }
 
-    sendContactForm(lastname, firstname, email, subject, message): Promise<any> {
-        //TODO Faire l'envoie de mail
-        return null
+    async sendContactForm(lastname: string, firstname: string, email: string, subject: string, message: string): Promise<any> {
+        let data = JSON.stringify({
+            lastname: lastname,
+            firstname: firstname,
+            email: email,
+            subject: subject,
+            message: message
+        })
+        const re = await fetch(`${this._base}/api/Contact`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
     }
 }
 export const api = new Api()
