@@ -3,7 +3,7 @@ import * as React from "react";
 import Grid from '@mui/material/Grid';
 import { SimpleInput } from "../../molecules/SimpleInput.tsx";
 import {observer} from "mobx-react";
-import {Button, Container, CssBaseline, TextField} from "@mui/material";
+import {Button, Container, CssBaseline, Snackbar, TextField} from "@mui/material";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {TextArea} from "../../molecules/TextArea.tsx";
 import { DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
@@ -19,11 +19,10 @@ import {PlaceInput} from "../../molecules/PlaceInput.tsx";
 import Activity from "../../../models/Activity.ts";
 import Place from "../../../models/Place.ts";
 import {useLocation, useNavigate} from "react-router-dom";
+import {activityStore} from "../../../stores/ActivityStore.ts";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 
-function SendIcon() {
-    return null;
-}
 
 function NewActivity ()   {
 
@@ -42,10 +41,10 @@ function NewActivity ()   {
 
 
     const doPost = async () => {
-        let activity:Activity = new Activity(-1,name,description,startDate,endDate,place ,period);
-        console.log(activity);
-        await api.newActivity(activity);
-        navigate("/PeriodDetails");
+        if(activityStore.handleNewActivity(name,description,startDate,endDate,place,period)){
+            wait(2000);
+            navigate("/Periods");
+        }
     }
     const initPeriods = () => {
         const periodObj = location.state;
@@ -103,7 +102,9 @@ function NewActivity ()   {
                             </Button>
                         </Grid>
                     </Grid>
+                    <Snackbar open={activityStore.open} message={activityStore.errorMsg} />
                 </Container>
+
             </LocalizationProvider>
 
         </form>

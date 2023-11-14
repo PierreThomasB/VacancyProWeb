@@ -11,6 +11,8 @@ import Period from "../../../models/Period.ts";
 import {api} from "../../../repositories/Api.ts";
 import {WeatherComponent} from "../../molecules/WeatherComponent.tsx";
 import {DialogConfirmation} from "../../molecules/DialogConfirmation.tsx";
+import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
+import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
 
 
 
@@ -95,7 +97,6 @@ const PeriodDetails:React.Fc = () => {
                   </div>
 
         </Container>
-
 
       </div>
 
