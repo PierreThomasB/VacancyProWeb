@@ -16,6 +16,7 @@ import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
 import {DialogWay} from "../../molecules/DialogWay.tsx";
 import {Chat} from "@mui/icons-material";
 import {ChatObserver} from "../../organisms/ChatSystem.tsx";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 
 
@@ -41,6 +42,7 @@ const PeriodDetails:React.Fc = () => {
 
   const deletePeriod = async () => {
       await api.deletePeriod(period.Id);
+      wait(5000);
       navigate("/Periods");
   }
 
@@ -99,7 +101,7 @@ const PeriodDetails:React.Fc = () => {
 
                   </div>
 
-              <ChatObserver/>
+              <ChatObserver channel_name={"channel_1"}/>
 
         </Container>
 

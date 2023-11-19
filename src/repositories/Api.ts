@@ -1,5 +1,6 @@
 import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
+import Message from "../models/Message.ts";
 
 const config = require(`../config.json`)
 
@@ -21,9 +22,8 @@ class Api {
 
     /** CHATS **/
 
-    async newMessage(channel:string , message:string) {
-        let obj = {channel:channel , message:message};
-        let data = JSON.stringify(obj);
+    async newMessage(message:Message) {
+        let data = JSON.stringify(message);
         console.log(data);
 
         return fetch(`${this._base}`+"/NewMessage",{
@@ -36,10 +36,15 @@ class Api {
             re.json())
     }
 
-
-
-
-
+    async AllMessage(channel:string ) {
+        return fetch(`${this._base}`+"/NewMessage?channel="+channel,{
+            method: 'GET',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re =>
+            re.json())
+    }
 
 
     /** PERIODS **/
