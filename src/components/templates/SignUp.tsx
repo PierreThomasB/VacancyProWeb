@@ -22,12 +22,12 @@ function SignUp({handleSubmit}) {
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
                     <Box className={"flex w-[88%]"}>
-                        <InputForm id={'firstname'} label={'Prénom'} disabled={false} value={"Ludovic"}/>
-                        <InputForm id={'lastname'} label={'Nom de famille'} disabled={false} value={"de la Marck"}/>
+                        <InputForm id={'firstname'} label={'Prénom'} disabled={false}/>
+                        <InputForm id={'lastname'} label={'Nom de famille'} disabled={false}/>
                     </Box>,
-                    <InputForm id={'email'} label={'Adresse mail'} disabled={false} value={"test@gmail.com"}/>,
-                    <InputForm id={'password'} label={'Mot de passe'} disabled={false} value={"Test_123"}/>,
-                    <InputForm id={'password'} label={'Confirmation du mot de passe'} disabled={false} value={"Test_123"}/>,
+                    <InputForm id={'email'} label={'Adresse mail'} disabled={false}/>,
+                    <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
+                    <InputForm id={'password'} label={'Confirmation du mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'CREER MON COMPTE'}/>
                 ]}/>
                 <RedirectLink message={'Déjà un compte ? '} label={'Connectez-vous !'} handleMode={() => authentificationStore.onModeChange('signin')}/>

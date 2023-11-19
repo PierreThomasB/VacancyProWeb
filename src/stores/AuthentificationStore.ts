@@ -83,11 +83,6 @@ class AuthentificationStore {
             .then(data => {
                 if (data.error) this.handleErrorMessage(data.message)
                 else {
-                    data.username = data.Username
-                    data.email = data.Email
-                    data.token = data.Token
-                    data.isAdmin = data.IsAdmin
-                    console.log(data)
                     sessionStore.user = data
                     this.onModeChange('signin')
                 }

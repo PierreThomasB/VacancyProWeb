@@ -180,7 +180,7 @@ class Api {
     }
 
     async fetchUser(token: string): Promise<any> {
-        const resp = await fetch(`${this.base}/api/User`, {
+        const resp = await fetch(`${this._base}/api/User`, {
             headers: {
                 'Authorization': `bearer ${token}`
             }
@@ -204,6 +204,11 @@ class Api {
             }
         })
         return await re.json()
+    }
+
+    fetchUsersCount() {
+        return fetch(`${this._base}/api/User/Count`)
+            .then(re => re.json())
     }
 }
 export const api = new Api()
