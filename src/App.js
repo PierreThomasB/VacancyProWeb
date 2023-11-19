@@ -30,17 +30,19 @@ function App() {
   }*/
 
   return (
-    <Router>
-      <Routes>
-          <Route exact path={routes.Home} element={<ObservedHome/>}/>
-          <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
-          <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
-          <Route exact path={routes.Periods} element={<ShowPeriodObserver/>} />
-          <Route exact path={routes.PerdiodDetails} element={<PeriodDetailsObserver/>} />
-          <Route exact path={routes.NewActivity} element={<NewActivityObserver/>} />
-          <Route exact path={routes.Contact} element={<ObservedContact/>}/>
-      </Routes>
-    </Router>
+
+
+        <Router>
+          <Routes>
+              <Route exact path={routes.Home} element={<ObservedHome/>}/>
+              <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
+              <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
+              <Route exact path={routes.Periods} element={<ShowPeriodObserver/>} />
+              <Route exact path={routes.PerdiodDetails} element={<PeriodDetailsObserver/>} />
+              <Route exact path={routes.NewActivity} element={<NewActivityObserver/>} />
+              <Route exact path={routes.Contact} element={<ObservedContact/>}/>
+          </Routes>
+        </Router>
   );
 }
 

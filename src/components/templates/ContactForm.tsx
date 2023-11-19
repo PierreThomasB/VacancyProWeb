@@ -5,8 +5,6 @@ import FormHeader from "../molecules/FormHeader.tsx";
 import {Contacts} from "@mui/icons-material";
 import DisplayForm from "../organisms/DisplayForm.tsx";
 import InputForm from "../molecules/InputForm.tsx";
-import RedirectLink from "../molecules/RedirectLink.tsx";
-import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import {sessionStore} from "../../stores/SessionStore.ts";
 import TextAreaForm from "../molecules/TextAreaForm.tsx";
 const LeftImage = require('../../assets/images/contact.jpg');

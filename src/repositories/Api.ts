@@ -19,6 +19,25 @@ class Api {
     }
 
 
+    /** CHATS **/
+
+    async newMessage(channel:string , message:string) {
+        let obj = {channel:channel , message:message};
+        let data = JSON.stringify(obj);
+        console.log(data);
+
+        return fetch(`${this._base}`+"/NewMessage",{
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type':'application/json'
+            }
+        }).then(re =>
+            re.json())
+    }
+
+
+
 
 
 

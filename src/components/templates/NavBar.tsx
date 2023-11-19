@@ -8,6 +8,7 @@ import {observer} from 'mobx-react'
 import * as React from "react";
 import TitleNavButton from "../molecules/TitleNavButton.tsx";
 import {Close, Menu} from "@mui/icons-material";
+import {ChatSystem} from "../organisms/ChatSystem.tsx";
 
 function NavBar() {
     const routes = require('../../routes.json')
@@ -69,6 +70,7 @@ function NavBar() {
             <ul className={'center'}>
                 <TitleNavButton route={routes.Home} label={'Vacancy Pro'}/>
             </ul>
+
             <ul className={'right'}>
                 {isConnected()}
             </ul>

@@ -14,6 +14,8 @@ import {DialogConfirmation} from "../../molecules/DialogConfirmation.tsx";
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
 import {DialogWay} from "../../molecules/DialogWay.tsx";
+import {Chat} from "@mui/icons-material";
+import {ChatObserver} from "../../organisms/ChatSystem.tsx";
 
 
 
@@ -33,7 +35,6 @@ const PeriodDetails:React.Fc = () => {
           tabresult.push({1:activity.BeginDate, 2:activity.BeginDate,3:activity.Description,4:"Rue "})
       })
 
-      console.log(tabresult);
       setActivities(tabresult);
   }
 
@@ -48,7 +49,6 @@ const PeriodDetails:React.Fc = () => {
   useEffect(() => {
       let tempPeriod : Period = state as Period;
 
-      console.log(tempPeriod)
       if(period !== null) {
           initActivities();
       }
@@ -65,7 +65,6 @@ const PeriodDetails:React.Fc = () => {
 
 
 
-//"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="
     return(
 
       <div>
@@ -97,7 +96,10 @@ const PeriodDetails:React.Fc = () => {
                        <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
                       <DialogWay lieux={period.Place.name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>
 
+
                   </div>
+
+              <ChatObserver/>
 
         </Container>
 
