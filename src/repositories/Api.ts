@@ -206,9 +206,23 @@ class Api {
         return await re.json()
     }
 
-    fetchUsersCount() {
-        return fetch(`${this._base}/api/User/Count`)
-            .then(re => re.json())
+    async fetchUsersCount() {
+        let re = await fetch(`${this._base}/api/User/Count`);
+        return await re.json();
+    }
+
+    async handleProvider(credentials: any) {
+        let data = JSON.stringify({
+            credentials: credentials
+        })
+        let resp = await fetch(`${this.base}/User/Google`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await resp.json();
     }
 }
 export const api = new Api()

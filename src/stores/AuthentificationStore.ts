@@ -7,11 +7,20 @@ class AuthentificationStore {
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
+    private _emailProvider =undefined;
 
     constructor() {
         makeAutoObservable(this)
     }
 
+
+    get emailProvider(): any {
+        return this._emailProvider;
+    }
+
+    set emailProvider(value: any) {
+        this._emailProvider = value;
+    }
 
     get mode(): string {
         return this._mode;
@@ -132,6 +141,21 @@ class AuthentificationStore {
         }
         api.signUp(firstname, lastname, email, password)
             .then(data => data.error ? this.handleErrorMessage(data.message) : this.handleSignIn(email, password))
+    }
+
+    onSuccess(response: any) {
+        console.log(response)
+        /*api.handleProvider(response.tokenId)
+            .then(data => {
+                if (data.error) {
+                    this.onModeChange('provider')
+                    this.emailProvider = data.message
+                } else sessionStore.user = data
+            })*/
+    }
+
+    onError() {
+        this.handleErrorMessage('Authentification externe échouée')
     }
 }
 

@@ -8,9 +8,10 @@ import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import FormHeader from "../molecules/FormHeader.tsx";
 import {Box, TextField} from "@mui/material";
+import DisplayProviders from "../organisms/DisplayProviders.tsx";
+import DisplayGoogleProvider from "../molecules/DisplayGoogleProvider.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');
-
-
+const config = require('../../config.json') ;
 function SignIn({handleSubmit}) {
     return (
         <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
@@ -28,6 +29,10 @@ function SignIn({handleSubmit}) {
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
                 ]}/>
                 <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
+                <p className={'word-auth'}>OU</p>
+                <DisplayProviders providers={[
+                    <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
+                ]}/>
             </Box>
         </div>
     )
