@@ -40,16 +40,14 @@ function ChatSystem ({channel_name} ){
         getMessages();
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
-            //setChat([...chat,message]);
-            //console.log(chat);
-
+            chat.push(data.message);
         });
     }, []);
 
     function handleSend() {
         setChat([...chat, message]);
         let messageObj = new Message(channel_name,message);
-         api.newMessage(messageObj);
+        api.newMessage(messageObj);
         setMessage('');
 
     }

@@ -24,7 +24,6 @@ class Api {
 
     async newMessage(message:Message) {
         let data = JSON.stringify(message);
-        console.log(data);
 
         return fetch(`${this._base}`+"/NewMessage",{
             method: 'POST',
