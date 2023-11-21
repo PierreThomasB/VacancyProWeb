@@ -71,14 +71,7 @@ class ActivityStore {
             return false;
         }
 
-        if (startDate.getDate()) {
-            this.handleErrorMessage('Veuillez encoder une Date de début valide')
-            return false;
-        }
-        if (endDate.getDate()) {
-            this.handleErrorMessage('Veuillez encoder une Date de début valide')
-            return false;
-        }
+
         if (place === undefined) {
             this.handleErrorMessage('Veuillez encoder un lieu valide')
             return false;
