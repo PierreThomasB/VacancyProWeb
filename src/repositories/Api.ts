@@ -132,19 +132,10 @@ class Api {
                 'Content-Type':'application/json'
             }
         }).then(re =>
-            re.json()).then(
+             re.json()
 
 
-                activities => {
-                    console.log(activities);
-                    let tempActivities = [];
-                    activities.forEach((activity) => {
-                        tempActivities.push(new Activity(activity.Id,activity.Name,activity.Description , activity.BeginDate , activity.EndDate , activity.Place , activity.Period))
-                    })
-                    return tempActivities;
-                }
-
-        )
+    )
     }
 
 

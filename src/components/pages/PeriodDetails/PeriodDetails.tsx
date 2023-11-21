@@ -17,6 +17,7 @@ import {DialogWay} from "../../molecules/DialogWay.tsx";
 import {Chat} from "@mui/icons-material";
 import {ChatObserver} from "../../organisms/ChatSystem.tsx";
 import {wait} from "@testing-library/user-event/dist/utils";
+import {CalendarSystem} from "../../organisms/CalendarSystem.tsx";
 
 
 
@@ -33,13 +34,12 @@ const PeriodDetails:React.Fc = () => {
       let activities = await api.getActivityByPeriod(period.Id);
       let tabresult = [];
       activities.forEach(activity => {
-          tabresult.push({1:activity.BeginDate, 2:activity.BeginDate,3:activity.Description,4:"Rue "})
+          console.log(activity)
+          tabresult.push({1:activity.beginDate, 2:activity.name,3:activity.description,4:activity.place.name, 5:<CalendarSystem period={activity}/>})
       })
 
       setActivities(tabresult);
-      console.log(period);
   }
-
 
   const deletePeriod = async () => {
       await api.deletePeriod(period.Id);
@@ -89,7 +89,7 @@ const PeriodDetails:React.Fc = () => {
                     </Card>
                     <Card >
                         <Typography variant="h4" gutterBottom>Activitées </Typography>
-                        <SimpleTable colonnes={[{id:1,label:"Jour"},{id:2,label:"Nom"},{id:3,label:"Description"},{id:4,label:"Adresse"}]} lignes={activities} />
+                        <SimpleTable colonnes={[{id:1,label:"Jour"},{id:2,label:"Nom"},{id:3,label:"Description"},{id:4,label:"Adresse"},{id:5,label:"Actions"}]} lignes={activities} />
                     </Card>
                   <Card >
                       <Typography variant="h4" gutterBottom>Météo</Typography>
