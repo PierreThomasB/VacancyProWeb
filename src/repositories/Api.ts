@@ -215,7 +215,7 @@ class Api {
         let data = JSON.stringify({
             credentials: credentials
         })
-        let resp = await fetch(`${this.base}/User/Google`, {
+        let resp = await fetch(`${this.base}/api/User/Google`, {
             method: 'POST',
             body: data,
             headers: {

@@ -144,14 +144,13 @@ class AuthentificationStore {
     }
 
     onSuccess(response: any) {
-        console.log(response)
-        /*api.handleProvider(response.tokenId)
+        api.handleProvider(response.credential)
             .then(data => {
                 if (data.error) {
                     this.onModeChange('provider')
                     this.emailProvider = data.message
                 } else sessionStore.user = data
-            })*/
+            })
     }
 
     onError() {

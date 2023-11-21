@@ -14,8 +14,8 @@ const LeftImage = require('../../assets/images/sea.jpg');
 const config = require('../../config.json') ;
 function SignIn({handleSubmit}) {
     return (
-        <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
-            <div /*className={'column'}*/ className={'flex w-1/2 justify-center flex-row flex-wrap'} >
+        <div className={'flex m-[4%] rounded-xl shadow-custom'}>
+            <div className={'flex w-1/2 justify-center flex-row flex-wrap'} >
                <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
             </div>
             <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
@@ -29,7 +29,7 @@ function SignIn({handleSubmit}) {
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
                 ]}/>
                 <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
-                <p className={'word-auth'}>OU</p>
+                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>
                 <DisplayProviders providers={[
                     <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
                 ]}/>

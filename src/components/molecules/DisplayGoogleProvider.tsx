@@ -13,14 +13,14 @@ export default function DisplayGoogleProvider({clientId, onSuccess, onError}) {
         gapi.load('client:auth2', initClient)
     })
     return (
-        /*<GoogleLogin onSuccess={onSuccess} onError={onError}/>*/
-        <GoogleLogin
+        <GoogleLogin onSuccess={onSuccess} onError={onError}/>
+        /*<GoogleLogin
             onSuccess={credentialResponse => {
                 console.log(credentialResponse);
             }}
             onError={() => {
                 console.log('Login Failed');
             }}
-        />
+        />*/
     )
 }

@@ -7,8 +7,10 @@ import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import * as React from "react";
 import {observer} from "mobx-react";
+import DisplayProviders from "../organisms/DisplayProviders.tsx";
+import DisplayGoogleProvider from "../molecules/DisplayGoogleProvider.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');
-
+const config = require('../../config.json') ;
 function SignUp({handleSubmit}) {
     return (
         <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
@@ -31,6 +33,10 @@ function SignUp({handleSubmit}) {
                     <input type={'submit'} className={'btn-home-blue'} value={'CREER MON COMPTE'}/>
                 ]}/>
                 <RedirectLink message={'Déjà un compte ? '} label={'Connectez-vous !'} handleMode={() => authentificationStore.onModeChange('signin')}/>
+                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>
+                <DisplayProviders providers={[
+                    <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
+                ]}/>
             </Box>
         </div>
     )

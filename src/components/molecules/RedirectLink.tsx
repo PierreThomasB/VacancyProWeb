@@ -7,8 +7,7 @@ export default function RedirectLink({message, handleMode, label}) {
         // @ts-ignore
         <p onClick={handleMode} style={{width: '100%', textAlign: 'center', margin: '1%'}}>
             {message}
-            <Link className={'redirect-auth'} to={""}>{label}</Link>
-
+            <Link className={'text-black w-full m-1 underline text-center transition-opacity duration-150 hover:opacity-50'} to={""}>{label}</Link>
         </p>
     )
 }
