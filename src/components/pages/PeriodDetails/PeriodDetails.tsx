@@ -37,6 +37,7 @@ const PeriodDetails:React.Fc = () => {
       })
 
       setActivities(tabresult);
+      console.log(period);
   }
 
 
@@ -46,10 +47,13 @@ const PeriodDetails:React.Fc = () => {
       navigate("/Periods");
   }
 
+  const getDate = (date : Date) => {
+      return date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
+    }
+
 
 
   useEffect(() => {
-      let tempPeriod : Period = state as Period;
 
       if(period !== null) {
           initActivities();
@@ -76,11 +80,12 @@ const PeriodDetails:React.Fc = () => {
               <div style={{display:"flex",alignItems:"center" , flexDirection:"column" , gap:"1em" , paddingBottom:"2em" }} >
                   <Typography variant={"h3"}>{period.Name}</Typography>
                   <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.Place.urlPhoto} />
+                  <ChatObserver channel_name={"channel_"+period.Id}/>
               </div>
               <Stack direction="row" spacing={10} style={{display:"flex",flexDirection:"row"}} >
                     <Card >
                         <Typography variant="h4" gutterBottom>Informations</Typography>
-                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: period.jourMoisDebut+ " -> "+period.jourMoisFin}]} lignes={[{1:"Description",2: period.Description},{1:"Avex qui ?" ,2: "X"}]} />
+                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: getDate(period.BeginDate)+ " -> "+getDate(period.EndDate)}]} lignes={[{1:"Description",2: period.Description},{1:"Avex qui ?" ,2: "X"}]} />
                     </Card>
                     <Card >
                         <Typography variant="h4" gutterBottom>Activitées </Typography>
@@ -101,7 +106,7 @@ const PeriodDetails:React.Fc = () => {
 
                   </div>
 
-              <ChatObserver channel_name={"channel_1"}/>
+
 
         </Container>
 

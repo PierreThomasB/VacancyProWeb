@@ -28,7 +28,7 @@ function ChatSystem ({channel_name} ){
 
 
     const getMessages = async () => {
-        let result = await api.AllMessage("channel_1");
+        let result = await api.AllMessage(channel_name);
         let tempMessage = [];
         result.forEach(message => {
            tempMessage.push(message.message);
