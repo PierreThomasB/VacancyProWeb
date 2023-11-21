@@ -22,6 +22,7 @@ export const WeatherComponent: React.FC = ({lieux}) => {
 
     const getWeather = async () => {
         let res:WeatherData  = await api.getMeteo(lieux);
+
         setWeatherData(res);
     };
     useEffect(() => {

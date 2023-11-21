@@ -2,7 +2,7 @@ import {Avatar, Typography} from "@mui/material";
 // @ts-ignore
 import React from "react";
 
-export const MessageComponent : React.FC = ( ) => {
+export const MessageComponent = ({message , date} ) => {
 
 
     function stringToColor(string: string) {
@@ -36,11 +36,11 @@ export const MessageComponent : React.FC = ( ) => {
 
     return (
         <div style={{display:"flex",flexDirection:"column" }}>
-            <div style={{display:"flex",flexDirection:"row", margin:"5%" }}>
+            <div style={{display:"flex",flexDirection:"row" }}>
                 <Avatar {...stringAvatar('Kent Dodds')}  />
-                <Typography variant={"h6"}  style={{justifyContent:"center"}}>Message</Typography>
+                <p>{message}</p>
             </div>
-            <small  style={{display:"flex",justifyContent:"end"}} >11/11/2001</small>
+            <small   >AA/YY/DD</small>
         </div>
     );
 

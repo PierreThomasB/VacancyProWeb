@@ -77,7 +77,7 @@ function ChatSystem ({channel_name} ){
                 <List>
                     {chat.map((msg, index) => (
                         <ListItem key={index} >
-                            <MessageComponent/>
+                            <MessageComponent message={msg}  date={new Date()}/>
                         </ListItem>
                     ))}
                 </List>
