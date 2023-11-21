@@ -4,11 +4,13 @@ import {useNavigate} from "react-router-dom";
 import {ObservedNavBar} from '../templates/NavBar.tsx';
 import {observer} from "mobx-react";
 import {sessionStore} from "../../stores/SessionStore.ts";
+import {homeStore} from "../../stores/HomeStore.ts";
 
 
 function Home() {
     const routes = require('../../routes.json')
     const navigate = useNavigate()
+    homeStore.init()
 
     const navigateToPeriods = () => {
         navigate(routes.Periods)
@@ -20,7 +22,6 @@ function Home() {
     const navigateToAbout = () => {
         navigate(routes.About)
     };
-
 
     const navigateToCreatePeriod = () => {
         navigate(routes.NewPeriod)
@@ -35,6 +36,12 @@ function Home() {
                     <h2 className={'home-main-p'}>Votre compagnon de voyage ultime.</h2>
                     <div className={'row'}>
                         <div className={'column'}>
+                            <h1 className={'home-main-key'}>{homeStore.usersCount < 9 ? `0${homeStore.usersCount}` : homeStore.usersCount}</h1>
+                            <h2 className={'home-main-value'}>Utilisateur(s) inscrit(s)</h2>
+                        </div>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'column'}>
                             <input type={'submit'} className={'btn-home-blue'}
                                    value={sessionStore.user ? 'VOIR LES VOYAGES' : 'SE CONNECTER'}
                                    onClick={sessionStore.user ? navigateToPeriods : navigateToAuthentication}/>
@@ -44,12 +51,9 @@ function Home() {
                                    onClick={navigateToAbout}/>
 
                         </div>
-
                         <div className={'column'}>
                             <input type={'submit'} className={'btn-home-black'} value={'New Period'}
                                    onClick={navigateToCreatePeriod}/>
-
-
                         </div>
                     </div>
                 </div>

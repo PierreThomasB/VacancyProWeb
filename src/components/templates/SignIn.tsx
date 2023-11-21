@@ -8,13 +8,14 @@ import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import FormHeader from "../molecules/FormHeader.tsx";
 import {Box, TextField} from "@mui/material";
+import DisplayProviders from "../organisms/DisplayProviders.tsx";
+import DisplayGoogleProvider from "../molecules/DisplayGoogleProvider.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');
-
-
+const config = require('../../config.json') ;
 function SignIn({handleSubmit}) {
     return (
-        <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
-            <div /*className={'column'}*/ className={'flex w-1/2 justify-center flex-row flex-wrap'} >
+        <div className={'flex m-[4%] rounded-xl shadow-custom'}>
+            <div className={'flex w-1/2 justify-center flex-row flex-wrap'} >
                <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
             </div>
             <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
@@ -23,11 +24,15 @@ function SignIn({handleSubmit}) {
                     <h1 className={'text-black text-xl font-bold '}>CONNEXION</h1>
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
-                    <InputForm value={"test@gmail.com"} id={'email'} label={'Adresse mail'} disabled={false}/>,
-                    <InputForm  value={"Test_123"} id={'password'} label={'Mot de passe'} disabled={false}/>,
+                    <InputForm id={'email'} label={'Adresse mail'} disabled={false}/>,
+                    <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
                 ]}/>
                 <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
+                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>
+                <DisplayProviders providers={[
+                    <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
+                ]}/>
             </Box>
         </div>
     )

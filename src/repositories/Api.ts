@@ -208,7 +208,7 @@ class Api {
     }
 
     async fetchUser(token: string): Promise<any> {
-        const resp = await fetch(`${this.base}/api/User`, {
+        const resp = await fetch(`${this._base}/api/User`, {
             headers: {
                 'Authorization': `bearer ${token}`
             }
@@ -225,6 +225,56 @@ class Api {
             message: message
         })
         const re = await fetch(`${this._base}/api/Contact`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
+    }
+
+    async fetchUsersCount() {
+        let re = await fetch(`${this._base}/api/User/Count`);
+        return await re.json();
+    }
+
+    async handleProvider(credentials: any) {
+        let data = JSON.stringify({
+            credentials: credentials
+        })
+        let resp = await fetch(`${this.base}/api/User/Google`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await resp.json();
+    }
+
+    async signUpProvider(firstname: string, lastname: string, email: string) {
+        let data = JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            email: email
+        })
+        console.log(data)
+        const re = await fetch(`${this.base}/api/User/SignUp`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await re.json();
+    }
+
+    async signInProvider(email: string) {
+        let data = JSON.stringify({
+            email: email
+        })
+        const re = await fetch(`${this.base}/api/User/SignIn`, {
             method: 'POST',
             body: data,
             headers: {
