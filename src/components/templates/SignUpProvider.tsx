@@ -1,4 +1,5 @@
-import {Box} from "@mui/material";
+import {observer} from "mobx-react";
+import {Box, TextField} from "@mui/material";
 import FormHeader from "../molecules/FormHeader.tsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import DisplayForm from "../organisms/DisplayForm.tsx";
@@ -6,12 +7,8 @@ import InputForm from "../molecules/InputForm.tsx";
 import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import * as React from "react";
-import {observer} from "mobx-react";
-import DisplayProviders from "../organisms/DisplayProviders.tsx";
-import DisplayGoogleProvider from "../molecules/DisplayGoogleProvider.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');
-const config = require('../../config.json') ;
-function SignUp({handleSubmit}) {
+function SignUpProvider({handleSubmit}) {
     return (
         <div className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
             <div className={'flex w-1/2 justify-center flex-row flex-wrap'} >
@@ -20,25 +17,30 @@ function SignUp({handleSubmit}) {
             <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
                 <FormHeader inputs={[
                     <LockOutlinedIcon className={'text-black m-icon-auth scale-150'}/>,
-                    <h1 className={'text-black text-xl font-bold '}>CREATION DE COMPTE</h1>
+                    <h1 className={'text-black text-xl font-bold '}>Authentification externe réussie !</h1>,
+                    <h2 className={'text-gray-500 text-xl overflow-y-hidden'}>Encore quelques informations...</h2>
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
                     <Box className={"flex w-[88%]"}>
                         <InputForm id={'firstname'} label={'Prénom'} disabled={false}/>
                         <InputForm id={'lastname'} label={'Nom de famille'} disabled={false}/>
                     </Box>,
-                    <InputForm id={'email'} label={'Adresse mail'} disabled={false}/>,
-                    <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
-                    <InputForm id={'password'} label={'Confirmation du mot de passe'} disabled={false}/>,
+                    <InputForm id={'email'} label={'Adresse mail'} disabled={true} value={authentificationStore.emailProvider}/>,
+                    <TextField
+                        sx={{margin: '1%', display:'none'}}
+                        required
+                        type={"email"}
+                        value={authentificationStore.emailProvider}
+                        id={"email"}
+                        name={"email"}
+                        className={'w-[86%] h-[56px] m-[100px] bg-white'}
+                        hidden={true}
+                    />,
                     <input type={'submit'} className={'btn-home-blue'} value={'CREER MON COMPTE'}/>
                 ]}/>
                 <RedirectLink message={'Déjà un compte ? '} label={'Connectez-vous !'} handleMode={() => authentificationStore.onModeChange('signin')}/>
-                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>
-                <DisplayProviders providers={[
-                    <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
-                ]}/>
             </Box>
         </div>
     )
 }
-export const ObservedSignUp = observer(SignUp)
+export const ObservedSignUpProvider = observer(SignUpProvider)

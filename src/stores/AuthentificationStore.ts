@@ -7,7 +7,7 @@ class AuthentificationStore {
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
-    private _emailProvider =undefined;
+    private _emailProvider = undefined;
 
     constructor() {
         makeAutoObservable(this)
@@ -65,16 +65,21 @@ class AuthentificationStore {
                 // @ts-ignore
                 this.handleSignIn(...data.values())
                 break
+            case 3:
+                // @ts-ignore
+                this.handleSignUpProvider(...data.values())
+                break
             case 5:
                 // @ts-ignore
                 this.handleSignUp(...data.values())
                 break
 
+
         }
     }
 
     handleSignIn(email: string, password: string) {
-        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        /*const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
             return
@@ -82,7 +87,8 @@ class AuthentificationStore {
         if (!email.match(emailRegex)) {
             this.handleErrorMessage('Veuillez encoder une adresse mail valide')
             return
-        }
+        }*/
+        this.verifyEmail(email)
         if (password === '') {
             this.handleErrorMessage('Le champ "Mot de passe" est obligatoire')
             return
@@ -108,8 +114,8 @@ class AuthentificationStore {
 
     }
 
-    private handleSignUp(firstname: string, lastname:string, email: string, password: string, confirm:string) {
-        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    private handleSignUpProvider(firstname: string, lastname: string, email: string) {
+
         if (lastname === '') {
             this.handleErrorMessage('Le champ "Nom de famille" est obligatoire')
             return
@@ -118,6 +124,12 @@ class AuthentificationStore {
             this.handleErrorMessage('Le champ "Prénom" est obligatoire')
             return
         }
+        api.signUpProvider(firstname, lastname, email)
+            .then(data => data.error ? this.handleErrorMessage(data.message) : this.handleSignInProvider(email))
+    }
+
+    private verifyEmail(email: string) {
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
             return
@@ -126,6 +138,29 @@ class AuthentificationStore {
             this.handleErrorMessage('Veuillez encoder une adresse mail valide')
             return
         }
+
+    }
+
+    private handleSignUp(firstname: string, lastname: string, email: string, password: string, confirm: string) {
+        /*const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (email === '') {
+            this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
+            return
+        }
+        if (!email.match(emailRegex)) {
+            this.handleErrorMessage('Veuillez encoder une adresse mail valide')
+            return
+        }*/
+        this.verifyEmail(email)
+        if (lastname === '') {
+            this.handleErrorMessage('Le champ "Nom de famille" est obligatoire')
+            return
+        }
+        if (firstname === '') {
+            this.handleErrorMessage('Le champ "Prénom" est obligatoire')
+            return
+        }
+
 
         if (password === '') {
             this.handleErrorMessage('Le champ "Mot de passe" est obligatoire')
@@ -155,6 +190,19 @@ class AuthentificationStore {
 
     onError() {
         this.handleErrorMessage('Authentification externe échouée')
+    }
+
+
+    private handleSignInProvider(email: string) {
+        this.verifyEmail(email)
+        api.signInProvider(email)
+            .then(data => {
+                if (data.error) this.handleErrorMessage(data.message)
+                else {
+                    sessionStore.user = data
+                    this.onModeChange('signin')
+                }
+            })
     }
 }
 

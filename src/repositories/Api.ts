@@ -1,5 +1,6 @@
 import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
+import {dateTimePickerTabsClasses} from "@mui/x-date-pickers";
 
 const config = require(`../config.json`)
 
@@ -223,6 +224,37 @@ class Api {
             }
         });
         return await resp.json();
+    }
+
+    async signUpProvider(firstname: string, lastname: string, email: string) {
+        let data = JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            email: email
+        })
+        console.log(data)
+        const re = await fetch(`${this.base}/api/User/SignUp`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return await re.json();
+    }
+
+    async signInProvider(email: string) {
+        let data = JSON.stringify({
+            email: email
+        })
+        const re = await fetch(`${this.base}/api/User/SignIn`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
     }
 }
 export const api = new Api()
