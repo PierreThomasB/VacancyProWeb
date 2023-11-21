@@ -23,8 +23,8 @@ function SignIn({handleSubmit}) {
                     <h1 className={'text-black text-xl font-bold '}>CONNEXION</h1>
                 ]}/>
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
-                    <InputForm value={"val"} id={'email'} label={'Adresse mail'} disabled={false}/>,
-                    <InputForm  value={"val"} id={'password'} label={'Mot de passe'} disabled={false}/>,
+                    <InputForm value={"test@gmail.com"} id={'email'} label={'Adresse mail'} disabled={false}/>,
+                    <InputForm  value={"Test_123"} id={'password'} label={'Mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
                 ]}/>
                 <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>

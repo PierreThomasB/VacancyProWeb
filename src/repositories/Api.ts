@@ -37,13 +37,15 @@ class Api {
     }
 
     async AllMessage(channel:string ) {
-        return fetch(`${this._base}`+"/NewMessage?channel="+channel,{
+        return fetch(`${this._base}`+"/AllMessage?channel="+channel,{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json'
             }
-        }).then(re =>
-            re.json())
+        }).then(re =>{
+            console.log(re);
+            return re.json();
+        })
     }
 
 

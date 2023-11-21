@@ -7,6 +7,7 @@ import {Button, List, ListItem, ListItemText, Paper, Popover, TextField, Typogra
 import {api} from "../../repositories/Api.ts";
 import MessageIcon from '@mui/icons-material/Message';
 import Message from "../../models/Message.ts";
+import {MessageComponent} from "../molecules/MessageComponent.tsx";
 
 
 
@@ -24,16 +25,23 @@ function ChatSystem ({channel_name} ){
 
     const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu"});
 
+
+
+    const getMessages = async () => {
+        let result = await api.AllMessage("channel_1");
+        let tempMessage = [];
+        result.forEach(message => {
+           tempMessage.push(message.message);
+        });
+        setChat(tempMessage);
+    }
+
     useEffect(() => {
-        //let result = api.AllMessage(channel_name);
-        //console.log(result);
-
-
+        getMessages();
         let channel : Channel = pusher.subscribe(channel_name);
-
         channel.bind('my-event', function(data) {
             //setChat([...chat,message]);
-            console.log(chat);
+            //console.log(chat);
 
         });
     }, []);
@@ -68,8 +76,8 @@ function ChatSystem ({channel_name} ){
             <Paper elevation={3} style={{ padding: '16px', maxWidth: '400px' }}>
                 <List>
                     {chat.map((msg, index) => (
-                        <ListItem key={index}>
-                            <ListItemText primary={msg} />
+                        <ListItem key={index} >
+                            <MessageComponent/>
                         </ListItem>
                     ))}
                 </List>
