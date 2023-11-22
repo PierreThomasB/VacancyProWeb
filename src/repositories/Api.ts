@@ -20,6 +20,11 @@ class Api {
     }
 
 
+    get token(){
+        return JSON.parse(localStorage.getItem('VacancyProUser'));
+    }
+
+
     /** CHATS **/
 
     async newMessage(message:Message) {
@@ -29,7 +34,9 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -39,7 +46,9 @@ class Api {
         return fetch(`${this._base}`+"/AllMessage?channel="+channel,{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>{
             console.log(re);
@@ -57,7 +66,9 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -68,7 +79,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Period/AllPeriods",{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => {
                 if (!re.ok) {
@@ -95,7 +108,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Period/Delete?id="+id,{
             method: 'DELETE',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => re.json())
     }
@@ -117,7 +132,9 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -129,7 +146,9 @@ class Api {
          return fetch(`${this._base}`+"/api/Activity/ActivityByPeriod?id="+id,{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
              re.json()
@@ -151,7 +170,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Meteo/GetMeteo?lieu="+lieux,{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -175,7 +196,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => re.json())
     }
@@ -191,7 +213,8 @@ class Api {
             method: 'POST',
             headers:{
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             },
             body: data
         })
@@ -219,7 +242,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
         })
         return await re.json()
@@ -238,7 +262,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${this.token}`
             }
         });
         return await resp.json();
@@ -255,7 +280,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
         });
         return await re.json();
@@ -269,7 +295,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
         })
         return await re.json()

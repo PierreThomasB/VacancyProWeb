@@ -1,5 +1,8 @@
 import {api} from "../repositories/Api.ts";
 import {makeAutoObservable} from "mobx";
+import Period from "../models/Period.ts";
+import Place from "../models/Place.ts";
+import {sessionStore} from "./SessionStore.ts";
 
 
 class PeriodStore{
@@ -54,7 +57,50 @@ class PeriodStore{
 
 
 
-    handleNewPeriod = () => {}
+    handleNewPeriod = (name:string , description:string , place:Place,startDate:Date,endDate:Date ) : boolean => {
+
+
+        if(name === '' || name.length <= 3){
+            this.handleErrorMessage('Le champ "Nom" est obligatoire')
+            return false;
+        }
+        if(description === '' || description.length <= 3){
+            this.handleErrorMessage('Le champ "Description" est obligatoire')
+            return false;
+        }
+        if(place === null ){
+            this.handleErrorMessage('Veillez renseigner un lieux de vacances');
+            return false;
+        }
+        if(startDate === null || startDate === new Date() ){
+            this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
+            return false;
+        }
+        if(endDate === null || endDate === new Date() ){
+            this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
+            return false;
+
+        }
+        if(startDate >= endDate){
+            this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
+            return false;
+
+        }
+
+        let user = sessionStore.loadUser();
+        console.log(user);
+        let period:Period = new Period(-1,name,description,place,startDate,endDate,null);
+
+        api.newPeriod(period);
+
+        this.handleGoodMessage("Vacances crée avec succès");
+
+        return true;
+
+
+
+
+    }
 
 
     handleGetAllPeriod = async () => {
@@ -63,17 +109,31 @@ class PeriodStore{
             let res = await api.getPeriodByUser();
             return res;
 
-
         }catch (error){
-
         }
-
-
-
-
     }
 
 
+    private handleErrorMessage(error: string){
+        this.open = true
+        this.errorMsg = error
+
+        setTimeout(() => {
+            this.open = false
+        }, 2500)
+    }
+
+    private handleGoodMessage(message: string){
+        this.open = true
+        this.errorMsg = message
+        this.severity = "info";
+
+
+        setTimeout(() => {
+            this.open = false
+            this.severity = "error";
+        }, 3000)
+    }
 }
 
 export const periodStore = new PeriodStore()
