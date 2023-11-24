@@ -8,6 +8,7 @@ import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {useNavigate} from "react-router-dom";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import {periodStore} from "../../../stores/PeriodStore.ts";
+import {sessionStore} from "../../../stores/SessionStore.ts";
 
 
 const ShowPeriod = () => {
@@ -24,10 +25,10 @@ const ShowPeriod = () => {
     }
 
     useEffect(() => {
-        console.log(items);
+         console.log(sessionStore.user);
           getPeriod();
 
-    }, [])
+    }, [sessionStore.user])
 
 
     const navigateToUrl = (url) => {

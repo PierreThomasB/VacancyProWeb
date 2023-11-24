@@ -87,9 +87,10 @@ class PeriodStore{
 
         }
 
-        let user = sessionStore.loadUser();
-        console.log(user);
-        let period:Period = new Period(-1,name,description,place,startDate,endDate,null);
+        let user = sessionStore.user;
+        let period:Period = new Period(-1,name,description,place,startDate,endDate,user);
+
+
 
         api.newPeriod(period);
 

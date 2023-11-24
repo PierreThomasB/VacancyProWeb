@@ -1,6 +1,7 @@
 import User from "./User";
 import Activity from "./Activity";
 import Place from "./Place.ts";
+import {List} from "@mui/material";
 
 export default class Period {
     Id:number
@@ -10,9 +11,8 @@ export default class Period {
     BeginDate: Date
     EndDate: Date
     Creator: User
+    ListUser: Array<User>;
 
-    ListUser: Set<User>
-    ListActivity: Array<Activity>
 
     constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
         this.Id = id;
@@ -22,19 +22,11 @@ export default class Period {
         this.BeginDate = new Date(beginDate);
         this.EndDate =  new Date(endDate);
         this.Creator = creator
-
-        this.ListUser = new Set<User>()
-        this.ListActivity = new Array<Activity>()
+        this.ListUser = new Array<User>();
     }
 
 
 
-    get jourMoisDebut(){
-        return this.BeginDate.getDate()+"/"+this.BeginDate.getMonth()+"/"+this.BeginDate.getFullYear();
-    }
 
-    get jourMoisFin(){
-        return this.EndDate.getDate()+"/"+this.EndDate.getMonth()+"/"+this.EndDate.getFullYear();
-    }
 
 }

@@ -49,7 +49,7 @@ function NewActivity ()   {
     }
     const initPeriods = () => {
         const periodObj = location.state;
-        let periodTemp : Period = new Period(periodObj.Id,periodObj.Name,periodObj.Description, periodObj.Place,periodObj.BeginDate,periodObj.EndDate,null);
+        let periodTemp : Period = new Period(periodObj.Id,periodObj.Name,periodObj.Description, periodObj.Place,periodObj.BeginDate,periodObj.EndDate,periodObj.Creator);
         setPeriod(periodTemp);
     }
 
