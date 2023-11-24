@@ -1,5 +1,6 @@
 import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
+import {Dayjs} from "dayjs";
 
 const config = require(`../config.json`)
 
@@ -209,6 +210,20 @@ class Api {
     fetchUsersCount() {
         return fetch(`${this._base}/api/User/Count`)
             .then(re => re.json())
+    }
+
+    async fetchUsersCountInVacation(date: string) {
+        let data = JSON.stringify({
+            date: date
+        })
+        const re = await fetch(`${this._base}/api/User/InVacation`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
     }
 }
 export const api = new Api()
