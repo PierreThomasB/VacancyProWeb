@@ -17,7 +17,8 @@ class SessionStore {
     set user(data:any) {
         if (data) {
 
-            this._user = new User(data.username, data.email, data.token, data.isAdmin)
+            this._user = new User(data.id,data.username, data.email, data.token, data.isAdmin)
+            console.log(this._user);
             this.saveUser()
         }
     }

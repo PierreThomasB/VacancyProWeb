@@ -88,6 +88,7 @@ class PeriodStore{
         }
 
         let user = sessionStore.user;
+        console.log(user);
         let period:Period = new Period(-1,name,description,place,startDate,endDate,user);
 
 
@@ -102,6 +103,15 @@ class PeriodStore{
 
 
     }
+
+
+
+     handleGetSuggestionUser = ( user : string = '') => {
+        let result =api.suggestUser(user);
+
+
+
+}
 
 
     handleGetAllPeriod = async () => {

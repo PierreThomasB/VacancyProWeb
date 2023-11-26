@@ -18,6 +18,7 @@ import {Chat} from "@mui/icons-material";
 import {ChatObserver} from "../../organisms/ChatSystem.tsx";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {CalendarSystem} from "../../organisms/CalendarSystem.tsx";
+import {periodStore} from "../../../stores/PeriodStore.ts";
 
 
 
@@ -41,7 +42,13 @@ const PeriodDetails:React.Fc = () => {
       setActivities(tabresult);
   }
 
-  const deletePeriod = async () => {
+  const handleInput = (user:string="") : void => {
+
+          return periodStore.handleGetSuggestionUser(user);
+  }
+
+
+    const deletePeriod = async () => {
       await api.deletePeriod(period.Id);
       wait(5000);
       navigate("/Periods");
@@ -50,6 +57,7 @@ const PeriodDetails:React.Fc = () => {
   const getDate = (date : Date) => {
       return date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
     }
+
 
 
 
@@ -98,7 +106,7 @@ const PeriodDetails:React.Fc = () => {
                   </Card>
               </Stack>
                   <div style={{display:"flex",flexDirection:"row",gap:"1em" , paddingTop:"2em"}}>
-                        <DialogInput buttonValue={"Add a People"} contenu={"Ajouter des personnes"} champs={"Ajouter"} titre={"Ajouter des personnes"} />
+                        <DialogInput buttonValue={"Add a People"} contenu={"Ajouter des personnes"} champs={"Ajouter"} titre={"Ajouter des personnes"} actions={handleInput} />
                         <Button ><Link to='/NewActivity' state={period} >Add an Activity</Link></Button>
                        <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
                       <DialogWay lieux={period.Place.name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>

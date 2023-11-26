@@ -263,7 +263,7 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                     "Authorization": `Bearer ${this.token}`
             }
         });
@@ -295,6 +295,18 @@ class Api {
         const re = await fetch(`${this.base}/api/User/SignIn`, {
             method: 'POST',
             body: data,
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        })
+        return await re.json()
+    }
+
+
+    async suggestUser(user: string) {
+        const re = await fetch(`${this.base}/api/User/SuggestionUser?username=`+user, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`

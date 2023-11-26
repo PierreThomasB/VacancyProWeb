@@ -1,11 +1,13 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
 // @ts-ignore
 import React, {useState} from "react";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 
-export const DialogInput = ({buttonValue , titre,contenu,champs}) => {
+export const DialogInput = ({buttonValue , titre,contenu,champs , actions }) => {
 
     const [open, setOpen] = useState(false);
+    const [inputStr,setInput] = useState('');
 
 
     const handleClickOpen = () => {
@@ -15,6 +17,11 @@ export const DialogInput = ({buttonValue , titre,contenu,champs}) => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleInputChange = () => {
+        let result = actions(inputStr);
+         console.log(result);
+    }
 
 
 
@@ -34,6 +41,7 @@ export const DialogInput = ({buttonValue , titre,contenu,champs}) => {
                         label={champs}
                         type="input"
                         fullWidth
+                        onChange={handleInputChange}
                     />
                 </DialogContent>
                 <DialogActions>

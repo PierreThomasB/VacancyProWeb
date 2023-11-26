@@ -23,6 +23,7 @@ export default class Period {
         this.EndDate =  new Date(endDate);
         this.Creator = creator
         this.ListUser = new Array<User>();
+        this.ListUser.push(creator);
     }
 
 
