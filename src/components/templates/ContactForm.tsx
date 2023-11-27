@@ -12,7 +12,7 @@ import TextAreaForm from "../molecules/TextAreaForm.tsx";
 import TitleAuth from "../molecules/TitleAuth.tsx";
 import Column from "../organisms/Column.tsx";
 const LeftImage = require('../../assets/images/contact.jpg');
-function ContactForm({handleSubmit}) {
+export default function ContactForm({handleSubmit}) {
     return (
         <Card className={'flex m-[4%] rounded-xl shadow-custom'}>
             <Column content={[

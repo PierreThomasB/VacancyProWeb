@@ -7,7 +7,7 @@ import InputForm from "../molecules/InputForm.tsx";
 import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import FormHeader from "../molecules/FormHeader.tsx";
-import {Box, Card, TextField} from "@mui/material";
+import {Card} from "@mui/material";
 import TitleAuth from "../molecules/TitleAuth.tsx";
 import Column from "../organisms/Column.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');

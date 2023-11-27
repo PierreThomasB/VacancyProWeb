@@ -1,4 +1,4 @@
-import {Box} from "@mui/material";
+import {Box, Card} from "@mui/material";
 import FormHeader from "../molecules/FormHeader.tsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import DisplayForm from "../organisms/DisplayForm.tsx";
