@@ -305,7 +305,7 @@ class Api {
 
 
     async getUserNotInPeriod(perioId:number) {
-        const re = await fetch(`${this.base}/api/User/ListUser`, {
+        const re = await fetch(`${this.base}/api/User/ListUser?periodId=`+perioId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -45,11 +45,8 @@ const PeriodDetails:React.Fc = () => {
 
   const initUsers  = async () => {
       let res = await periodStore.handleGetAllUser(period._id);
-      return res;
+      setUser(res);
     }
-
-
-
 
     const deletePeriod = async () => {
       await periodStore.handleDeletePeriod(period._id);
@@ -61,17 +58,18 @@ const PeriodDetails:React.Fc = () => {
       return date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
     }
 
+   const handleAddPeople =  async (userId:string) => {
+        await periodStore.handleNewUserToPeriod(userId,period._id);
+    }
+
 
 
 
   useEffect(() => {
-
       if(period !== null) {
           initActivities();
           initUsers();
       }
-
-
   },[period])
 
 
@@ -111,7 +109,7 @@ const PeriodDetails:React.Fc = () => {
                   </Card>
               </Stack>
                   <div style={{display:"flex",flexDirection:"row",gap:"1em" , paddingTop:"2em"}}>
-                        <DialogInput buttonValue={"Add a People"} contenu={"Ajouter des personnes"} titre={"Ajouter des personnes"} actions={initUsers} />
+                        <DialogInput suggests={users} buttonValue={"Add a People"}  titre={"Ajouter des personnes"} actionsWhenOpen={handleAddPeople} />
                         <Button ><Link to='/NewActivity' state={period} >Add an Activity</Link></Button>
                        <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
                       <DialogWay lieux={period._place._name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>
