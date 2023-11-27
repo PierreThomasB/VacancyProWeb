@@ -36,7 +36,6 @@ class ContactStore {
     }
 
     private handleContact(firstname: string, lastname: string, email: string, subject: string, message: string) {
-        console.log("Lastname : "+lastname)
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
         if (email === '') {

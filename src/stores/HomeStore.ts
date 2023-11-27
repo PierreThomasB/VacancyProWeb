@@ -3,7 +3,7 @@ import {api} from '../repositories/Api.ts'
 
 class HomeStore {
     private _usersCount = 0
-    private _userCountPerPlace : Map<string, string>
+    private _userCountPerPlace : Map<string, number> = new Map<string, number>()
 
 
     constructor() {
@@ -18,17 +18,17 @@ class HomeStore {
         this._usersCount = value;
     }
 
-    get userCountPerPlace(): Map<string, string> {
+    get userCountPerPlace(): Map<string, number> {
         return this._userCountPerPlace;
     }
 
-    set userCountPerPlace(value: Map<string, string>) {
+    set userCountPerPlace(value: Map<string, number>) {
         this._userCountPerPlace = value;
     }
 
     init(date: any) {
         this.loadUsersCount()
-        this.loadUsersCountInVacation(date)
+        //this.loadUsersCountInVacation(date)
     }
 
     loadUsersCount() {
@@ -39,7 +39,7 @@ class HomeStore {
 
     loadUsersCountInVacation(date: any) {
         api.fetchUsersCountInVacation(date).then(data => {
-            this.userCountPerPlace = new Map<string, string>(Object.entries(data))
+            this.userCountPerPlace = new Map<string, number>(Object.entries(data))
         })
     }
 }

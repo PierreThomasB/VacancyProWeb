@@ -7,19 +7,21 @@ import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import * as React from "react";
 import {observer} from "mobx-react";
+import TitleAuth from "../molecules/TitleAuth.tsx";
+import Column from "../organisms/Column.tsx";
 const LeftImage = require('../../assets/images/sea.jpg');
 
 function SignUp({handleSubmit}) {
     return (
-        <div /*className={'auth-grid'}*/ className={'flex m-[4%] h-[630px] rounded-xl shadow-custom'}>
-            <div /*className={'column'}*/ className={'flex w-1/2 justify-center flex-row flex-wrap'} >
+        <Card className={'flex m-[4%] rounded-xl shadow-custom'}>
+            <Column content={[
                 <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
-            </div>
-            <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
+            ]}/>
+            <Column content={[
                 <FormHeader inputs={[
                     <LockOutlinedIcon className={'text-black m-icon-auth scale-150'}/>,
-                    <h1 className={'text-black text-xl font-bold '}>CREATION DE COMPTE</h1>
-                ]}/>
+                    <TitleAuth value={'CREATION DE COMPTE'}/>
+                ]}/>,
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
                     <Box className={"flex w-[88%]"}>
                         <InputForm id={'firstname'} label={'Prénom'} disabled={false}/>
@@ -29,10 +31,10 @@ function SignUp({handleSubmit}) {
                     <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
                     <InputForm id={'password'} label={'Confirmation du mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'CREER MON COMPTE'}/>
-                ]}/>
+                ]}/>,
                 <RedirectLink message={'Déjà un compte ? '} label={'Connectez-vous !'} handleMode={() => authentificationStore.onModeChange('signin')}/>
-            </Box>
-        </div>
+            ]}/>
+        </Card>
     )
 }
 export const ObservedSignUp = observer(SignUp)

@@ -56,6 +56,7 @@ function NavBar() {
                   <NavButton route={routes.Home} label={'ACCUEIL'} onClick={() => hideMenu()}/>
                   <NavButton route={routes.About} label={'A PROPOS'} onClick={() => hideMenu()}/>
                   <NavButton route={routes.Contact} label={'CONTACT'} onClick={() => hideMenu()}/>
+                  {sessionStore.user && <NavButton route={routes.Periods} label={'MES PERIODES'} onClick={() => hideMenu()}/>}
               </ul>
           </div>
       )

@@ -207,9 +207,9 @@ class Api {
         return await re.json()
     }
 
-    fetchUsersCount() {
-        return fetch(`${this._base}/api/User/Count`)
-            .then(re => re.json())
+    async fetchUsersCount() {
+        const re = await fetch(`${this._base}/api/User/Count`);
+        return await re.json();
     }
 
     async fetchUsersCountInVacation(date: string) {
@@ -226,4 +226,4 @@ class Api {
         return await re.json()
     }
 }
-export const api = new Api()
+export const api: Api = new Api()
