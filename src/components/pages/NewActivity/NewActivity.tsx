@@ -21,6 +21,7 @@ import Place from "../../../models/Place.ts";
 import {useLocation, useNavigate} from "react-router-dom";
 import {activityStore} from "../../../stores/ActivityStore.ts";
 import {wait} from "@testing-library/user-event/dist/utils";
+import {sessionStore} from "../../../stores/SessionStore.ts";
 
 
 
@@ -42,19 +43,20 @@ function NewActivity ()   {
 
     const doPost = async () => {
         if(activityStore.handleNewActivity(name,description,startDate,endDate,place,period)){
-            wait(2000);
+            wait(3000);
             navigate("/Periods");
         }
     }
     const initPeriods = () => {
         const periodObj = location.state;
-        let periodTemp : Period = new Period(periodObj.Id,periodObj.Name,periodObj.Description, periodObj.Place,periodObj.BeginDate,periodObj.EndDate,null);
+        let periodTemp : Period = new Period(periodObj.Id,periodObj.Name,periodObj.Description, periodObj.Place,periodObj.BeginDate,periodObj.EndDate,periodObj.Creator);
         setPeriod(periodTemp);
     }
 
 
 
     useEffect(() => {
+        console.log(sessionStore.loadUser())
         initPeriods();
 
 

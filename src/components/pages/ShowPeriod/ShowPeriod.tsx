@@ -8,6 +8,7 @@ import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {useNavigate} from "react-router-dom";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import {periodStore} from "../../../stores/PeriodStore.ts";
+import {sessionStore} from "../../../stores/SessionStore.ts";
 
 
 const ShowPeriod = () => {
@@ -24,9 +25,10 @@ const ShowPeriod = () => {
     }
 
     useEffect(() => {
+         console.log(sessionStore.user);
           getPeriod();
 
-    }, [])
+    }, [sessionStore.user])
 
 
     const navigateToUrl = (url) => {
@@ -43,6 +45,7 @@ const ShowPeriod = () => {
                 <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"All Trips"}/></li>
             </ul>
             <hr/>
+
             <Container sx={{padding:"5%"}} maxWidth="sm">
                 {items.map(item => {
 

@@ -65,25 +65,23 @@ class ActivityStore {
             this.handleErrorMessage('Le champ description est obligatoire')
             return false;
         }
-
-        if(startDate == endDate){
-            this.handleErrorMessage('La date de début et de fin doivent être différentes')
+        if(startDate == null || startDate == new Date()){
+            this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
             return false;
         }
-
-        if (startDate.getDate()) {
-            this.handleErrorMessage('Veuillez encoder une Date de début valide')
+        if(endDate == null || endDate == new Date() ){
+            this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
             return false;
         }
-        if (endDate.getDate()) {
-            this.handleErrorMessage('Veuillez encoder une Date de début valide')
+        if(startDate > endDate){
+            this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
             return false;
         }
-        if (place === undefined) {
+        if (place === null) {
             this.handleErrorMessage('Veuillez encoder un lieu valide')
             return false;
         }
-        if (period === undefined) {
+        if (period === null) {
             this.handleErrorMessage('Veuillez encoder une période valide')
             return false;
         }
@@ -91,12 +89,9 @@ class ActivityStore {
         let activity: Activity = new Activity(-1, name, description, startDate, endDate, place, period);
 
 
-        api.newActivity(activity)
-            .then(data => {
-                if (data.error) {this.handleErrorMessage(data.message)
-                return false;
-                }
-            })
+        api.newActivity(activity);
+        this.handleGoodMessage("Activitée crée avec succès");
+
         return true;
     }
 
@@ -108,6 +103,18 @@ class ActivityStore {
             this.open = false
         }, 2500)
 
+    }
+
+
+    private handleGoodMessage(message: string){
+        this.open = true
+        this.errorMsg = message
+        this.severity = "info";
+
+        setTimeout(() => {
+            this.open = false
+            this.severity = "error";
+        }, 3000)
     }
 
 }

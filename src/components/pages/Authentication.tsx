@@ -9,6 +9,7 @@ import {ObservedSignUp} from "../templates/SignUp.tsx";
 import {FormEvent, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {sessionStore} from "../../stores/SessionStore.ts";
+import {ObservedSignUpProvider} from "../templates/SignUpProvider.tsx";
 
 
 function Authentication() {
@@ -41,6 +42,16 @@ function Authentication() {
             <div>
                 <ObservedNavBar/>
                 <ObservedSignUp handleSubmit={handleSubmit}/>
+                <ObservedSnackBar open={authentificationStore.open} message={authentificationStore.errorMsg} severity={authentificationStore.severity}/>
+            </div>
+        )
+    }
+
+    if (authentificationStore.mode === 'provider') {
+        return (
+            <div>
+                <ObservedNavBar/>
+                <ObservedSignUpProvider handleSubmit={handleSubmit}/>
                 <ObservedSnackBar open={authentificationStore.open} message={authentificationStore.errorMsg} severity={authentificationStore.severity}/>
             </div>
         )

@@ -8,5 +8,6 @@
     "Contact": "/Contact",
     "Periods": "/Periods",
     "PerdiodDetails": "/PeriodDetails",
-    "NewActivity":"/NewActivity"
+    "NewActivity":"/NewActivity",
+    "Message": "/Message"
 }

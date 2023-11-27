@@ -18,6 +18,11 @@ import Period from "../../../models/Period.ts";
 import {PlaceInput} from "../../molecules/PlaceInput.tsx";
 import User from "../../../models/User.ts";
 import Place from "../../../models/Place.ts";
+import {periodStore} from "../../../stores/PeriodStore.ts";
+import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
+import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
+import {useNavigate} from "react-router-dom";
+import {wait} from "@testing-library/user-event/dist/utils";
 
 
 function SendIcon() {
@@ -26,20 +31,22 @@ function SendIcon() {
 
 function NewPeriod ()   {
 
+
+    const navigate = useNavigate();
+
     const [name,setName] = useState("");
     const [description,setDescription] = useState("");
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
-    const [place ,setPlace ] = useState(new Place("","",""));
+    const [place ,setPlace ] = useState(null);
 
 
 
     const doPost = async () => {
-
-        let period:Period = new Period(-1,name,description,place,startDate,endDate,null);
-
-
-        await api.newPeriod(period);
+        if(periodStore.handleNewPeriod(name,description,place,startDate,endDate)){
+             await wait(3000);
+           // navigate("/periods");
+        }
     }
 
 
@@ -85,6 +92,7 @@ function NewPeriod ()   {
                       </Grid>
 
                   </Grid>
+               <ObservedSnackBar open={periodStore.open} message={periodStore.errorMsg} severity={periodStore.severity}/>
            </Container>
          </LocalizationProvider>
 

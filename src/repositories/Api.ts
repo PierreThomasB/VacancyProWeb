@@ -1,5 +1,6 @@
 import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
+import Message from "../models/Message.ts";
 import {Dayjs} from "dayjs";
 
 const config = require(`../config.json`)
@@ -20,8 +21,41 @@ class Api {
     }
 
 
+    get token(){
+        return JSON.parse(localStorage.getItem('VacancyProUser'));
+    }
 
 
+    /** CHATS **/
+
+    async newMessage(message:Message) {
+        let data = JSON.stringify(message);
+
+        return fetch(`${this._base}`+"/NewMessage",{
+            method: 'POST',
+            body: data,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
+            }
+        }).then(re =>
+            re.json())
+    }
+
+    async AllMessage(channel:string ) {
+        return fetch(`${this._base}`+"/AllMessage?channel="+channel,{
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
+            }
+        }).then(re =>{
+            console.log(re);
+            return re.json();
+        })
+    }
 
 
     /** PERIODS **/
@@ -33,7 +67,9 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -44,7 +80,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Period/AllPeriods",{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => {
                 if (!re.ok) {
@@ -52,10 +90,12 @@ class Api {
                 }
                 return re.json();
             }).then((json) => {
+                console.log(json);
+
             // @ts-ignore
             let result : [Period] = [];
             json.forEach(objJson => {
-                let obj : Period = new Period(objJson.Id,objJson.Name , objJson.Description , objJson.Place , objJson.BeginDate , objJson.EndDate , objJson.EndDate);
+                let obj : Period = new Period(objJson.id,objJson.name , objJson.description , objJson.place , objJson.beginDate , objJson.endDate , objJson.endDate);
               result.push(obj)
             })
             return result;
@@ -68,7 +108,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Period/Delete?id="+id,{
             method: 'DELETE',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => re.json())
     }
@@ -90,7 +132,9 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -102,22 +146,15 @@ class Api {
          return fetch(`${this._base}`+"/api/Activity/ActivityByPeriod?id="+id,{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
-            re.json()).then(
+             re.json()
 
 
-                activities => {
-                    console.log(activities);
-                    let tempActivities = [];
-                    activities.forEach((activity) => {
-                        tempActivities.push(new Activity(activity.Id,activity.Name,activity.Description , activity.BeginDate , activity.EndDate , activity.Place , activity.Period))
-                    })
-                    return tempActivities;
-                }
-
-        )
+    )
     }
 
 
@@ -133,7 +170,9 @@ class Api {
         return fetch(`${this._base}`+"/api/Meteo/GetMeteo?lieu="+lieux,{
             method: 'GET',
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Access-Control-Allow-Origin': '*',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>
             re.json())
@@ -157,7 +196,8 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => re.json())
     }
@@ -173,7 +213,8 @@ class Api {
             method: 'POST',
             headers:{
                 'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
             },
             body: data
         })
@@ -201,7 +242,68 @@ class Api {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        })
+        return await re.json()
+    }
+
+    async handleProvider(credentials: any) {
+        let data = JSON.stringify({
+            credentials: credentials
+        })
+        let resp = await fetch(`${this.base}/api/User/Google`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${this.token}`
+            }
+        });
+        return await resp.json();
+    }
+
+    async signUpProvider(firstname: string, lastname: string, email: string) {
+        let data = JSON.stringify({
+            firstname: firstname,
+            lastname: lastname,
+            email: email
+        })
+        console.log(data)
+        const re = await fetch(`${this.base}/api/User/SignUp`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        });
+        return await re.json();
+    }
+
+    async signInProvider(email: string) {
+        let data = JSON.stringify({
+            email: email
+        })
+        const re = await fetch(`${this.base}/api/User/SignIn`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        })
+        return await re.json()
+    }
+
+
+    async suggestUser(user: string) {
+        const re = await fetch(`${this.base}/api/User/SuggestionUser?username=`+user, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
         })
         return await re.json()

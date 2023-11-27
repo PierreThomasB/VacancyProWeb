@@ -1,19 +1,19 @@
 import Period from "./Period";
 
 export default class User {
+    _id:string
     _username: string
     _email: string
     _token: string
 
-    Periods: Set<Period>
     _isAdmin: boolean
 
-    constructor(username: string, email: string, token: string, isAdmin) {
+    constructor(id:string,username: string, email: string, token: string, isAdmin) {
+        this._id = id;
         this._username = username
         this._email = email
         this._token = token
         this._isAdmin = isAdmin
-        this.Periods = new Set<Period>()
     }
 
     set username(username: string) {
@@ -56,9 +56,5 @@ export default class User {
 
     set isAdmin(isAdmin) {
         this._isAdmin = isAdmin
-    }
-
-    get periods() {
-        return this.Periods
     }
 }
