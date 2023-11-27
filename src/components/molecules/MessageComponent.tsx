@@ -28,6 +28,7 @@ export const MessageComponent = ({message , date} ) => {
             sx: {
                 bgcolor: stringToColor(name),
             },
+            //date.getDate()+"/"+date.getMonth()+"/"+date.getYear()
             children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
         };
     }
@@ -40,7 +41,7 @@ export const MessageComponent = ({message , date} ) => {
                 <Avatar {...stringAvatar('Kent Dodds')}  />
                 <p>{message}</p>
             </div>
-            <small   >AA/YY/DD</small>
+            <small>salut</small>
         </div>
     );
 

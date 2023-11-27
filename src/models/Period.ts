@@ -4,26 +4,26 @@ import Place from "./Place.ts";
 import {List} from "@mui/material";
 
 export default class Period {
-    Id:number
-    Name: string
-    Description: string
-    Place: Place
-    BeginDate: Date
-    EndDate: Date
-    Creator: User
-    ListUser: Array<User>;
+    _id:number
+    _name: string
+    _description: string
+    _place: Place
+    _beginDate: Date
+    _endDate: Date
+    _creator: User
+    _listUser: Array<User>;
 
 
     constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
-        this.Id = id;
-        this.Name = name
-        this.Description = desc
-        this.Place = place;
-        this.BeginDate = new Date(beginDate);
-        this.EndDate =  new Date(endDate);
-        this.Creator = creator
-        this.ListUser = new Array<User>();
-        this.ListUser.push(creator);
+        this._id = id;
+        this._name = name
+        this._description = desc
+        this._place = place;
+        this._beginDate = new Date(beginDate);
+        this._endDate =  new Date(endDate);
+        this._creator = creator
+        this._listUser = new Array<User>();
+        this._listUser.push(creator);
     }
 
 

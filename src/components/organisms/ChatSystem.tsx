@@ -8,6 +8,7 @@ import {api} from "../../repositories/Api.ts";
 import MessageIcon from '@mui/icons-material/Message';
 import Message from "../../models/Message.ts";
 import {MessageComponent} from "../molecules/MessageComponent.tsx";
+import {chatStore} from "../../stores/ChatStore.ts";
 
 
 
@@ -28,12 +29,8 @@ function ChatSystem ({channel_name} ){
 
 
     const getMessages = async () => {
-        let result = await api.AllMessage(channel_name);
-        let tempMessage = [];
-        result.forEach(message => {
-           tempMessage.push(message.message);
-        });
-        setChat(tempMessage);
+
+        setChat(await chatStore.handleGetAllMessage(channel_name));
     }
 
     useEffect(() => {
@@ -44,10 +41,9 @@ function ChatSystem ({channel_name} ){
         });
     }, []);
 
-    function handleSend() {
+    const  handleSend = async () =>  {
         setChat([...chat, message]);
-        let messageObj = new Message(channel_name,message);
-        api.newMessage(messageObj);
+        await chatStore.handleSendMessage(channel_name,message);
         setMessage('');
 
     }

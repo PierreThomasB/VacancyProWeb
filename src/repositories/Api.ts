@@ -30,7 +30,7 @@ class Api {
     async newMessage(message:Message) {
         let data = JSON.stringify(message);
 
-        return fetch(`${this._base}`+"/NewMessage",{
+        return fetch(`${this._base}`+"/Chat/NewMessage",{
             method: 'POST',
             body: data,
             headers: {
@@ -43,7 +43,7 @@ class Api {
     }
 
     async AllMessage(channel:string ) {
-        return fetch(`${this._base}`+"/AllMessage?channel="+channel,{
+        return fetch(`${this._base}`+"/Chat/AllMessage?channel="+channel,{
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -51,7 +51,6 @@ class Api {
                 "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>{
-            console.log(re);
             return re.json();
         })
     }
@@ -77,7 +76,7 @@ class Api {
 
 
     async getPeriodByUser() {
-        return fetch(`${this._base}`+"/api/Period/AllPeriods",{
+        return fetch(`${this._base}`+"/api/Period/PeriodbyUser",{
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -89,20 +88,8 @@ class Api {
                     throw Error("Erreur dans la requetes ");
                 }
                 return re.json();
-            }).then((json) => {
-                console.log(json);
-
-            // @ts-ignore
-            let result : [Period] = [];
-            json.forEach(objJson => {
-                let obj : Period = new Period(objJson.id,objJson.name , objJson.description , objJson.place , objJson.beginDate , objJson.endDate , objJson.endDate);
-              result.push(obj)
             })
-            console.log(result);
-            return result;
             }
-        )
-    }
 
 
     async deletePeriod( id:number ){
@@ -304,8 +291,21 @@ class Api {
     }
 
 
-    async suggestUser(user: string) {
-        const re = await fetch(`${this.base}/api/User/SuggestionUser?username=`+user, {
+    async addUserToPeriod(userId:string , periodId:number){
+        const re = await fetch(`${this.base}/api/Period/AddUser?userId=`+userId+"&period="+periodId, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        })
+        return await re.json()
+
+    }
+
+
+    async getUserNotInPeriod(perioId:number) {
+        const re = await fetch(`${this.base}/api/User/ListUser`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

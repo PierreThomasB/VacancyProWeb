@@ -1,27 +1,48 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField} from "@mui/material";
+import {
+    Autocomplete,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField
+} from "@mui/material";
 // @ts-ignore
-import React, {useState} from "react";
-import {wait} from "@testing-library/user-event/dist/utils";
+import React, {useEffect, useState} from "react";
+import {periodStore} from "../../stores/PeriodStore.ts";
+import {api} from "../../repositories/Api.ts";
 
 
-export const DialogInput = ({buttonValue , titre,contenu,champs , actions }) => {
+export const DialogInput = ({buttonValue , titre,contenu,actions }) => {
 
     const [open, setOpen] = useState(false);
-    const [inputStr,setInput] = useState('');
+    const [suggestions,setSuggestion] = useState([]);
 
+
+
+
+    useEffect(() => {
+
+        const initUsers  = async () => {
+            let res =  periodStore.handleGetAllUser();
+            return res;
+        }
+
+       initUsers().then(re => setSuggestion(re));
+    }, [actions]);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
+        api.addUserToPeriod("",1)
+
         setOpen(false);
     };
 
-    const handleInputChange = () => {
-        let result = actions(inputStr);
-         console.log(result);
-    }
+
 
 
 
@@ -32,16 +53,11 @@ export const DialogInput = ({buttonValue , titre,contenu,champs , actions }) => 
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{titre}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        {contenu}
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label={champs}
-                        type="input"
-                        fullWidth
-                        onChange={handleInputChange}
+                    <Autocomplete
+                        id={"peopleAutocomplete"}
+                        disablePortal
+                        renderInput={(params) => <TextField {...params} label="Nom d'utilisateur" />}
+                        options={suggestions}
                     />
                 </DialogContent>
                 <DialogActions>

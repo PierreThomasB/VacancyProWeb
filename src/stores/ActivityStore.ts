@@ -95,6 +95,15 @@ class ActivityStore {
         return true;
     }
 
+
+
+
+    handleGetActivite =  async (periodId:number) => {
+         return await api.getActivityByPeriod(periodId);
+    }
+
+
+
     handleErrorMessage(message: string) {
         this.open = true
         this.errorMsg = message

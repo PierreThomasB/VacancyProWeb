@@ -3,6 +3,7 @@ import {makeAutoObservable} from "mobx";
 import Period from "../models/Period.ts";
 import Place from "../models/Place.ts";
 import {sessionStore} from "./SessionStore.ts";
+import User from "../models/User.ts";
 
 
 class PeriodStore{
@@ -105,22 +106,37 @@ class PeriodStore{
     }
 
 
+    handleDeletePeriod = async  (periodId:number) => {
+        await api.deletePeriod(periodId);
+        this.handleGoodMessage("Voyage supprimé avec succès")
+    }
 
-     handleGetSuggestionUser = ( user : string = '') => {
-        let result =api.suggestUser(user);
 
 
-
+     handleGetAllUser = async (periodId:number) => {
+        let data =  await api.getUserNotInPeriod(periodId);
+        let result = [];
+        data.forEach(res => {
+            result.push({ label: res.username ,id : res.id});
+        })
+         return result;
 }
+
+    handleNewUserToPeriod = async (userId:string , periodId:number)=>{
+        await api.addUserToPeriod(userId , periodId);
+    }
 
 
     handleGetAllPeriod = async () => {
+        if(sessionStore.user != undefined) {
+            let result = [];
+            let tabResult = await  api.getPeriodByUser();
+            tabResult.periods.forEach(period => {
+                let place:Place = new Place(period.place.name,period.place.id,period.place.urlPhoto)
+                result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null))
+            })
+            return result
 
-        try {
-            let res = await api.getPeriodByUser();
-            return res;
-
-        }catch (error){
         }
     }
 

@@ -17,15 +17,14 @@ const ShowPeriod = () => {
     const navigate = useNavigate();
     const [items , setItems] = useState([]);
 
-    const getPeriod = async ( ) => {
+    const getPeriod =  async ( ) => {
         let result = await periodStore.handleGetAllPeriod();
-        if(result != null) {
+        if(result != undefined ) {
             setItems(result);
         }
     }
 
     useEffect(() => {
-         console.log(sessionStore.user);
           getPeriod();
 
     }, [sessionStore.user])
@@ -48,10 +47,11 @@ const ShowPeriod = () => {
 
             <Container sx={{padding:"5%"}} maxWidth="sm">
                 {items.map(item => {
+                    console.log(item);
 
                     return(
                         // @ts-ignore
-                      <PeriodCard Id={item.Id} Name={item.Name} Description={item.Description} Place={item.Place} BeginDate={item.BeginDate} EndDate={item.EndDate} Creator={null} ListUser={null} ListActivity={null}/>
+                      <PeriodCard _id={item._id} _name={item._name} _description={item._description} _place={item._place} _beginDate={item._beginDate} _endDate={item._endDate} _creator={null} _listUser={item._listUser} ListActivity={null}/>
                     );
                 })}
 

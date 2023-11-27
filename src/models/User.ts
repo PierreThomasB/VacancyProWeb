@@ -7,13 +7,15 @@ export default class User {
     _token: string
 
     _isAdmin: boolean
+    _period : [Period]
 
-    constructor(id:string,username: string, email: string, token: string, isAdmin) {
+    constructor(id:string,username: string, email: string, token: string, isAdmin:boolean,period : [Period]) {
         this._id = id;
         this._username = username
         this._email = email
         this._token = token
         this._isAdmin = isAdmin
+        this._period = period
     }
 
     set username(username: string) {

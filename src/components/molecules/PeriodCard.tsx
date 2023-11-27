@@ -15,26 +15,30 @@ export const PeriodCard = (period : Period) => {
     }
 
 
+    useEffect(() => {
+        console.log(period);
+    }, [period]);
 
 
-    if(period.EndDate < new Date()) {
+
+    if(period._endDate < new Date()) {
         return (
 
             <Card sx={{minWidth: "100%" , backgroundColor:"gray"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.Place.urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period.Name}
+                        {period._name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="white">
-                        By Pierre Thomas
+                        {"By"+period._creator._username}
                     </Typography>
                     <Typography variant="body2" color="white">
-                        {period.Description}
+                        {period._description}
                     </Typography>
                     <Typography variant="body2" color="red">
                         Voyage dans le passé
@@ -56,18 +60,18 @@ export const PeriodCard = (period : Period) => {
             <Card sx={{minWidth: "100%"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.Place.urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period.Name}
+                        {period._name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="text.secondary">
-                        By Pierre Thomas
+                        {"By"}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {period.Description}
+                        {period._description}
                     </Typography>
                 </CardContent>
                 <CardActions style={{display: "flex", justifyContent: "center"}}>
