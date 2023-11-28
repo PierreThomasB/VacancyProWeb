@@ -1,16 +1,29 @@
 // @ts-ignore
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {ObservedNavBar} from '../templates/NavBar.tsx';
 import {observer} from "mobx-react";
 import {sessionStore} from "../../stores/SessionStore.ts";
 import {homeStore} from "../../stores/HomeStore.ts";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import * as dayjs from "dayjs";
+import {Card, CardContent} from "@mui/material";
 
 
 function Home() {
     const routes = require('../../routes.json')
     const navigate = useNavigate()
-    homeStore.init()
+    useEffect(() => {
+        homeStore.init(dayjs(new Date()))
+    },[])
+    const entries = [...homeStore.userCountPerPlace.entries()]
+    const mappedInfos = entries.map(([key,value]) => {
+        let str = `(${value}) utilisateur(s) en ${key}`
+        return <p key={key}>{str}</p>
+    })
+    const [date , setStartDate] = useState();
+
 
     const navigateToPeriods = () => {
         navigate(routes.Periods)
@@ -39,6 +52,19 @@ function Home() {
                             <h1 className={'home-main-key'}>{homeStore.usersCount < 9 ? `0${homeStore.usersCount}` : homeStore.usersCount}</h1>
                             <h2 className={'home-main-value'}>Utilisateur(s) inscrit(s)</h2>
                         </div>
+                        <div className={'column'}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DesktopDatePicker
+                                    label="Voir les utilisateur(s) en vacance"
+                                    defaultValue={dayjs(new Date())}
+                                    value={date}
+                                    onChange={(newValue) => {
+                                        setStartDate(newValue)
+                                        homeStore.loadUsersCountInVacation(newValue.format('YYYY-MM-DDTHH:mm:ssZ'))
+                                    }}
+                                />
+                            </LocalizationProvider>
+                        </div>
                     </div>
                     <div className={'row'}>
                         <div className={'column'}>
@@ -56,6 +82,16 @@ function Home() {
                                    onClick={navigateToCreatePeriod}/>
                         </div>
                     </div>
+                </div>
+                <div className={'column'} style={{justifyContent: 'center'}}>
+                    <Card variant="outlined">
+                        <CardContent>
+                            <h2 className={'home-main-p'}>Nombre d'utilisateur(s) en vacance</h2>
+                            <div>
+                                {mappedInfos}
+                            </div>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </div>

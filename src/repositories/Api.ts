@@ -1,6 +1,7 @@
 import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
 import Message from "../models/Message.ts";
+import {Dayjs} from "dayjs";
 
 const config = require(`../config.json`)
 
@@ -60,7 +61,6 @@ class Api {
 
     async newPeriod(period: Period){
         let data = JSON.stringify(period);
-        console.log(data);
 
         return fetch(`${this._base}`+"/api/Period/NewVacances",{
             method: 'POST',
@@ -237,11 +237,6 @@ class Api {
         return await re.json()
     }
 
-    async fetchUsersCount() {
-        let re = await fetch(`${this._base}/api/User/Count`);
-        return await re.json();
-    }
-
     async handleProvider(credentials: any) {
         let data = JSON.stringify({
             credentials: credentials
@@ -263,7 +258,6 @@ class Api {
             lastname: lastname,
             email: email
         })
-        console.log(data)
         const re = await fetch(`${this.base}/api/User/SignUp`, {
             method: 'POST',
             body: data,
@@ -314,5 +308,24 @@ class Api {
         })
         return await re.json()
     }
+
+    async fetchUsersCount() {
+        const re = await fetch(`${this._base}/api/User/Count`);
+        return await re.json();
+    }
+
+    async fetchUsersCountInVacation(date: string) {
+        let data = JSON.stringify({
+            date: date
+        })
+        const re = await fetch(`${this._base}/api/User/InVacation`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
+    }
 }
-export const api = new Api()
+export const api: Api = new Api()

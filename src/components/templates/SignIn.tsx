@@ -7,34 +7,42 @@ import InputForm from "../molecules/InputForm.tsx";
 import RedirectLink from "../molecules/RedirectLink.tsx";
 import {authentificationStore} from "../../stores/AuthentificationStore.ts";
 import FormHeader from "../molecules/FormHeader.tsx";
-import {Box, TextField} from "@mui/material";
+import {Card} from "@mui/material";
+import TitleAuth from "../molecules/TitleAuth.tsx";
+import Column from "../organisms/Column.tsx";
 import DisplayProviders from "../organisms/DisplayProviders.tsx";
 import DisplayGoogleProvider from "../molecules/DisplayGoogleProvider.tsx";
+
 const LeftImage = require('../../assets/images/sea.jpg');
-const config = require('../../config.json') ;
+const config = require('../../config.json');
+
 function SignIn({handleSubmit}) {
     return (
-        <div className={'flex m-[4%] rounded-xl shadow-custom'}>
-            <div className={'flex w-1/2 justify-center flex-row flex-wrap'} >
-               <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
-            </div>
-            <Box className={'flex w-1/2 justify-center flex-row flex-wrap'}>
+        <Card className={'flex m-[4%] rounded-xl shadow-custom'}>
+            <Column content={[
+                <img src={LeftImage} alt={'sea'} className={'h-full w-full rounded-l-xl'}/>
+            ]}/>
+            <Column content={[
                 <FormHeader inputs={[
                     <LockOutlinedIcon className={'text-black m-icon-auth scale-150'}/>,
-                    <h1 className={'text-black text-xl font-bold '}>CONNEXION</h1>
-                ]}/>
+                    <TitleAuth value={'CONNEXION'}/>
+                ]}/>,
                 <DisplayForm handleSubmit={handleSubmit} inputs={[
                     <InputForm id={'email'} label={'Adresse mail'} disabled={false}/>,
                     <InputForm id={'password'} label={'Mot de passe'} disabled={false}/>,
                     <input type={'submit'} className={'btn-home-blue'} value={'SE CONNECTER'}/>
-                ]}/>
-                <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'} handleMode={() => authentificationStore.onModeChange('signup')}/>
-                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>
+                ]}/>,
+                <RedirectLink message={'Pas de compte ? '} label={'Inscrivez-vous !'}
+                              handleMode={() => authentificationStore.onModeChange('signup')}/>,
+                <p className={'text-black w-full text-center font-bold text-2xl'}>OU</p>,
                 <DisplayProviders providers={[
-                    <DisplayGoogleProvider clientId={config.GoogleClientID} onSuccess={(response: any) => authentificationStore.onSuccess(response)} onError={() => authentificationStore.onError()}/>
+                    <DisplayGoogleProvider clientId={config.GoogleClientID}
+                                           onSuccess={(response: any) => authentificationStore.onSuccess(response)}
+                                           onError={() => authentificationStore.onError()}/>
                 ]}/>
-            </Box>
-        </div>
+            ]}/>
+        </Card>
     )
 }
+
 export const ObservedSignIn = observer(SignIn)

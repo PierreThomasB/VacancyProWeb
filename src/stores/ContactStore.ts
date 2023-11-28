@@ -1,10 +1,15 @@
 import {api} from "../repositories/Api.ts";
+import {makeAutoObservable} from "mobx";
+import {sessionStore} from "./SessionStore.ts";
 
 class ContactStore {
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
-
+    private _user = sessionStore.user
+    constructor() {
+        makeAutoObservable(this)
+    }
 
     get errorMsg(): any {
         return this._errorMsg;
@@ -36,7 +41,6 @@ class ContactStore {
     }
 
     private handleContact(firstname: string, lastname: string, email: string, subject: string, message: string) {
-        console.log("Lastname : "+lastname)
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
         if (email === '') {

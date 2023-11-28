@@ -79,16 +79,15 @@ class AuthentificationStore {
     }
 
     handleSignIn(email: string, password: string) {
-        /*const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
-            return
+            return false
         }
         if (!email.match(emailRegex)) {
             this.handleErrorMessage('Veuillez encoder une adresse mail valide')
-            return
-        }*/
-        this.verifyEmail(email)
+            return false
+        }
         if (password === '') {
             this.handleErrorMessage('Le champ "Mot de passe" est obligatoire')
             return
@@ -128,30 +127,16 @@ class AuthentificationStore {
             .then(data => data.error ? this.handleErrorMessage(data.message) : this.handleSignInProvider(email))
     }
 
-    private verifyEmail(email: string) {
+    private handleSignUp(firstname: string, lastname: string, email: string, password: string, confirm: string) {
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
-            return
+            return false
         }
         if (!email.match(emailRegex)) {
             this.handleErrorMessage('Veuillez encoder une adresse mail valide')
-            return
+            return false
         }
-
-    }
-
-    private handleSignUp(firstname: string, lastname: string, email: string, password: string, confirm: string) {
-        /*const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        if (email === '') {
-            this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
-            return
-        }
-        if (!email.match(emailRegex)) {
-            this.handleErrorMessage('Veuillez encoder une adresse mail valide')
-            return
-        }*/
-        this.verifyEmail(email)
         if (lastname === '') {
             this.handleErrorMessage('Le champ "Nom de famille" est obligatoire')
             return
@@ -194,7 +179,15 @@ class AuthentificationStore {
 
 
     private handleSignInProvider(email: string) {
-        this.verifyEmail(email)
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if (email === '') {
+            this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
+            return false
+        }
+        if (!email.match(emailRegex)) {
+            this.handleErrorMessage('Veuillez encoder une adresse mail valide')
+            return false
+        }
         api.signInProvider(email)
             .then(data => {
                 if (data.error) this.handleErrorMessage(data.message)
