@@ -41,12 +41,12 @@ function ChatSystem ({channel_name} ){
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
             console.log(data);
-            setChat([...chat ,new Message(channel_name,data.Message,data.Date)]);
+            console.log(chat);
+            chat.push(new Message(channel_name,data.Message,data.Date));
         });
     }, []);
 
     const  handleSend = async () =>  {
-        setChat([...chat, new Message(channel_name,message,new Date())]);
         await chatStore.handleSendMessage(channel_name,message);
         setMessage('');
 
