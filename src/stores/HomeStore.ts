@@ -28,7 +28,7 @@ class HomeStore {
 
     init(date: any) {
         this.loadUsersCount()
-        //this.loadUsersCountInVacation(date)
+        this.loadUsersCountInVacation(date)
     }
 
     loadUsersCount() {

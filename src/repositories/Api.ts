@@ -270,7 +270,6 @@ class Api {
             lastname: lastname,
             email: email
         })
-        console.log(data)
         const re = await fetch(`${this.base}/api/User/SignUp`, {
             method: 'POST',
             body: data,
