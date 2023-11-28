@@ -1,10 +1,15 @@
 import {api} from "../repositories/Api.ts";
+import {makeAutoObservable} from "mobx";
+import {sessionStore} from "./SessionStore.ts";
 
 class ContactStore {
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
-
+    private _user = sessionStore.user
+    constructor() {
+        makeAutoObservable(this)
+    }
 
     get errorMsg(): any {
         return this._errorMsg;
