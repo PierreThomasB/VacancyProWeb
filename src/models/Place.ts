@@ -2,19 +2,19 @@ import User from "./User";
 import Activity from "./Activity";
 
 export default class Place {
-    _name: string
-    _id : string
-    _urlPhoto : string
+    name: string
+    id : string
+    urlPhoto : string
 
     constructor(Name: string, PlaceId: string, PhotoUrl : string = "") {
-        this._name = Name;
-        this._id = PlaceId;
-        this._urlPhoto = PhotoUrl
+        this.name = Name;
+        this.id = PlaceId;
+        this.urlPhoto = PhotoUrl
     }
 
     get nomPrincipal(){
 
-        return this._name.split(',')[0];
+        return this.name.split(' , ')[0];
 
     }
 

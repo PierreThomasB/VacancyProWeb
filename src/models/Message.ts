@@ -1,6 +1,4 @@
-import User from "./User";
-import Activity from "./Activity";
-import Place from "./Place.ts";
+import User from "./User.ts";
 
 export default class Message {
 

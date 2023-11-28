@@ -1,4 +1,3 @@
-import User from "./User";
 import Place from "./Place.ts";
 import Period from "./Period.ts";
 

@@ -10,10 +10,6 @@ import {
 } from "@mui/material";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
-import {periodStore} from "../../stores/PeriodStore.ts";
-import {api} from "../../repositories/Api.ts";
-
-
 export const DialogInput = ({buttonValue,titre,suggests,actionsWhenOpen }) => {
 
     const [open, setOpen] = useState(false);

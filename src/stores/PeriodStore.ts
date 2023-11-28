@@ -90,7 +90,7 @@ class PeriodStore{
 
         let user = sessionStore.user;
         console.log(user);
-        let period:Period = new Period(-1,name,description,place,startDate,endDate,user);
+        let period:Period = new Period(-1,name,description,place,startDate,endDate,null , new Array<User>(user));
 
 
 
@@ -124,6 +124,7 @@ class PeriodStore{
 
     handleNewUserToPeriod = async (userId:string , periodId:number)=>{
         await api.addUserToPeriod(userId , periodId);
+        this.handleGoodMessage("Utilisateurs ajouté avec succès");
     }
 
 
@@ -131,9 +132,9 @@ class PeriodStore{
         if(sessionStore.user != undefined) {
             let result = [];
             let tabResult = await  api.getPeriodByUser();
-            tabResult.periods.forEach(period => {
+            tabResult.forEach(period => {
                 let place:Place = new Place(period.place.name,period.place.id,period.place.urlPhoto)
-                result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null))
+                result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null , period.listUser))
             })
             return result
 

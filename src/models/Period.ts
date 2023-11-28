@@ -1,29 +1,43 @@
-import User from "./User";
-import Activity from "./Activity";
+import User from "./User.ts";
+
 import Place from "./Place.ts";
-import {List} from "@mui/material";
 
 export default class Period {
-    _id:number
-    _name: string
-    _description: string
-    _place: Place
-    _beginDate: Date
-    _endDate: Date
-    _creator: User
-    _listUser: Array<User>;
+    id:number
+    name: string
+    description: string
+    place: Place
+    beginDate: Date
+    endDate: Date
+    creator: User
+    listUser: Array<User>;
 
 
-    constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User) {
-        this._id = id;
-        this._name = name
-        this._description = desc
-        this._place = place;
-        this._beginDate = new Date(beginDate);
-        this._endDate =  new Date(endDate);
-        this._creator = creator
-        this._listUser = new Array<User>();
-        this._listUser.push(creator);
+    constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User , listUser : Array<User>) {
+        this.id = id;
+        this.name = name
+        this.description = desc
+        this.place = place;
+        this.beginDate = new Date(beginDate);
+        this.endDate =  new Date(endDate);
+        this.creator = creator
+        this.listUser = new Array<User>();
+        listUser.forEach(user => {
+            this.listUser.push(new User(user["id"],user["userName"],user["email"],"noThinkHere",false,null));
+        })
+    }
+
+
+
+    get userListName(){
+
+        console.log(this.listUser);
+        let list = [];
+        this.listUser.forEach(user => {
+            list.push(user._username);
+        })
+
+        return list.join(",");
     }
 
 

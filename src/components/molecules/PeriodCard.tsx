@@ -21,24 +21,24 @@ export const PeriodCard = (period : Period) => {
 
 
 
-    if(period._endDate < new Date()) {
+    if(period.endDate < new Date()) {
         return (
 
             <Card sx={{minWidth: "100%" , backgroundColor:"gray"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period._name}
+                        {period.name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="white">
-                        {"By"+period._creator._username}
+                        {"By"+period.creator._username}
                     </Typography>
                     <Typography variant="body2" color="white">
-                        {period._description}
+                        {period.description}
                     </Typography>
                     <Typography variant="body2" color="red">
                         Voyage dans le passé
@@ -60,18 +60,18 @@ export const PeriodCard = (period : Period) => {
             <Card sx={{minWidth: "100%"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period._name}
+                        {period.name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="text.secondary">
                         {"By"}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {period._description}
+                        {period.description}
                     </Typography>
                 </CardContent>
                 <CardActions style={{display: "flex", justifyContent: "center"}}>

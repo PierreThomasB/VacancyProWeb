@@ -51,7 +51,7 @@ const ShowPeriod = () => {
 
                     return(
                         // @ts-ignore
-                      <PeriodCard _id={item._id} _name={item._name} _description={item._description} _place={item._place} _beginDate={item._beginDate} _endDate={item._endDate} _creator={null} _listUser={item._listUser} ListActivity={null}/>
+                      <PeriodCard id={item.id} name={item.name} description={item.description} place={item.place} beginDate={item.beginDate} endDate={item.endDate} creator={null} listUser={item.listUser} ListActivity={null}/>
                     );
                 })}
 
