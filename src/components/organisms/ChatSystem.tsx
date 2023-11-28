@@ -40,7 +40,8 @@ function ChatSystem ({channel_name} ){
         getMessages();
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
-            chat.push(data.message);
+            console.log(data);
+            chat.push(new Message(channel_name,data.message,data.date));
         });
     }, []);
 

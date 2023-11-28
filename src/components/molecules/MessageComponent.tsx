@@ -23,6 +23,12 @@ export const MessageComponent = ({message , date} ) => {
         return color;
     }
 
+
+    const getDate = ():string   =>  {
+        const dateComp = new Date(date);
+        return dateComp.getDay()+"/"+dateComp.getMonth()+"/"+dateComp.getFullYear();
+    }
+
     function stringAvatar(name: string) {
         return {
             sx: {
@@ -41,7 +47,7 @@ export const MessageComponent = ({message , date} ) => {
                 <Avatar {...stringAvatar('Kent Dodds')}  />
                 <p>{message}</p>
             </div>
-            <small>salut</small>
+            <small>{getDate()}</small>
         </div>
     );
 
