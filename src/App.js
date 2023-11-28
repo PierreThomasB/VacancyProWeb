@@ -9,10 +9,11 @@ import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDeta
 import {NewActivityObserver} from "./components/pages/NewActivity/NewActivity.tsx";
 import {ObservedContact} from "./components/pages/Contact.tsx";
 import About from "./components/pages/About.tsx";
+import {sessionStore} from "./stores/SessionStore.ts";
 
 function App() {
   //const routes = require('./routes.json')
-  /*const AuthenticatedRoute = ({children}) => {
+  const AuthenticatedRoute = ({children}) => {
     if (!sessionStore.user) {
       // This way we could give to authentication a callback to redirect to the page the user wanted to access
       return <Navigate to={routes.Authentication}/>
@@ -21,7 +22,7 @@ function App() {
     }
   }
 
-  const AdminRoute = ({children}) => {
+  /*const AdminRoute = ({children}) => {
     if(!sessionStore.user.isAdmin) {
       return <Navigate to={routes.Home}/>
     } else {
@@ -35,11 +36,29 @@ function App() {
           <Route exact path={routes.Home} element={<ObservedHome/>}/>
           <Route exact path={routes.About} element={<About/>}/>
           <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
-          <Route exact path={routes.NewPeriod} element={<NewPeriodObserver/>} />
-          <Route exact path={routes.Periods} element={<ShowPeriodObserver/>} />
-          <Route exact path={routes.PerdiodDetails} element={<PeriodDetailsObserver/>} />
-          <Route exact path={routes.NewActivity} element={<NewActivityObserver/>} />
           <Route exact path={routes.Contact} element={<ObservedContact/>}/>
+
+          <Route exact path={routes.NewPeriod} element={
+                <AuthenticatedRoute>
+                    <NewPeriodObserver/>
+                </AuthenticatedRoute>
+          }/>
+          <Route exact path={routes.Periods} element={
+                <AuthenticatedRoute>
+                    <ShowPeriodObserver/>
+                </AuthenticatedRoute>
+          } />
+          <Route exact path={routes.PerdiodDetails} element={
+                <AuthenticatedRoute>
+                    <PeriodDetailsObserver/>
+                </AuthenticatedRoute>
+          } />
+          <Route exact path={routes.NewActivity} element={
+                <AuthenticatedRoute>
+                    <NewActivityObserver/>
+                </AuthenticatedRoute>
+          } />
+
       </Routes>
     </Router>
   );
