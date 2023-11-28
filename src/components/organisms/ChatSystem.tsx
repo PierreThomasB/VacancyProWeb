@@ -29,8 +29,11 @@ function ChatSystem ({channel_name} ){
 
 
     const getMessages = async () => {
-
-        setChat(await chatStore.handleGetAllMessage(channel_name));
+        let res = await chatStore.handleGetAllMessage(channel_name);
+        res.forEach(message => {
+            chat.push(message)
+        })
+        console.log(chat);
     }
 
     useEffect(() => {
@@ -42,7 +45,7 @@ function ChatSystem ({channel_name} ){
     }, []);
 
     const  handleSend = async () =>  {
-        setChat([...chat, message]);
+        setChat([...chat, new Message(channel_name,message,new Date())]);
         await chatStore.handleSendMessage(channel_name,message);
         setMessage('');
 
@@ -71,7 +74,7 @@ function ChatSystem ({channel_name} ){
                 <List>
                     {chat.map((msg, index) => (
                         <ListItem key={index} >
-                            <MessageComponent message={msg}  date={new Date()}/>
+                            <MessageComponent message={msg.message}  date={msg.date}/>
                         </ListItem>
                     ))}
                 </List>

@@ -7,9 +7,11 @@ export default class Message {
     date:Date;
 
 
-    constructor(channel: string, message: string) {
+    constructor(channel: string, message: string , date:Date) {
         this.channel = channel;
         this.message = message;
-        this.date = new Date();
+        this.date = date;
     }
+
+
 }

@@ -19,7 +19,8 @@ class ChatStore {
         let result =  await api.AllMessage(channel);
         let tempMessage = [];
         result.forEach(message => {
-            tempMessage.push(message.message);
+            let messageObj: Message = new Message(message.channel , message.message,message.date);
+            tempMessage.push(messageObj);
         });
         return result ;
 
@@ -28,7 +29,7 @@ class ChatStore {
 
 
     async handleSendMessage(channel:string , message:string){
-        let messageObj = new Message(channel,message);
+        let messageObj = new Message(channel,message , new Date());
         await api.newMessage(messageObj);
     }
 
