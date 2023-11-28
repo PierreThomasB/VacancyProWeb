@@ -41,7 +41,7 @@ function ChatSystem ({channel_name} ){
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
             console.log(data);
-            chat.push(new Message(channel_name,data.message,data.date));
+            setChat([...chat ,new Message(channel_name,data.Message,data.Date)]);
         });
     }, []);
 
