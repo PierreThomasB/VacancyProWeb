@@ -44,14 +44,13 @@ function NewActivity ()   {
     const doPost = async () => {
         if(activityStore.handleNewActivity(name,description,startDate,endDate,place,period)){
             wait(3000);
-            navigate("/Periods");
+            //navigate("/Periods");
         }
     }
     const initPeriods = () => {
         const periodObj = location.state;
-        console.log(periodObj);
-        let periodTemp : Period = new Period(periodObj.id,periodObj.name,periodObj.description, periodObj.place,periodObj.beginDate,periodObj.endDate,periodObj.creator, periodObj.listUser);
-        setPeriod(periodTemp);
+        const per = new Period(periodObj._id ,periodObj._name,periodObj._description,periodObj._place,periodObj._beginDate,periodObj._endDate,null,periodObj._listUser );
+        setPeriod(per);
     }
 
 

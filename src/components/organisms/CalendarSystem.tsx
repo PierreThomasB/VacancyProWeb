@@ -54,7 +54,7 @@ export const CalendarSystem = ({period}) => {
         tempTab.push([ics(event), "Export With Ics"]);
         setUrls(tempTab);
         setOpen(true);
-        console.log(urls);
+
 
     }
 

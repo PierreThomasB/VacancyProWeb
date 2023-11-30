@@ -69,6 +69,15 @@ class ActivityStore {
             this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
             return false;
         }
+        if(period.beginDate < startDate){
+            this.handleErrorMessage('Le champ "Date de début" doit etre compris dans la période');
+            return false;
+        }
+
+        if(period.endDate < endDate){
+            this.handleErrorMessage('Le champ "Date de Fin" doit etre compris dans la période ');
+            return false;
+        }
         if(endDate == null || endDate == new Date() ){
             this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
             return false;
@@ -86,7 +95,7 @@ class ActivityStore {
             return false;
         }
 
-        let activity: Activity = new Activity(-1, name, description, startDate, endDate, place, period);
+        let activity: Activity = new Activity(-1, name, description, startDate, endDate, place, period as Period);
 
 
         api.newActivity(activity);

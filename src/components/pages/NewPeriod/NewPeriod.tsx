@@ -45,7 +45,7 @@ function NewPeriod ()   {
     const doPost = async () => {
         if(periodStore.handleNewPeriod(name,description,place,startDate,endDate)){
              await wait(3000);
-            navigate("/periods");
+            //navigate("/periods");
         }
     }
 

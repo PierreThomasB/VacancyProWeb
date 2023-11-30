@@ -21,6 +21,7 @@ class ChatStore {
         let tempMessage = [];
         result.forEach(message => {
             let messageObj: Message = new Message(message.channel , message.message,message.date , message.user);
+            console.log(messageObj);
             tempMessage.push(messageObj);
         });
         return result ;
@@ -31,6 +32,7 @@ class ChatStore {
 
     async handleSendMessage(channel:string , message:string){
         const user = sessionStore.user;
+
         let messageObj = new Message(channel,message , new Date() , user);
         await api.newMessage(messageObj);
     }

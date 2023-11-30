@@ -16,7 +16,7 @@ function App() {
   const AuthenticatedRoute = ({children}) => {
     if (!sessionStore.user) {
       // This way we could give to authentication a callback to redirect to the page the user wanted to access
-      return <Navigate to={routes.Authentication}/>
+      return children
     } else {
       return children
     }

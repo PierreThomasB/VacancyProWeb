@@ -30,10 +30,10 @@ const PeriodDetails:React.Fc = () => {
 
 
   const initActivities = async () => {
-      let activities = await activityStore.handleGetActivite(period.id);
+      let activities = await activityStore.handleGetActivite(period._id);
       let tabresult = [];
       activities.forEach(activity => {
-          console.log(activity)
+
           tabresult.push({1:activity.beginDate, 2:activity.name,3:activity.description,4:activity.place.name, 5:<CalendarSystem period={activity}/>})
       })
 
@@ -41,12 +41,12 @@ const PeriodDetails:React.Fc = () => {
   }
 
   const initUsers  = async () => {
-      let res = await periodStore.handleGetAllUser(period.id);
+      let res = await periodStore.handleGetAllUser(period._id);
       setUser(res);
     }
 
     const deletePeriod = async () => {
-      await periodStore.handleDeletePeriod(period.id);
+      await periodStore.handleDeletePeriod(period._id);
       wait(5000);
       navigate("/Periods");
   }
@@ -57,7 +57,7 @@ const PeriodDetails:React.Fc = () => {
     }
 
    const handleAddPeople =  async (userId:string) => {
-        await periodStore.handleNewUserToPeriod(userId,period.id);
+        await periodStore.handleNewUserToPeriod(userId,period._id);
         wait(3000);
 
     }
@@ -67,9 +67,9 @@ const PeriodDetails:React.Fc = () => {
 
   useEffect(() => {
       if(period !== null) {
-         period.listUser = state._listUser ;
+         period._listUser = state._listUser ;
 
-          console.log(period);
+
           initActivities();
           initUsers();
       }
@@ -92,14 +92,14 @@ const PeriodDetails:React.Fc = () => {
         <ObservedNavBar/>
           <Container style={{paddingTop:"2%",display:"flex",flexDirection:"column",alignItems:"center" }} >
               <div style={{display:"flex",alignItems:"center" , flexDirection:"column" , gap:"1em" , paddingBottom:"2em" }} >
-                  <Typography variant={"h3"}>{period.name}</Typography>
-                  <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period.place.urlPhoto} />
-                  <ChatObserver channel_name={"channel_"+period.id}/>
+                  <Typography variant={"h3"}>{period._name}</Typography>
+                  <img alt={""} src={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference="+period._place._urlPhoto} />
+                  <ChatObserver channel_name={"channel_"+period._id}/>
               </div>
               <Stack direction="row" spacing={10} style={{display:"flex",flexDirection:"row"}} >
                     <Card >
                         <Typography variant="h4" gutterBottom>Informations</Typography>
-                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: getDate(period.beginDate)+ " -> "+getDate(period.endDate)}]} lignes={[{1:"Description",2: period.description},{1:"Avex qui ?" ,2: period.userListName}]} />
+                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: getDate(period._beginDate)+ " -> "+getDate(period._endDate)}]} lignes={[{1:"Description",2: period._description},{1:"Avex qui ?" ,2: period.userListName}]} />
                     </Card>
                     <Card >
                         <Typography variant="h4" gutterBottom>Activitées </Typography>
@@ -107,7 +107,7 @@ const PeriodDetails:React.Fc = () => {
                     </Card>
                   <Card >
                       <Typography variant="h4" gutterBottom>Météo</Typography>
-                      <WeatherComponent lieux={period.place.name}  />
+                      <WeatherComponent lieux={period._place._name}  />
 
                   </Card>
               </Stack>
@@ -115,7 +115,7 @@ const PeriodDetails:React.Fc = () => {
                         <DialogInput suggests={users} buttonValue={"Add a People"}  titre={"Ajouter des personnes"} actionsWhenOpen={handleAddPeople} />
                         <Button ><Link to='/NewActivity' state={period} >Add an Activity</Link></Button>
                        <DialogConfirmation buttonValue={"Delete"} actions={deletePeriod} titre={"Voulez vous vraiment supprimer l'activité"}/>
-                      <DialogWay lieux={period.place.name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>
+                      <DialogWay lieux={period._place._name} titre={"Itinéraire"} buttonValue={"Itinéraire"}/>
 
 
                   </div>

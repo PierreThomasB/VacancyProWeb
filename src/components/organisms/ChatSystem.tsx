@@ -33,16 +33,14 @@ function ChatSystem ({channel_name} ){
         res.forEach(message => {
             chat.push(message)
         })
-        console.log(chat);
+
     }
 
     useEffect(() => {
         getMessages();
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
-            console.log(data);
-            console.log(chat);
-            chat.push(new Message(channel_name,data.Message,data.Date , data.User));
+            chat.push(new Message(channel_name,data.Message,data.Date , data.UserName));
         });
     }, []);
 
@@ -75,7 +73,7 @@ function ChatSystem ({channel_name} ){
                 <List>
                     {chat.map((msg, index) => (
                         <ListItem key={index} >
-                            <MessageComponent user={msg.user}  message={msg.message}  date={msg.date}/>
+                            <MessageComponent username={msg.user.userName}  message={msg.message}  date={msg.date}/>
                         </ListItem>
                     ))}
                 </List>

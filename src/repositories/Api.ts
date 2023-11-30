@@ -30,6 +30,7 @@ class Api {
 
     async newMessage(message:Message) {
         let data = JSON.stringify(message);
+        console.log(data);
 
         return fetch(`${this._base}`+"/Chat/NewMessage",{
             method: 'POST',
@@ -60,7 +61,19 @@ class Api {
     /** PERIODS **/
 
     async newPeriod(period: Period){
-        let data = JSON.stringify(period);
+        let data = JSON.stringify({
+            Id:period.id,
+            Name:period.name,
+            Description: period.description,
+            BeginDate: period.beginDate,
+            EndDate: period.endDate,
+            Place : {
+                Id:period.place.id,
+                Name:period.place.name,
+                UrlPhoto: period.place.urlPhoto
+            },
+            ListUser : period.listUser
+        });
 
         return fetch(`${this._base}`+"/api/Period/NewVacances",{
             method: 'POST',
@@ -108,13 +121,25 @@ class Api {
 
     /** ACTIVITY **/
 
-
-
-
     async newActivity(activity: Activity) {
-        let data = JSON.stringify(activity);
-
-        console.log(data);
+        console.log(activity);
+        let data = JSON.stringify({
+            Id:activity.id,
+            Name:activity.name,
+            Description:activity.description,
+            BeginDate : activity.beginDate,
+            EndDate : activity.endDate,
+            Place : {
+                Id:activity.place.id,
+                Name:activity.place.name,
+                UrlPhoto: activity.place.urlPhoto
+            },
+            Period : {
+                Description : activity.period["_description"],
+                Name: activity.period["_name"],
+                Place: activity.period["_place"]
+                }
+        });
 
         return fetch(`${this._base}`+"/api/Activity/NewActivity",{
             method: 'POST',

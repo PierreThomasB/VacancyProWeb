@@ -24,29 +24,29 @@ export const PeriodCard = (period : Period) => {
 
 
     useEffect(() => {
-        console.log(period);
+
     }, [period]);
 
 
 
-    if(period.endDate < new Date()) {
+    if(period._endDate < new Date()) {
         return (
 
             <Card sx={{minWidth: "100%" , backgroundColor:"gray" ,  marginBottom:"10%" ,textAlign:"center"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period.name}
+                        {period._name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="white">
-                        {getDate(period.beginDate)+" -> "+getDate(period.endDate)}
+                        {getDate(period._beginDate)+" -> "+getDate(period._endDate)}
                     </Typography>
                     <Typography variant="body2" color="white">
-                        {period.description}
+                        {period._description}
                     </Typography>
                     <Typography variant="body2" color="red">
                         Voyage dans le passé
@@ -68,18 +68,18 @@ export const PeriodCard = (period : Period) => {
             <Card sx={{minWidth: "100%" , marginBottom:"10%" ,textAlign:"center"}}>
                 <CardMedia
                     sx={{height: 140}}
-                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
+                    image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period._place._urlPhoto}
                     title="img"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {period.name}
+                        {period._name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="text.secondary">
-                        {getDate(period.beginDate)+" -> "+getDate(period.endDate)}
+                        {getDate(period._beginDate)+" -> "+getDate(period._endDate)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {period.description}
+                        {period._description}
                     </Typography>
                 </CardContent>
                 <CardActions style={{display: "flex", justifyContent: "center"}}>

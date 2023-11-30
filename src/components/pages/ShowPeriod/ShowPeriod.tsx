@@ -72,11 +72,11 @@ const ShowPeriod = () => {
             </ul>
             <Container sx={{padding:"5%"}} maxWidth="sm">
                 {showedItems.map(item => {
-                    console.log(item);
+
 
                     return(
                         // @ts-ignore
-                      <PeriodCard id={item.id} name={item.name} description={item.description} place={item.place} beginDate={item.beginDate} endDate={item.endDate} creator={null} listUser={item.listUser} ListActivity={null}/>
+                      <PeriodCard _id={item.id} _name={item.name} _description={item.description} _place={item.place} _beginDate={item.beginDate} _endDate={item.endDate} _creator={null} _listUser={item.listUser} ListActivity={null}/>
                     );
                 })}
             </Container>
