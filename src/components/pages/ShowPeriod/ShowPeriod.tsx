@@ -16,11 +16,13 @@ const ShowPeriod = () => {
 
     const navigate = useNavigate();
     const [items , setItems] = useState([]);
+    const [showedItems , setShowedItems] = useState([]);
 
     const getPeriod =  async ( ) => {
         let result = await periodStore.handleGetAllPeriod();
         if(result != undefined ) {
             setItems(result);
+            setShowedItems(result);
         }
     }
 
@@ -34,19 +36,42 @@ const ShowPeriod = () => {
         navigate(url)
     }
 
+    const handlePastedTrips = () => {
+        let tempResult = [];
+        items.forEach(item => {
+            if(item.endDate < new Date()){
+                tempResult.push(item);
+            }
+        })
+        setShowedItems(tempResult);
+
+    }
+
+    const handleAllTrips = () => {
+        setShowedItems(items);
+    }
+    const handleOncomingTrips = () => {
+        let tempResult = [];
+        items.forEach(item => {
+            if(item.endDate > new Date()){
+                tempResult.push(item);
+            }
+        })
+        setShowedItems(tempResult);
+
+    }
+
     return (
         <div>
             <ObservedNavBar/>
             <ul style={{paddingTop:"1em" , display:"flex", flexDirection:"row" , justifyContent:"space-around"}} >
                 <li> <CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"New Period"} onClick={() => navigateToUrl("/newPeriod")}/></li>
-                <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Upcomming trips"}/></li>
-                <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"New Period"}/></li>
-                <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"All Trips"}/></li>
+                <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Upcomming trips"} onClick={handleOncomingTrips}/></li>
+                <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"Pasted Trips"} onClick={handlePastedTrips}/></li>
+                <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"All Trips"} onClick={handleAllTrips}/></li>
             </ul>
-            <hr/>
-
             <Container sx={{padding:"5%"}} maxWidth="sm">
-                {items.map(item => {
+                {showedItems.map(item => {
                     console.log(item);
 
                     return(
@@ -54,7 +79,6 @@ const ShowPeriod = () => {
                       <PeriodCard id={item.id} name={item.name} description={item.description} place={item.place} beginDate={item.beginDate} endDate={item.endDate} creator={null} listUser={item.listUser} ListActivity={null}/>
                     );
                 })}
-
             </Container>
         </div>
 

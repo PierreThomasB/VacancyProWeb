@@ -327,5 +327,35 @@ class Api {
         })
         return await re.json()
     }
+
+
+
+    /** NOTIFICATION **/
+
+    async getNotificationFromUser() {
+
+        const re = await fetch(`${this._base}/api/Notification/NotificationfromUser`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
+
+    }
+
+
+    async newNotificationToUser() {
+        let data = JSON.stringify("");
+        const re = await fetch(`${this._base}/api/Notification/NotificationToUser`, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return await re.json()
+
+    }
 }
 export const api: Api = new Api()

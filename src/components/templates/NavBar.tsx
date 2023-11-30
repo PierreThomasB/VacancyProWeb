@@ -8,8 +8,7 @@ import {observer} from 'mobx-react'
 import * as React from "react";
 import TitleNavButton from "../molecules/TitleNavButton.tsx";
 import {Close, Menu} from "@mui/icons-material";
-import {ChatSystem} from "../organisms/ChatSystem.tsx";
-
+import {NotificationSystemComp} from "../organisms/NotificationSystem.tsx";
 function NavBar() {
     const routes = require('../../routes.json')
 
@@ -24,11 +23,16 @@ function NavBar() {
     }
     const isConnected = () => {
       return sessionStore.user ?
-          <DisplayUserInfos handleMenu={(e) => navigationStore.handleOpenMenu(e.currentTarget)}
-                            handleClose={() => navigationStore.handleCloseMenu()}
-                            anchorEl={navigationStore.element}
-                            label={`Bonjour, ${sessionStore.user.username}`}
-                            inputs={[isAdmin()]} />
+          <div style={{display:"flex",flexDirection:"row" ,  alignItems:"center" }}>
+              <div style={{marginRight:"15%"}}>
+              <NotificationSystemComp />
+              </div>
+              <DisplayUserInfos handleMenu={(e) => navigationStore.handleOpenMenu(e.currentTarget)}
+                                handleClose={() => navigationStore.handleCloseMenu()}
+                                anchorEl={navigationStore.element}
+                                label={`Bonjour, ${sessionStore.user.username}`}
+                                inputs={[isAdmin()]} />
+          </div>
           :
           <NavButton route={routes.Authentication} label={'SE CONNECTER'} onClick={undefined}/>
 

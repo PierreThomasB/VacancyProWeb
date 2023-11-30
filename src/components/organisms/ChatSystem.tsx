@@ -42,7 +42,7 @@ function ChatSystem ({channel_name} ){
         channel.bind('my-event', function(data) {
             console.log(data);
             console.log(chat);
-            chat.push(new Message(channel_name,data.Message,data.Date));
+            chat.push(new Message(channel_name,data.Message,data.Date , data.User));
         });
     }, []);
 
@@ -75,7 +75,7 @@ function ChatSystem ({channel_name} ){
                 <List>
                     {chat.map((msg, index) => (
                         <ListItem key={index} >
-                            <MessageComponent message={msg.message}  date={msg.date}/>
+                            <MessageComponent user={msg.user}  message={msg.message}  date={msg.date}/>
                         </ListItem>
                     ))}
                 </List>

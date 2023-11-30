@@ -2,15 +2,16 @@ import {Avatar, Typography} from "@mui/material";
 // @ts-ignore
 import React from "react";
 
-export const MessageComponent = ({message , date} ) => {
+export const MessageComponent = ({message , date , user} ) => {
 
 
-    function stringToColor(string: string) {
+    function stringToColor(user: string) {
         let hash = 0;
         let i;
 
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash);
+        console.log(user)
+        for (i = 0; i < user.length; i += 1) {
+            hash = user.charCodeAt(i) + ((hash << 5) - hash);
         }
 
         let color = '#';
@@ -26,7 +27,8 @@ export const MessageComponent = ({message , date} ) => {
 
     const getDate = ():string   =>  {
         const dateComp = new Date(date);
-        return dateComp.getDay()+"/"+dateComp.getMonth()+"/"+dateComp.getFullYear();
+        let month : number =dateComp.getMonth()+1
+        return dateComp.getDate()+"/"+month+"/"+dateComp.getFullYear();
     }
 
     function stringAvatar(name: string) {
@@ -44,7 +46,7 @@ export const MessageComponent = ({message , date} ) => {
     return (
         <div style={{display:"flex",flexDirection:"column" }}>
             <div style={{display:"flex",flexDirection:"row" }}>
-                <Avatar {...stringAvatar('Kent Dodds')}  />
+                <Avatar {...stringAvatar(user)}  />
                 <p>{message}</p>
             </div>
             <small>{getDate()}</small>

@@ -52,7 +52,8 @@ const PeriodDetails:React.Fc = () => {
   }
 
   const getDate = (date : Date) => {
-      return date.getDay()+"/"+date.getMonth()+"/"+date.getFullYear();
+      let month : number = date.getMonth()+1;
+      return date.getDate()+"/"+month+"/"+date.getFullYear();
     }
 
    const handleAddPeople =  async (userId:string) => {

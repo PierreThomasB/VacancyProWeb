@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import {api} from "../repositories/Api.ts";
 import Message from "../models/Message.ts";
+import {sessionStore} from "./SessionStore.ts";
 
 class ChatStore {
     private _mode = 'signin'
@@ -19,7 +20,7 @@ class ChatStore {
         let result =  await api.AllMessage(channel);
         let tempMessage = [];
         result.forEach(message => {
-            let messageObj: Message = new Message(message.channel , message.message,message.date);
+            let messageObj: Message = new Message(message.channel , message.message,message.date , message.user);
             tempMessage.push(messageObj);
         });
         return result ;
@@ -29,7 +30,8 @@ class ChatStore {
 
 
     async handleSendMessage(channel:string , message:string){
-        let messageObj = new Message(channel,message , new Date());
+        const user = sessionStore.user;
+        let messageObj = new Message(channel,message , new Date() , user);
         await api.newMessage(messageObj);
     }
 

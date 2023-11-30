@@ -22,9 +22,11 @@ export default class Period {
         this.endDate =  new Date(endDate);
         this.creator = creator
         this.listUser = new Array<User>();
-        listUser.forEach(user => {
-            this.listUser.push(new User(user["id"],user["userName"],user["email"],"noThinkHere",false,null));
-        })
+        if(listUser != null ) {
+            listUser.forEach(user => {
+                this.listUser.push(new User(user["id"], user["userName"], user["emailN"], "noThinkHere", false, null));
+            })
+        }
     }
 
 

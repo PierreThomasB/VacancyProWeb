@@ -36,7 +36,7 @@ function NewActivity ()   {
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
     const [place ,setPlace ] = useState(new Place("","",""));
-    const [period,setPeriod] = useState(new Period(-1,"","",null,null,null,null));
+    const [period,setPeriod] = useState(new Period(-1,"","",null,null,null,null , null));
 
 
 
@@ -49,20 +49,15 @@ function NewActivity ()   {
     }
     const initPeriods = () => {
         const periodObj = location.state;
-        let periodTemp : Period = new Period(periodObj.Id,periodObj.Name,periodObj.Description, periodObj.Place,periodObj.BeginDate,periodObj.EndDate,periodObj.Creator);
+        console.log(periodObj);
+        let periodTemp : Period = new Period(periodObj.id,periodObj.name,periodObj.description, periodObj.place,periodObj.beginDate,periodObj.endDate,periodObj.creator, periodObj.listUser);
         setPeriod(periodTemp);
     }
 
 
 
     useEffect(() => {
-        console.log(sessionStore.loadUser())
         initPeriods();
-
-
-
-
-
     },[])
 
 

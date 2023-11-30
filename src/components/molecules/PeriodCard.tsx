@@ -14,6 +14,14 @@ export const PeriodCard = (period : Period) => {
         navigate("/PeriodDetails", {state : period });
     }
 
+    const getDate = (date : Date):string   =>  {
+        const dateComp = new Date(date);
+        let month : number =dateComp.getMonth()+1
+        return dateComp.getDate()+"/"+month+"/"+dateComp.getFullYear();
+    }
+
+
+
 
     useEffect(() => {
         console.log(period);
@@ -24,7 +32,7 @@ export const PeriodCard = (period : Period) => {
     if(period.endDate < new Date()) {
         return (
 
-            <Card sx={{minWidth: "100%" , backgroundColor:"gray"}}>
+            <Card sx={{minWidth: "100%" , backgroundColor:"gray" ,  marginBottom:"10%" ,textAlign:"center"}}>
                 <CardMedia
                     sx={{height: 140}}
                     image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
@@ -35,7 +43,7 @@ export const PeriodCard = (period : Period) => {
                         {period.name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="white">
-                        {"By"+period.creator._username}
+                        {getDate(period.beginDate)+" -> "+getDate(period.endDate)}
                     </Typography>
                     <Typography variant="body2" color="white">
                         {period.description}
@@ -57,7 +65,7 @@ export const PeriodCard = (period : Period) => {
 
         return (
 
-            <Card sx={{minWidth: "100%"}}>
+            <Card sx={{minWidth: "100%" , marginBottom:"10%" ,textAlign:"center"}}>
                 <CardMedia
                     sx={{height: 140}}
                     image={"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s&photo_reference=" + period.place.urlPhoto}
@@ -68,7 +76,7 @@ export const PeriodCard = (period : Period) => {
                         {period.name}
                     </Typography>
                     <Typography sx={{mb: 1.5}} color="text.secondary">
-                        {"By"}
+                        {getDate(period.beginDate)+" -> "+getDate(period.endDate)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {period.description}
