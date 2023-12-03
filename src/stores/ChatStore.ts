@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import {api} from "../repositories/Api.ts";
 import Message from "../models/Message.ts";
 import {sessionStore} from "./SessionStore.ts";
+import User from "../models/User.ts";
 
 class ChatStore {
     private _mode = 'signin'
@@ -20,11 +21,11 @@ class ChatStore {
         let result =  await api.AllMessage(channel);
         let tempMessage = [];
         result.forEach(message => {
-            let messageObj: Message = new Message(message.channel , message.message,message.date , message.user);
-            console.log(messageObj);
+            let user = new User(message.user["id"],message.user["userName"] , null,null,false,null);
+            let messageObj: Message = new Message(message.channel , message.message,message.date , user);
             tempMessage.push(messageObj);
         });
-        return result ;
+        return tempMessage ;
 
     }
 

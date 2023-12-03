@@ -4,7 +4,6 @@ import Pusher, {Channel} from 'pusher-js';
 import React  from "react";
 import {observer} from "mobx-react";
 import {Button, List, ListItem, ListItemText, Paper, Popover, TextField, Typography} from "@mui/material";
-import {api} from "../../repositories/Api.ts";
 import MessageIcon from '@mui/icons-material/Message';
 import Message from "../../models/Message.ts";
 import {MessageComponent} from "../molecules/MessageComponent.tsx";
@@ -24,7 +23,6 @@ function ChatSystem ({channel_name} ){
 
 
 
-    const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu"});
 
 
 
@@ -38,10 +36,21 @@ function ChatSystem ({channel_name} ){
 
     useEffect(() => {
         getMessages();
+
+        const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
+
         let channel : Channel = pusher.subscribe(channel_name);
+
+
         channel.bind('my-event', function(data) {
+            console.log(data);
             chat.push(new Message(channel_name,data.Message,data.Date , data.UserName));
         });
+
+        return () => {
+            pusher.unsubscribe(channel_name);
+        };
+
     }, []);
 
     const  handleSend = async () =>  {
@@ -68,14 +77,19 @@ function ChatSystem ({channel_name} ){
                 <MessageIcon/>
             </Button>
         <Popover open={open} onClose={handleClose} >
-
             <Paper elevation={3} style={{ padding: '16px', maxWidth: '400px' }}>
                 <List>
-                    {chat.map((msg, index) => (
-                        <ListItem key={index} >
-                            <MessageComponent username={msg.user.userName}  message={msg.message}  date={msg.date}/>
+                    {chat.map((msg, index) => {
+                        return (
+                                <ListItem key={index} >
+                            <MessageComponent user={msg.user}  message={msg.message}  date={msg.date}/>
                         </ListItem>
-                    ))}
+                )
+
+
+                    })}
+
+
                 </List>
                 <TextField
                     label="Message"

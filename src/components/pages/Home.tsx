@@ -36,10 +36,6 @@ function Home() {
         navigate(routes.About)
     };
 
-    const navigateToCreatePeriod = () => {
-        navigate(routes.NewPeriod)
-    }
-
     return (
         <div>
             <ObservedNavBar/>
@@ -59,6 +55,7 @@ function Home() {
                                     defaultValue={dayjs(new Date())}
                                     value={date}
                                     onChange={(newValue) => {
+                                        // @ts-ignore
                                         setStartDate(newValue)
                                         homeStore.loadUsersCountInVacation(newValue.format('YYYY-MM-DDTHH:mm:ssZ'))
                                     }}
@@ -76,10 +73,6 @@ function Home() {
                             <input type={'submit'} className={'btn-home-orange'} value={'PLUS D\'INFORMATIONS'}
                                    onClick={navigateToAbout}/>
 
-                        </div>
-                        <div className={'column'}>
-                            <input type={'submit'} className={'btn-home-black'} value={'New Period'}
-                                   onClick={navigateToCreatePeriod}/>
                         </div>
                     </div>
                 </div>

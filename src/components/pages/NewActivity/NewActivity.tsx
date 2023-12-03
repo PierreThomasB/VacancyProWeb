@@ -3,7 +3,7 @@ import * as React from "react";
 import Grid from '@mui/material/Grid';
 import { SimpleInput } from "../../molecules/SimpleInput.tsx";
 import {observer} from "mobx-react";
-import {Button, Container, CssBaseline, Snackbar, TextField} from "@mui/material";
+import {Button, Container, CssBaseline, Snackbar, TextField, Typography} from "@mui/material";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {TextArea} from "../../molecules/TextArea.tsx";
 import { DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
@@ -49,7 +49,9 @@ function NewActivity ()   {
     }
     const initPeriods = () => {
         const periodObj = location.state;
-        const per = new Period(periodObj._id ,periodObj._name,periodObj._description,periodObj._place,periodObj._beginDate,periodObj._endDate,null,periodObj._listUser );
+        const place = new Place(periodObj._place._name,periodObj._place._id,periodObj._place._urlPhoto)
+        const per = new Period(periodObj._id ,periodObj._name,periodObj._description,place,periodObj._beginDate,periodObj._endDate,null,periodObj._listUser );
+        console.log(per);
         setPeriod(per);
     }
 
@@ -67,7 +69,10 @@ function NewActivity ()   {
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Container maxWidth={"sm"} >
-                    <Grid container spacing={3}>
+                    <Grid style={{marginTop:"10%" , textAlign:"center" , alignItems:"center"}} container spacing={4}>
+                        <Grid item xs={12} >
+                            <Typography variant={"h4"}>Nouvelle activité</Typography>
+                        </Grid>
                         <Grid item xs={12} >
                             <SimpleInput id={"Nom"} label={"Nom"} onInputChange={(val:string) => setName(val)} ></SimpleInput>
                         </Grid>

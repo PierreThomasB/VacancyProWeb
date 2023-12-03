@@ -108,6 +108,7 @@ class ActivityStore {
 
 
     handleGetActivite =  async (periodId:number) => {
+        console.log(periodId);
          return await api.getActivityByPeriod(periodId);
     }
 

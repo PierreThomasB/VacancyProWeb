@@ -29,7 +29,13 @@ class Api {
     /** CHATS **/
 
     async newMessage(message:Message) {
-        let data = JSON.stringify(message);
+        let data = JSON.stringify({
+            Message:message.message,
+            Channel:message.channel,
+            Date:message.date,
+            User:message.user,
+
+        });
         console.log(data);
 
         return fetch(`${this._base}`+"/Chat/NewMessage",{
@@ -135,10 +141,14 @@ class Api {
                 UrlPhoto: activity.place.urlPhoto
             },
             Period : {
-                Description : activity.period["_description"],
-                Name: activity.period["_name"],
-                Place: activity.period["_place"]
-                }
+                Id:activity.period.id,
+                Description : activity.period.description,
+                Name: activity.period.name,
+                Place : {
+                    Id:activity.period.place.id,
+                    Name:activity.period.place.name,
+                    UrlPhoto: activity.period.place.urlPhoto
+                }}
         });
 
         return fetch(`${this._base}`+"/api/Activity/NewActivity",{

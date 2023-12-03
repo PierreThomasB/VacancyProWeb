@@ -10,7 +10,8 @@ export default class Period {
     private readonly _beginDate: Date
     private readonly _endDate: Date
     private readonly _creator: User
-    private readonly _listUser: Array<User>;
+    private  _listUser: Array<User>;
+
 
 
     constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User , listUser : Array<User>) {
@@ -28,6 +29,13 @@ export default class Period {
             })
         }
     }
+
+
+    set listUser(listUser)  {
+        this._listUser = listUser;
+    }
+
+
     get id(): number {
         return this._id;
     }

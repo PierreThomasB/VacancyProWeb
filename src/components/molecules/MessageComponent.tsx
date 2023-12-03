@@ -2,17 +2,14 @@ import {Avatar, Typography} from "@mui/material";
 // @ts-ignore
 import React from "react";
 
-export const MessageComponent = ({message , date , username} ) => {
+export const MessageComponent = ({message , date , user} ) => {
 
 
-    function stringToColor(user: string) {
+    function stringToColor(userName: string) {
         let hash = 0;
         let i;
-        console.log(user);
-
-
-        for (i = 0; i < user.length; i += 1) {
-            hash = user.charCodeAt(i) + ((hash << 5) - hash);
+        for (i = 0; i < userName.length; i += 1) {
+            hash = userName.charCodeAt(i) + ((hash << 5) - hash);
         }
 
         let color = '#';
@@ -47,7 +44,7 @@ export const MessageComponent = ({message , date , username} ) => {
     return (
         <div style={{display:"flex",flexDirection:"column" }}>
             <div style={{display:"flex",flexDirection:"row" }}>
-                <Avatar {...stringAvatar(username)}  />
+                <Avatar {...stringAvatar(user.username)}  />
                 <p>{message}</p>
             </div>
             <small>{getDate()}</small>
