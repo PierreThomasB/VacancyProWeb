@@ -17,6 +17,7 @@ import {CalendarSystem} from "../../organisms/CalendarSystem.tsx";
 import {periodStore} from "../../../stores/PeriodStore.ts";
 import {activityStore} from "../../../stores/ActivityStore.ts";
 import Place from "../../../models/Place.ts";
+import User from "../../../models/User.ts";
 
 
 
@@ -24,7 +25,7 @@ const PeriodDetails:React.Fc = () => {
     const {state} = useLocation();
     const navigate = useNavigate();
 
-    const [period,setPeriod] = useState(new Period(state._id , state._name , state._description , new Place(state._place._name , state._place._id , state._place._urlPhoto) , state._beginDate , state._endDate , null,state._listUser));
+    const [period,setPeriod] = useState<Period|null>(null);
     const [activities , setActivities] = useState([]);
     const [users , setUser] = useState([]);
 
@@ -51,10 +52,6 @@ const PeriodDetails:React.Fc = () => {
       navigate("/Periods");
   }
 
-  const getDate = (date : Date) => {
-      let month : number = date.getMonth()+1;
-      return date.getDate()+"/"+month+"/"+date.getFullYear();
-    }
 
    const handleAddPeople =  async (userId:string) => {
         await periodStore.handleNewUserToPeriod(userId,period.id);
@@ -66,16 +63,15 @@ const PeriodDetails:React.Fc = () => {
 
 
   useEffect(() => {
+      if(period === null){
+          setPeriod(periodStore.period);
+      }
       if(period !== null) {
           console.log(period);
-
-         period.listUser = state._listUser ;
-
-
           initActivities();
           initUsers();
       }
-  },[period])
+  },[])
 
 
     if(period == null){
@@ -83,7 +79,6 @@ const PeriodDetails:React.Fc = () => {
             <Alert severity="error">Vous n'étes pas autorisé sur cette page </Alert>
         );
     }
-
 
 
 
@@ -103,7 +98,7 @@ const PeriodDetails:React.Fc = () => {
               <Stack direction="row" spacing={10} style={{display:"flex",flexDirection:"row"}} >
                     <Card >
                         <Typography variant="h4" gutterBottom>Informations</Typography>
-                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: getDate(period.beginDate)+ " -> "+getDate(period.endDate)}]} lignes={[{1:"Description",2: period.description},{1:"Avex qui ?" ,2: period.userListName}]} />
+                        <SimpleTable colonnes={[{id:1,label:"Date"},{id:2,label: period.showDateFormatBegin()+ " -> "+period.showDateFormatEnd()}]} lignes={[{1:"Description",2: period.description},{1:"Avex qui ?" ,2: period.userListName}]} />
                     </Card>
                     <Card >
                         <Typography variant="h4" gutterBottom>Activitées </Typography>

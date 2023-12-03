@@ -54,7 +54,7 @@ class ActivityStore {
     }
 
 
-    handleNewActivity(name: string, description: string, startDate: Date, endDate: Date, place: Place, period: Period) : boolean {
+    async handleNewActivity(name: string, description: string, startDate: Date, endDate: Date, place: Place, period: Period)  {
 
         if (name === '') {
             this.handleErrorMessage('Le champ "nom" est obligatoire')
@@ -98,18 +98,26 @@ class ActivityStore {
         let activity: Activity = new Activity(-1, name, description, startDate, endDate, place, period as Period);
 
 
-        api.newActivity(activity);
-        this.handleGoodMessage("Activitée crée avec succès");
-
-        return true;
+        try{
+            await api.newActivity(activity)
+            this.handleGoodMessage("Activitée crée avec succès");
+            return true;
+        }catch (error){
+            this.handleErrorMessage(error.message);
+            return false;
+        }
     }
 
 
 
 
     handleGetActivite =  async (periodId:number) => {
-        console.log(periodId);
-         return await api.getActivityByPeriod(periodId);
+
+         try {
+             return await api.getActivityByPeriod(periodId);
+         }catch (error){
+             this.handleErrorMessage(error.message);
+         }
     }
 
 

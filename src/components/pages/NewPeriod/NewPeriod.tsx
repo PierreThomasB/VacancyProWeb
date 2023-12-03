@@ -3,7 +3,7 @@ import * as React from "react";
 import Grid from '@mui/material/Grid';
 import { SimpleInput } from "../../molecules/SimpleInput.tsx";
 import {observer} from "mobx-react";
-import {Button, Container, CssBaseline, TextField} from "@mui/material";
+import {Button, Container, CssBaseline, TextField, Typography} from "@mui/material";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {TextArea} from "../../molecules/TextArea.tsx";
 import { DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
@@ -43,10 +43,12 @@ function NewPeriod ()   {
 
 
     const doPost = async () => {
-        if(periodStore.handleNewPeriod(name,description,place,startDate,endDate)){
-             await wait(3000);
-            //navigate("/periods");
+        if(await periodStore.handleNewPeriod(name,description,place,startDate,endDate)){
+            await wait(3000);
+            navigate("/periods");
         }
+
+
     }
 
 
@@ -57,7 +59,10 @@ function NewPeriod ()   {
 
          <LocalizationProvider dateAdapter={AdapterDayjs}>
            <Container maxWidth={"sm"} >
-              <Grid container spacing={3}>
+              <Grid style={{marginTop:"10%" , textAlign:"center" , alignItems:"center"}} container spacing={4}>
+                  <Grid item xs={12} >
+                      <Typography variant={"h4"}>Nouvelle période de vacances</Typography>
+                  </Grid>
                     <Grid item xs={12} >
                         <SimpleInput id={"Nom"} label={"Nom"} onInputChange={(val) => setName(val)} ></SimpleInput>
                     </Grid>

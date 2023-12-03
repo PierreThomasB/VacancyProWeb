@@ -11,7 +11,7 @@ export const PlaceInput  = ({updateLieu}) => {
 
 
 
-    const [value ] = useState(null);
+    const [value,setValue ] = useState("");
 
 
 
@@ -28,7 +28,11 @@ export const PlaceInput  = ({updateLieu}) => {
             <GooglePlacesAutocomplete
                 selectProps={{
                     value,
-                    onChange: (e) => handleInputChange(e.value)
+                    onChange: (e) => {
+                        console.log(e);
+                        handleInputChange(e.value);
+                        setValue(e);
+                    }
                 }}
 
                 apiKey="AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s"

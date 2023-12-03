@@ -11,11 +11,24 @@ class PeriodStore{
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
+    private _period: Period = null;
+
+
+
+
 
     constructor() {
         makeAutoObservable(this)
     }
 
+
+    get period(): Period {
+        return this._period;
+    }
+
+    set period(value: Period) {
+        this._period = value;
+    }
 
     get mode(): string {
         return this._mode;
@@ -58,7 +71,7 @@ class PeriodStore{
 
 
 
-    handleNewPeriod = (name:string , description:string , place:Place,startDate:Date,endDate:Date ) : boolean => {
+    handleNewPeriod = async (name:string , description:string , place:Place,startDate:Date,endDate:Date )  => {
 
 
         if(name === '' || name.length <= 3){
@@ -73,18 +86,18 @@ class PeriodStore{
             this.handleErrorMessage('Veillez renseigner un lieux de vacances');
             return false;
         }
-        if(startDate === null || startDate === new Date() ){
+        if(startDate === undefined || startDate === new Date() ){
             this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
-            return false;
+            return false ;
         }
-        if(endDate === null || endDate === new Date() ){
+        if(endDate === undefined || endDate === new Date() ){
             this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
-            return false;
+            return false ;
 
         }
         if(startDate >= endDate){
             this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
-            return false;
+            return false ;
 
         }
 
@@ -93,15 +106,14 @@ class PeriodStore{
 
 
 
-        api.newPeriod(period);
-
+        try {
+            await api.newPeriod(period);
+        } catch (error ){
+            this.handleErrorMessage(error.message);
+            return ;
+        }
         this.handleGoodMessage("Vacances crée avec succès");
-
         return true;
-
-
-
-
     }
 
 
@@ -121,22 +133,34 @@ class PeriodStore{
          return result;
 }
 
-    handleNewUserToPeriod = async (userId:string , periodId:number)=>{
-        await api.addUserToPeriod(userId , periodId);
+    handleNewUserToPeriod = async (userId:string , periodId:number )=>{
+        try {
+            await api.addUserToPeriod(userId, periodId);
+        }catch (error){
+            this.handleErrorMessage(error.message);
+            return false;
+        }
         this.handleGoodMessage("Utilisateurs ajouté avec succès");
+        return true;
     }
 
 
     handleGetAllPeriod = async () => {
         if(sessionStore.user != undefined) {
             let result = [];
-            let tabResult = await  api.getPeriodByUser();
-            tabResult.forEach(period => {
-                let place:Place = new Place(period.place.name,period.place.id,period.place.urlPhoto)
-                result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null , period.listUser))
-            })
-            return result
+            try {
+                let tabResult = await api.getPeriodByUser();
+                tabResult.forEach(period => {
+                    let place:Place = new Place(period.place.name,period.place.id,period.place.urlPhoto);
+                    let peoples: [User] = period.listUser.map((user) => new User(user["id"],user["userName"],user["email"],null,false,null))
+                    result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null , peoples))
+                })
+                return result
 
+            }catch (error){
+                this.handleErrorMessage(error.message);
+                return;
+            }
         }
     }
 

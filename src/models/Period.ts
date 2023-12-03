@@ -10,7 +10,7 @@ export default class Period {
     private readonly _beginDate: Date
     private readonly _endDate: Date
     private readonly _creator: User
-    private  _listUser: Array<User>;
+    private readonly _listUser: Array<User>;
 
 
 
@@ -22,18 +22,29 @@ export default class Period {
         this._beginDate = new Date(beginDate);
         this._endDate =  new Date(endDate);
         this._creator = creator
-        this._listUser = new Array<User>();
-        if(listUser != null ) {
-            listUser.forEach(user => {
-                this._listUser.push(new User(user["id"], user["userName"], user["emailN"], "noThinkHere", false, null));
-            })
-        }
-    }
-
-
-    set listUser(listUser)  {
         this._listUser = listUser;
+
     }
+
+    addUser(user:User){
+        this._listUser.push(user);
+    }
+
+
+    showDateFormatBegin(){
+        let month : number = this._beginDate.getMonth()+1
+        return this._beginDate.getDate()+"/"+month+"/"+this._beginDate.getFullYear();
+
+    }
+
+    showDateFormatEnd(){
+        let month : number = this._endDate.getMonth()+1
+        return this._endDate.getDate()+"/"+month+"/"+this._endDate.getFullYear();
+
+    }
+
+
+
 
 
     get id(): number {
@@ -76,7 +87,7 @@ export default class Period {
             list.push(user._username);
         })
 
-        return list.join(",");
+        return list.join(" , ");
     }
 
 

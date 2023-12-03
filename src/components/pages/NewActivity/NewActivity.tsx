@@ -22,6 +22,8 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {activityStore} from "../../../stores/ActivityStore.ts";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {sessionStore} from "../../../stores/SessionStore.ts";
+import {periodStore} from "../../../stores/PeriodStore.ts";
+import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 
 
 
@@ -103,7 +105,7 @@ function NewActivity ()   {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Snackbar open={activityStore.open} message={activityStore.errorMsg} />
+                    <ObservedSnackBar open={activityStore.open} message={activityStore.errorMsg} severity={activityStore.severity} />
                 </Container>
 
             </LocalizationProvider>

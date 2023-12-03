@@ -89,8 +89,15 @@ class Api {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re =>
-            re.json())
+        }).then((re) => {
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète api "+re.statusText);
+        }
+
+
+        )
     }
 
 
@@ -173,10 +180,13 @@ class Api {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re =>
-             re.json()
+        }).then(re => {
+            if(re.ok) {
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète");
 
-
+         }
     )
     }
 
@@ -197,8 +207,12 @@ class Api {
                 'Access-Control-Allow-Origin': '*',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re =>
-            re.json())
+        }).then(re => {
+                if (re.ok) {
+                    return re.json()
+                }
+                throw new Error("Erreur dans la requète vers l'api météo");
+            })
 
     }
 
@@ -321,14 +335,21 @@ class Api {
 
 
     async addUserToPeriod(userId:string , periodId:number){
-        const re = await fetch(`${this.base}/api/Period/AddUser?userId=`+userId+"&period="+periodId, {
+        return fetch(`${this.base}/api/Period/AddUser?userId=`+userId+"&period="+periodId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`
             }
-        })
-        return await re.json()
+        }).then((re) => {
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète api "+re.statusText);
+            }
+
+        )
+
 
     }
 
