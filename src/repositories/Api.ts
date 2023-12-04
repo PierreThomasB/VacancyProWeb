@@ -2,6 +2,7 @@ import Period from "../models/Period.ts";
 import Activity from "../models/Activity.ts";
 import Message from "../models/Message.ts";
 import {Dayjs} from "dayjs";
+import Notification from "../models/Notification.ts";
 
 const config = require(`../config.json`)
 
@@ -390,24 +391,33 @@ class Api {
 
     async getNotificationFromUser() {
 
-        const re = await fetch(`${this._base}/api/Notification/NotificationfromUser`, {
+        return await fetch(`${this._base}/Notification/NotificationFromUser`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
-        })
-        return await re.json()
+        }).then((re) => {
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requête "+re.statusText);
+            }
+
+        )
+
 
     }
 
 
-    async newNotificationToUser() {
+    async newNotificationToUser(notification : Notification) {
         let data = JSON.stringify("");
-        const re = await fetch(`${this._base}/api/Notification/NotificationToUser`, {
+        const re = await fetch(`${this._base}/Notification/NotificationToUser`, {
             method: 'POST',
             body: data,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
             }
         })
         return await re.json()
