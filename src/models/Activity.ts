@@ -16,11 +16,24 @@ export default class Activity {
         this._id = id;
         this._name = name
         this._description = desc
-        this._beginDate = beginDate
-        this._endDate = endDate
+        this._beginDate = new Date(beginDate);
+        this._endDate = new Date(endDate);
         this._place = place
         this._period = period;
     }
+
+    showDateFormatBegin(){
+        let month : number = this._beginDate.getMonth()+1
+        return this._beginDate.getDate()+"/"+month+"/"+this._beginDate.getFullYear();
+
+    }
+
+    showDateFormatEnd(){
+        let month : number = this._endDate.getMonth()+1
+        return this._endDate.getDate()+"/"+month+"/"+this._endDate.getFullYear();
+
+    }
+
 
 
     get id(): number {

@@ -8,6 +8,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import Message from "../../models/Message.ts";
 import {MessageComponent} from "../molecules/MessageComponent.tsx";
 import {chatStore} from "../../stores/ChatStore.ts";
+import User from "../../models/User.ts";
 
 
 
@@ -15,7 +16,7 @@ import {chatStore} from "../../stores/ChatStore.ts";
 function ChatSystem ({channel_name} ){
 
 
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState<string>('');
     const [chat, setChat] = useState([]);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const open = Boolean(anchorEl);
@@ -28,7 +29,8 @@ function ChatSystem ({channel_name} ){
 
     const getMessages = async () => {
         let res = await chatStore.handleGetAllMessage(channel_name);
-        res.forEach(message => {
+        console.log(res);
+        res.forEach((message : Message) => {
             chat.push(message)
         })
 
@@ -44,7 +46,8 @@ function ChatSystem ({channel_name} ){
 
         channel.bind('my-event', function(data) {
             console.log(data);
-            chat.push(new Message(channel_name,data.Message,data.Date , data.UserName));
+            let user = new User(data.User.Id , data.User.UserName , data.User.Email,null,false,null);
+            chat.push(new Message(channel_name,data.Message,data.Date , user));
         });
 
         return () => {
@@ -66,6 +69,14 @@ function ChatSystem ({channel_name} ){
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    if(chat === null){
+        return (    <div>
+                        <p>Loading Chat </p>
+                    </div>
+        );
+    }
 
 
 

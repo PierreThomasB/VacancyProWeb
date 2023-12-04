@@ -20,7 +20,7 @@ interface TableauProps {
 
 export const SimpleTable  : React.FC<TableauProps> = ({ colonnes , lignes }) => {
     return (
-        <TableContainer component={Paper}>
+        <TableContainer  >
             <Table>
                 <TableHead>
                     <TableRow>

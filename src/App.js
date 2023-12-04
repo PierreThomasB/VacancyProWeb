@@ -1,26 +1,29 @@
 import './styles/index.css';
-import {Navigate, Route, HashRouter as Router, Routes} from "react-router-dom";
+import {Route, HashRouter as Router, Routes, Link} from "react-router-dom";
 import {ObservedHome} from "./components/pages/Home.tsx";
 import routes from "./routes.json";
 import {ObservedAuthentication} from "./components/pages/Authentication.tsx";
-import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
-import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
 import {PeriodDetailsObserver} from "./components/pages/PeriodDetails/PeriodDetails.tsx";
 import {NewActivityObserver} from "./components/pages/NewActivity/NewActivity.tsx";
 import {ObservedContact} from "./components/pages/Contact.tsx";
 import About from "./components/pages/About.tsx";
 import {sessionStore} from "./stores/SessionStore.ts";
+import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
+import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
+import PrivateRoute from "./PrivateRoutes.tsx";
 
 function App() {
   //const routes = require('./routes.json')
-  const AuthenticatedRoute = ({children}) => {
-    if (!sessionStore.user) {
-      // This way we could give to authentication a callback to redirect to the page the user wanted to access
-      return children
-    } else {
-      return children
+
+
+
+
+    const defaultProtectedRouteProps = {
+        authenticationPath: '/login',
+    };
+    const checkIfUserIsAuthenticated = () => {
+        return sessionStore.user !== null;
     }
-  }
 
   /*const AdminRoute = ({children}) => {
     if(!sessionStore.user.isAdmin) {
@@ -37,28 +40,26 @@ function App() {
           <Route exact path={routes.About} element={<About/>}/>
           <Route exact path={routes.Authentication} element={<ObservedAuthentication/>}/>
           <Route exact path={routes.Contact} element={<ObservedContact/>}/>
+          <Route
+              path={routes.NewActivity}
+              element={<PrivateRoute outlet={<NewActivityObserver/>} />}
 
-          <Route exact path={routes.NewPeriod} element={
-                <AuthenticatedRoute>
-                    <NewPeriodObserver/>
-                </AuthenticatedRoute>
-          }/>
-          <Route exact path={routes.Periods} element={
-                <AuthenticatedRoute>
-                    <ShowPeriodObserver/>
-                </AuthenticatedRoute>
-          } />
-          <Route exact path={routes.PerdiodDetails} element={
-                <AuthenticatedRoute>
-                    <PeriodDetailsObserver/>
-                </AuthenticatedRoute>
-          } />
-          <Route exact path={routes.NewActivity} element={
-                <AuthenticatedRoute>
-                    <NewActivityObserver/>
-                </AuthenticatedRoute>
-          } />
+          />
+          <Route
+              path={routes.NewPeriod}
+              element={<PrivateRoute outlet={<NewPeriodObserver/>} />}
 
+          />
+          <Route
+              path={routes.Periods}
+              element={<PrivateRoute outlet={<ShowPeriodObserver/>} />}
+
+              />
+          <Route
+              path={routes.PerdiodDetails}
+              element={<PrivateRoute outlet={<PeriodDetailsObserver/>} /> }
+
+          />
       </Routes>
     </Router>
   );

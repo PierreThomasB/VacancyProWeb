@@ -114,7 +114,17 @@ class ActivityStore {
     handleGetActivite =  async (periodId:number) => {
 
          try {
-             return await api.getActivityByPeriod(periodId);
+             let tempObj =  await api.getActivityByPeriod(periodId);
+
+             let activities = tempObj.map((obj) => {
+                 let place = new Place(obj.place.Name , obj.place.id,obj.place.urlPhoto);
+                 return new Activity(obj["id"] , obj["name"] , obj["description"] , obj["beginDate"] , obj["endDate"],place , null);
+             });
+
+
+
+             return activities;
+
          }catch (error){
              this.handleErrorMessage(error.message);
          }

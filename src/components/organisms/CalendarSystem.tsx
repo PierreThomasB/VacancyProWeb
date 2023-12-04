@@ -63,7 +63,7 @@ export const CalendarSystem = ({period}) => {
 
     return (
         <div>
-            <Button onClick={handleAddcalendar}>Ajouter au calendrier</Button>
+            <Button onClick={handleAddcalendar}>Add to calendar</Button>
             <Dialog open={open} onClose={handleClose}>
                 <ListItem disableGutters key={"key"} style={{display:"flex",flexDirection:"column"}}>
                     {urls.map((url) => (

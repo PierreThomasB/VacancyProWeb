@@ -13,7 +13,7 @@ export const PeriodCard = ({period}) => {
 
     const navigateToDetail = () => {
         periodStore.period = period;
-        navigate("/PeriodDetails");
+        navigate("/PeriodDetails", {state : period });
     }
 
     const getDate = (date : Date):string   =>  {
