@@ -56,20 +56,20 @@ class ActivityStore {
 
     async handleNewActivity(name: string, description: string, startDate: Date, endDate: Date, place: Place, period: Period)  {
 
-        if (name === '') {
+        if (name === '' || name.length < 2) {
             this.handleErrorMessage('Le champ "nom" est obligatoire')
             return false;
         }
 
-        if (description === '') {
+        if (description === '' || description.length < 2) {
             this.handleErrorMessage('Le champ description est obligatoire')
             return false;
         }
-        if(startDate == null || startDate == new Date()){
+        if(startDate == null){
             this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
             return false;
         }
-        if(period.beginDate < startDate){
+        if(period.beginDate > startDate){
             this.handleErrorMessage('Le champ "Date de début" doit etre compris dans la période');
             return false;
         }
@@ -78,7 +78,7 @@ class ActivityStore {
             this.handleErrorMessage('Le champ "Date de Fin" doit etre compris dans la période ');
             return false;
         }
-        if(endDate == null || endDate == new Date() ){
+        if(endDate == null  ){
             this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
             return false;
         }
@@ -86,12 +86,8 @@ class ActivityStore {
             this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
             return false;
         }
-        if (place === null) {
-            this.handleErrorMessage('Veuillez encoder un lieu valide')
-            return false;
-        }
-        if (period === null) {
-            this.handleErrorMessage('Veuillez encoder une période valide')
+        if(place == null){
+            this.handleErrorMessage('Le champ "Lieu" est obligatoire');
             return false;
         }
 
@@ -117,7 +113,8 @@ class ActivityStore {
              let tempObj =  await api.getActivityByPeriod(periodId);
 
              let activities = tempObj.map((obj) => {
-                 let place = new Place(obj.place.Name , obj.place.id,obj.place.urlPhoto);
+                 console.log(obj)
+                 let place = new Place(obj.place["name"] , obj.place["id"],obj.place["urlPhoto"]);
                  return new Activity(obj["id"] , obj["name"] , obj["description"] , obj["beginDate"] , obj["endDate"],place , null);
              });
 

@@ -27,7 +27,7 @@ const PeriodDetails:React.Fc = () => {
     const navigate = useNavigate();
 
     const [period,setPeriod] = useState<Period|null>(new Period(state["_id"],state["_name"],state["_description"], new Place(state._place["_name"],state._place["_id"],state._place["_urlPhoto"]) , state["_beginDate"], state["_endDate"], null , state._listUser.map(usr => new User(usr._id , usr._username , usr._email , null,false,null))));
-    const [activities , setActivities] = useState([]);
+    const [activities , setActivities] = useState([] as Activity[]);
     const [users , setUser] = useState([]);
     const [loaded , setLoaded] = useState(false);
 
@@ -35,7 +35,8 @@ const PeriodDetails:React.Fc = () => {
   const initActivities = async () => {
       let activities = await activityStore.handleGetActivite(period.id);
       let tabresult = [];
-      activities.forEach((activity) => {
+      activities.forEach((activity : Activity) => {
+          console.log(activity)
           tabresult.push({1:activity.name, 2:activity.showDateFormatBegin(),3:activity.showDateFormatEnd(),4:activity.place.name, 5:<CalendarSystem period={activity}/>})
       })
 
@@ -113,7 +114,7 @@ const PeriodDetails:React.Fc = () => {
                                 id: 2,
                                 label: period.showDateFormatBegin() + " -> " + period.showDateFormatEnd()
                             }]} lignes={[{1: "Description", 2: period.description}, {
-                                1: "Avex qui ?",
+                                1: "Avec qui ?",
                                 2: period.userListName
                             }]}/>
                         </Card>

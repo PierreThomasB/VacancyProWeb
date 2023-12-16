@@ -1,30 +1,19 @@
 import {Avatar, Typography} from "@mui/material";
 // @ts-ignore
-import React from "react";
+import React, {useState} from "react";
+import Message from "../../models/Message.ts";
 
-export const MessageComponent = ({message , date , user} ) => {
+export const MessageComponent = ({message} ) => {
 
 
-    function stringToColor(userName: string) {
-        let hash = 0;
-        let i;
-        for (i = 0; i < userName.length; i += 1) {
-            hash = userName.charCodeAt(i) + ((hash << 5) - hash);
-        }
 
-        let color = '#';
 
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff;
-            color += `00${value.toString(16)}`.slice(-2);
-        }
+    const [messageComp, setMessageComp] = useState<Message>(message as Message);
 
-        return color;
-    }
 
 
     const getDate = ():string   =>  {
-        const dateComp = new Date(date);
+        let dateComp : Date = new Date(messageComp.date);
         let month : number =dateComp.getMonth()+1
         return dateComp.getDate()+"/"+month+"/"+dateComp.getFullYear();
     }
@@ -32,7 +21,7 @@ export const MessageComponent = ({message , date , user} ) => {
     function stringAvatar(name: string) {
         return {
             sx: {
-                bgcolor: stringToColor(name),
+                bgcolor: messageComp.stringToColor(),
             },
             //date.getDate()+"/"+date.getMonth()+"/"+date.getYear()
             children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
@@ -44,8 +33,8 @@ export const MessageComponent = ({message , date , user} ) => {
     return (
         <div style={{display:"flex",flexDirection:"column" }}>
             <div style={{display:"flex",flexDirection:"row" }}>
-                <Avatar {...stringAvatar(user.username)}  />
-                <p>{message}</p>
+                <Avatar {...stringAvatar(messageComp.user.username)}  />
+                <p>{messageComp.message}</p>
             </div>
             <small>{getDate()}</small>
         </div>

@@ -1,7 +1,8 @@
 import Place from "./Place.ts";
 import Period from "./Period.ts";
+import {override} from "mobx";
 
-export default class Activity {
+export default class Activity implements HasPeriods{
 
     private readonly _id:number
     private readonly _name: string
@@ -20,6 +21,10 @@ export default class Activity {
         this._endDate = new Date(endDate);
         this._place = place
         this._period = period;
+    }
+
+    getBeginDate(): String {
+        return this.showDateFormatBegin()+'->'+this.showDateFormatEnd()
     }
 
     showDateFormatBegin(){

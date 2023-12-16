@@ -2,7 +2,7 @@ import User from "./User.ts";
 
 import Place from "./Place.ts";
 
-export default class Period {
+export default class Period implements HasPeriods{
     private readonly _id:number
     private readonly _name: string
     private readonly _description: string
@@ -28,6 +28,10 @@ export default class Period {
 
     addUser(user:User){
         this._listUser.push(user);
+    }
+
+    getBeginDate(): String {
+        return this.showDateFormatBegin()+'->'+this.showDateFormatEnd()
     }
 
 
