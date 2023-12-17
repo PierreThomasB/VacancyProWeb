@@ -46,7 +46,7 @@ function NewActivity ()   {
     const doPost = async () => {
         if(activityStore.handleNewActivity(name,description,startDate,endDate,place,period)){
             wait(3000);
-            //navigate("/Periods");
+            navigate("/Periods");
         }
     }
     const initPeriods = () => {

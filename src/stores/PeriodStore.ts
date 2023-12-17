@@ -4,6 +4,8 @@ import Period from "../models/Period.ts";
 import Place from "../models/Place.ts";
 import {sessionStore} from "./SessionStore.ts";
 import User from "../models/User.ts";
+import {List} from "@mui/material";
+import Periods from "../models/Periods.ts";
 
 
 class PeriodStore{
@@ -147,7 +149,7 @@ class PeriodStore{
 
     handleGetAllPeriod = async () => {
         if(sessionStore.user != undefined) {
-            let result = [];
+            let result = new Array<Period>();
             try {
                 let tabResult = await api.getPeriodByUser();
                 tabResult.forEach(period => {
@@ -155,8 +157,7 @@ class PeriodStore{
                     let peoples: [User] = period.listUser.map((user) => new User(user["id"],user["userName"],user["email"],null,false,null))
                     result.push(new Period(period.id,period.name , period.description , place,period.beginDate,period.endDate , null , peoples))
                 })
-                return result
-
+                return new Periods(result)
             }catch (error){
                 this.handleErrorMessage(error.message);
                 return;

@@ -1,46 +1,25 @@
 import Place from "./Place.ts";
 import Period from "./Period.ts";
 import {override} from "mobx";
+import HasRangeDates from "./HasRangeDates.ts";
 
-export default class Activity implements HasPeriods{
+export default class Activity extends HasRangeDates{
 
     private readonly _id:number
     private readonly _name: string
     private readonly _description: string
-    private readonly _beginDate: Date
-    private readonly _endDate: Date
     private readonly _place: Place
     private readonly _period:Period
 
 
     constructor(id:number,name: string, desc:string, beginDate:Date,endDate:Date, place:Place , period:Period) {
+        super(new Date(beginDate) , new Date(endDate));
         this._id = id;
         this._name = name
         this._description = desc
-        this._beginDate = new Date(beginDate);
-        this._endDate = new Date(endDate);
         this._place = place
         this._period = period;
     }
-
-    getBeginDate(): String {
-        return this.showDateFormatBegin()+'->'+this.showDateFormatEnd()
-    }
-
-    showDateFormatBegin(){
-        let month : number = this._beginDate.getMonth()+1
-        return this._beginDate.getDate()+"/"+month+"/"+this._beginDate.getFullYear();
-
-    }
-
-    showDateFormatEnd(){
-        let month : number = this._endDate.getMonth()+1
-        return this._endDate.getDate()+"/"+month+"/"+this._endDate.getFullYear();
-
-    }
-
-
-
     get id(): number {
         return this._id;
     }
@@ -54,11 +33,11 @@ export default class Activity implements HasPeriods{
     }
 
     get beginDate(): Date {
-        return this._beginDate;
+        return super.beginDate;
     }
 
     get endDate(): Date {
-        return this._endDate;
+        return super.endDate;
     }
 
     get place(): Place {
@@ -68,4 +47,5 @@ export default class Activity implements HasPeriods{
     get period(): Period {
         return this._period;
     }
+   
 }

@@ -19,6 +19,7 @@ import {activityStore} from "../../../stores/ActivityStore.ts";
 import Place from "../../../models/Place.ts";
 import User from "../../../models/User.ts";
 import Activity from "../../../models/Activity.ts";
+import Activities from "../../../models/Activities.ts";
 
 
 
@@ -27,20 +28,14 @@ const PeriodDetails:React.Fc = () => {
     const navigate = useNavigate();
 
     const [period,setPeriod] = useState<Period|null>(new Period(state["_id"],state["_name"],state["_description"], new Place(state._place["_name"],state._place["_id"],state._place["_urlPhoto"]) , state["_beginDate"], state["_endDate"], null , state._listUser.map(usr => new User(usr._id , usr._username , usr._email , null,false,null))));
-    const [activities , setActivities] = useState([] as Activity[]);
+    const [activities , setActivities] = useState<Activities>();
     const [users , setUser] = useState([]);
     const [loaded , setLoaded] = useState(false);
 
 
   const initActivities = async () => {
-      let activities = await activityStore.handleGetActivite(period.id);
-      let tabresult = [];
-      activities.forEach((activity : Activity) => {
-          console.log(activity)
-          tabresult.push({1:activity.name, 2:activity.showDateFormatBegin(),3:activity.showDateFormatEnd(),4:activity.place.name, 5:<CalendarSystem period={activity}/>})
-      })
-
-      setActivities(tabresult);
+      let activities = await activityStore.handleGetAllActivities(period.id);
+      setActivities(activities);
   }
 
   const initUsers  = async () => {
@@ -112,7 +107,7 @@ const PeriodDetails:React.Fc = () => {
                             <Typography variant="h4" gutterBottom>Informations</Typography>
                             <SimpleTable colonnes={[{id: 1, label: "Date"}, {
                                 id: 2,
-                                label: period.showDateFormatBegin() + " -> " + period.showDateFormatEnd()
+                                label: period.getdateFormat()
                             }]} lignes={[{1: "Description", 2: period.description}, {
                                 1: "Avec qui ?",
                                 2: period.userListName

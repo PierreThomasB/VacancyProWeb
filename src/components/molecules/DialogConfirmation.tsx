@@ -26,7 +26,11 @@ export const DialogConfirmation = ({buttonValue , titre, actions}) => {
                 <DialogTitle>{titre}</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose}>Annuler</Button>
-                    <Button onClick={actions}>Valider</Button>
+                    <Button onClick={() => {
+                        actions()
+                        handleClose()
+                    }
+                        }>Valider</Button>
                 </DialogActions>
             </Dialog>
         </div>

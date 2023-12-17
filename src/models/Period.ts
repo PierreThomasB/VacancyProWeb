@@ -1,56 +1,33 @@
 import User from "./User.ts";
-
+import HasRangeDates from "./HasRangeDates.ts";
 import Place from "./Place.ts";
 
-export default class Period implements HasPeriods{
+export default class Period extends HasRangeDates{
     private readonly _id:number
     private readonly _name: string
     private readonly _description: string
     private readonly _place: Place
-    private readonly _beginDate: Date
-    private readonly _endDate: Date
     private readonly _creator: User
     private readonly _listUser: Array<User>;
 
 
 
     constructor(id:number , name: string, desc: string, place: Place, beginDate: Date, endDate: Date, creator: User , listUser : Array<User>) {
+    
+        super( new Date(beginDate) , new Date(endDate));
         this._id = id;
         this._name = name
         this._description = desc
         this._place = place;
-        this._beginDate = new Date(beginDate);
-        this._endDate =  new Date(endDate);
         this._creator = creator
         this._listUser = listUser;
 
     }
 
+
     addUser(user:User){
         this._listUser.push(user);
     }
-
-    getBeginDate(): String {
-        return this.showDateFormatBegin()+'->'+this.showDateFormatEnd()
-    }
-
-
-    showDateFormatBegin(){
-        let month : number = this._beginDate.getMonth()+1
-        return this._beginDate.getDate()+"/"+month+"/"+this._beginDate.getFullYear();
-
-    }
-
-    showDateFormatEnd(){
-        let month : number = this._endDate.getMonth()+1
-        return this._endDate.getDate()+"/"+month+"/"+this._endDate.getFullYear();
-
-    }
-
-
-
-
-
     get id(): number {
         return this._id;
     }
@@ -68,11 +45,11 @@ export default class Period implements HasPeriods{
     }
 
     get beginDate(): Date {
-        return this._beginDate;
+        return super.beginDate;
     }
 
     get endDate(): Date {
-        return this._endDate;
+        return super.endDate;
     }
 
     get creator(): User {
@@ -84,8 +61,6 @@ export default class Period implements HasPeriods{
     }
 
     get userListName(){
-
-
         let list = [];
         this._listUser.forEach(user => {
             list.push(user._username);
@@ -93,6 +68,8 @@ export default class Period implements HasPeriods{
 
         return list.join(" , ");
     }
+
+
 
 
 

@@ -4,6 +4,7 @@ import {api} from '../repositories/Api.ts'
 import Period from "../models/Period.ts";
 import Place from "../models/Place.ts";
 import Activity from "../models/Activity.ts";
+import Activities from "../models/Activities.ts";
 
 class ActivityStore {
     private _mode = 'signin'
@@ -107,21 +108,16 @@ class ActivityStore {
 
 
 
-    handleGetActivite =  async (periodId:number) => {
-
+    handleGetAllActivities =  async (periodId:number) => {
          try {
              let tempObj =  await api.getActivityByPeriod(periodId);
+             let activities = Array<Activity>();
 
-             let activities = tempObj.map((obj) => {
-                 console.log(obj)
+             tempObj.forEach((obj) => {
                  let place = new Place(obj.place["name"] , obj.place["id"],obj.place["urlPhoto"]);
-                 return new Activity(obj["id"] , obj["name"] , obj["description"] , obj["beginDate"] , obj["endDate"],place , null);
+                 activities.push( new Activity(obj["id"] , obj["name"] , obj["description"] , obj["beginDate"] , obj["endDate"],place , null));
              });
-
-
-
-             return activities;
-
+             return new Activities(activities);
          }catch (error){
              this.handleErrorMessage(error.message);
          }

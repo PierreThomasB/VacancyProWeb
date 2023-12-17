@@ -9,6 +9,7 @@ class ChatStore {
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
+    private _messages = new Map<number,Message>()
 
     constructor() {
         makeAutoObservable(this)
@@ -24,9 +25,9 @@ class ChatStore {
             let user = new User(message.user["id"],message.user["userName"] , null,null,false,null);
             let messageObj: Message = new Message(message.channel , message.message,message.date , user);
             tempMessage.push(messageObj);
+            this._messages[message["id"]] = messageObj;
         });
         return tempMessage ;
-
     }
 
 

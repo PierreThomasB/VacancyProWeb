@@ -9,20 +9,23 @@ import {useNavigate} from "react-router-dom";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import {periodStore} from "../../../stores/PeriodStore.ts";
 import {sessionStore} from "../../../stores/SessionStore.ts";
+import Periods from "../../../models/Periods.ts";
+import Period from "../../../models/Period.ts";
 
 
 const ShowPeriod = () => {
 
 
     const navigate = useNavigate();
-    const [items , setItems] = useState([]);
-    const [showedItems , setShowedItems] = useState([]);
+    const [periods , setPeriods] = useState<Periods>();
+    const [showedItems , setShowedItems] = useState<Period[]>([]);
 
     const getPeriod =  async ( ) => {
         let result = await periodStore.handleGetAllPeriod();
         if(result != undefined ) {
-            setItems(result);
-            setShowedItems(result);
+            setPeriods(result);
+            setShowedItems(result.sortByPeriodsDate);
+            console.log(showedItems);
         }
     }
 
@@ -37,28 +40,15 @@ const ShowPeriod = () => {
     }
 
     const handlePastedTrips = () => {
-        let tempResult = [];
-        items.forEach(item => {
-            if(item.endDate < new Date()){
-                tempResult.push(item);
-            }
-        })
-        setShowedItems(tempResult);
+        setShowedItems(periods.showOnlyPastedPeriods);
 
     }
 
     const handleAllTrips = () => {
-        setShowedItems(items);
+        setShowedItems(periods.sortByPeriodsDate);
     }
     const handleOncomingTrips = () => {
-        let tempResult = [];
-        items.forEach(item => {
-            if(item.endDate > new Date()){
-                tempResult.push(item);
-            }
-        })
-        setShowedItems(tempResult);
-
+        setShowedItems(periods.showOnlyFuturePeriods);
     }
 
     return (
@@ -71,11 +61,11 @@ const ShowPeriod = () => {
                 <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"All Trips"} onClick={handleAllTrips}/></li>
             </ul>
             <Container sx={{padding:"5%"}} maxWidth="sm">
-                {showedItems.map(item => {
 
-
+                {
+                    showedItems.map(item => {
                     return(
-                      <PeriodCard period={item} />
+                      <PeriodCard period={item as any} />
                     );
                 })}
             </Container>

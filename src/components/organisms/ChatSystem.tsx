@@ -42,7 +42,7 @@ function ChatSystem ({channel_name} ){
 
 
         channel.bind('my-event', function(data) {
-            console.log(data);
+        
             let user = new User(data.User.Id , data.User.UserName , data.User.Email,null,false,null);
             setChat(val => {
                 return [...val, new Message(channel_name, data.Message, data.Date, user)];
@@ -79,7 +79,6 @@ function ChatSystem ({channel_name} ){
 
 
 
-// <MessageComponent message ={msg}/>
     return (
 
         <div>
@@ -98,8 +97,6 @@ function ChatSystem ({channel_name} ){
 
 
                     })}
-
-
                 </List>
                 <TextField
                     label="Message"

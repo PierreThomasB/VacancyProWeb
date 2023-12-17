@@ -1,8 +1,10 @@
 // @ts-ignore
 import React, {useState} from "react";
 import {Button, Dialog, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import { google, outlook, office365, yahoo, ics } from "calendar-link";
+import {google, outlook, office365, yahoo, ics } from "calendar-link";
 import {useNavigate} from "react-router-dom";
+import Period from "../../models/Period";
+import Activity from "../../models/Activity";
 
 
 
@@ -11,12 +13,10 @@ interface Event{
     title: string,
     description: string,
     start:Date,
-    duration: [1, "day"],
-
-
+    allDay: true,
 
 }
-export const CalendarSystem = ({period}) => {
+export const CalendarSystem = ({activity }) => {
     const [open,setOpen] = useState(false);
     const navigate = useNavigate();
     const [urls ,setUrls] = useState([]);
@@ -45,7 +45,9 @@ export const CalendarSystem = ({period}) => {
     function handleAddcalendar() {
 
 
-        const event : Event = {title : period.name ,description : period.description , start : period.beginDate , duration : [1, "day"]};
+        let activityObj = activity as Activity
+        console.log(activityObj);
+        const event : Event = {title : activityObj.name ,description : activityObj.description , start : activityObj.beginDate  , allDay : true };
         let tempTab = []
         tempTab.push([google(event) , "Export to Google"]);
         tempTab.push([outlook(event) , "Export to Outlook"]);
