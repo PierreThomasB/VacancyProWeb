@@ -7,10 +7,10 @@ import {PeriodCard} from "../../molecules/PeriodCard.tsx";
 import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {useNavigate} from "react-router-dom";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import {periodStore} from "../../../stores/PeriodStore.ts";
 import {sessionStore} from "../../../stores/SessionStore.ts";
 import Periods from "../../../models/Periods.ts";
 import Period from "../../../models/Period.ts";
+import {canGetAllPeriods} from "../../../stores/PeriodStore.ts";
 
 
 const ShowPeriod = () => {
@@ -21,7 +21,7 @@ const ShowPeriod = () => {
     const [showedItems , setShowedItems] = useState<Period[]>([]);
 
     const getPeriod =  async ( ) => {
-        let result = await periodStore.handleGetAllPeriod();
+        let result = await canGetAllPeriods.handleGetAllPeriod();
         if(result != undefined ) {
             setPeriods(result);
             setShowedItems(result.sortByPeriodsDate);

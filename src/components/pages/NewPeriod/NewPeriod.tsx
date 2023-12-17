@@ -16,9 +16,8 @@ import {api} from '../../../repositories/Api.ts'
 
 import Period from "../../../models/Period.ts";
 import {PlaceInput} from "../../molecules/PlaceInput.tsx";
-import User from "../../../models/User.ts";
-import Place from "../../../models/Place.ts";
-import {periodStore} from "../../../stores/PeriodStore.ts";
+
+import {canCreatePeriods} from "../../../stores/PeriodStore.ts";
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
 import {useNavigate} from "react-router-dom";
@@ -43,9 +42,11 @@ function NewPeriod ()   {
 
 
     const doPost = async () => {
-        if(await periodStore.handleNewPeriod(name,description,place,startDate,endDate)){
+        console.log(canCreatePeriods.openToast());
+        if(await canCreatePeriods.handleNewPeriod(name,description,place,startDate,endDate)){
             await wait(3000);
             navigate("/periods");
+
         }
 
 
@@ -97,7 +98,7 @@ function NewPeriod ()   {
                       </Grid>
 
                   </Grid>
-               <ObservedSnackBar open={periodStore.open} message={periodStore.errorMsg} severity={periodStore.severity}/>
+               <ObservedSnackBar open={canCreatePeriods.openToast()} message={canCreatePeriods.errorMsgToast()} severity={canCreatePeriods.severityToast()}/>
            </Container>
          </LocalizationProvider>
 

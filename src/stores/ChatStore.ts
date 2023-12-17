@@ -3,13 +3,14 @@ import {api} from "../repositories/Api.ts";
 import Message from "../models/Message.ts";
 import {sessionStore} from "./SessionStore.ts";
 import User from "../models/User.ts";
+import ChatStoreInterface from "./Interface/Chat/ChatStoreInterface.ts";
+import {Messages} from "../models/Messages.ts";
 
-class ChatStore {
+class ChatStore implements ChatStoreInterface{
     private _mode = 'signin'
     private _errorMsg = undefined
     private _severity = 'error'
     private _open = false
-    private _messages = new Map<number,Message>()
 
     constructor() {
         makeAutoObservable(this)
@@ -18,16 +19,15 @@ class ChatStore {
 
 
 
-    async handleGetAllMessage(channel : string ){
+    async handleGetAllMessage(channel : string ) : Promise<Messages>{
         let result =  await api.AllMessage(channel);
-        let tempMessage = [];
+        let tempMessage = new Array<Message>();
         result.forEach(message => {
             let user = new User(message.user["id"],message.user["userName"] , null,null,false,null);
             let messageObj: Message = new Message(message.channel , message.message,message.date , user);
             tempMessage.push(messageObj);
-            this._messages[message["id"]] = messageObj;
         });
-        return tempMessage ;
+        return new Messages(tempMessage) ;
     }
 
 
@@ -42,4 +42,4 @@ class ChatStore {
 
 }
 
-export const chatStore = new ChatStore()
+export const chatStore : ChatStoreInterface = new ChatStore()

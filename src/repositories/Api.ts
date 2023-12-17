@@ -10,7 +10,7 @@ class Api {
     _base: string
 
     constructor() {
-        this._base = config.ApiUrl
+        this._base = config.LocalUrl
     }
 
     get base() {

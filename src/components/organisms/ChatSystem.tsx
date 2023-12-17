@@ -9,6 +9,7 @@ import Message from "../../models/Message.ts";
 import {MessageComponent} from "../molecules/MessageComponent.tsx";
 import {chatStore} from "../../stores/ChatStore.ts";
 import User from "../../models/User.ts";
+import {Messages} from "../../models/Messages.ts";
 
 
 
@@ -17,7 +18,7 @@ function ChatSystem ({channel_name} ){
 
 
     const [message, setMessage] = useState<string>('');
-    const [chat, setChat] = useState([] as Message[]);
+    const [chat, setChat] = useState<Messages>(new Messages(Array.from([])));
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const open = Boolean(anchorEl);
 
@@ -32,31 +33,31 @@ function ChatSystem ({channel_name} ){
         console.log(res);
         setChat(res);
     }
+    const initPusher = () : Pusher => {
+        const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
+        let channel : Channel = pusher.subscribe(channel_name);
+        channel.bind('my-event', function(data) {
+
+            let user = new User(data.User.Id , data.User.UserName , data.User.Email,null,false,null);
+            let message = new Message(channel_name, data.Message, data.Date, user)
+            setChat(chat => chat.addMessage(message));
+        });
+        return pusher;
+    }
+
 
     useEffect(() => {
         getMessages();
-
-        const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
-
-        let channel : Channel = pusher.subscribe(channel_name);
-
-
-        channel.bind('my-event', function(data) {
-        
-            let user = new User(data.User.Id , data.User.UserName , data.User.Email,null,false,null);
-            setChat(val => {
-                return [...val, new Message(channel_name, data.Message, data.Date, user)];
-            });
-        });
-
+        const pusher = initPusher();
+        console.log(chat)
         return () => {
             pusher.unsubscribe(channel_name);
         };
 
     }, []);
 
-    const  handleSend = async () =>  {
-        await chatStore.handleSendMessage(channel_name,message);
+    const handleSend = async () =>  {
+        chatStore.handleSendMessage(channel_name, message);
         setMessage('');
 
     }
@@ -78,6 +79,15 @@ function ChatSystem ({channel_name} ){
     }
 
 
+    /**
+     *   {chat.messages.map((msg, index) => {
+     *                         return (
+     *                                 <ListItem key={index} >
+     *                                     <MessageComponent message ={msg as any}/>
+     *                         </ListItem>
+     *                 )
+     *                  })}
+     */
 
     return (
 
@@ -88,15 +98,11 @@ function ChatSystem ({channel_name} ){
         <Popover open={open} onClose={handleClose} >
             <Paper elevation={3} style={{ padding: '16px', maxWidth: '400px' }}>
                 <List>
-                    {chat.map((msg, index) => {
-                        return (
-                                <ListItem key={index} >
-                                    <MessageComponent message ={msg as any}/>
-                        </ListItem>
-                )
 
 
-                    })}
+
+
+
                 </List>
                 <TextField
                     label="Message"

@@ -3,7 +3,6 @@ import {ObservedNavBar} from "../../templates/NavBar.tsx";
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 // @ts-ignore
 import React, {useEffect, useState} from "react";
-import Grid from "@mui/material/Grid";
 import {Alert, Button, Card, Container, Paper, Stack, Typography} from "@mui/material";
 import {SimpleTable} from "../../molecules/SimpleTable.tsx";
 import {DialogInput} from "../../molecules/DialogInput.tsx";
@@ -14,11 +13,10 @@ import {DialogWay} from "../../molecules/DialogWay.tsx";
 import {ChatObserver} from "../../organisms/ChatSystem.tsx";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {CalendarSystem} from "../../organisms/CalendarSystem.tsx";
-import {periodStore} from "../../../stores/PeriodStore.ts";
-import {activityStore} from "../../../stores/ActivityStore.ts";
+import {canDeletePeriods, canGetAllUserNotInPeriod, canInsertUserToPeriod} from "../../../stores/PeriodStore.ts";
+import {canLoadActivities} from "../../../stores/ActivityStore.ts";
 import Place from "../../../models/Place.ts";
 import User from "../../../models/User.ts";
-import Activity from "../../../models/Activity.ts";
 import Activities from "../../../models/Activities.ts";
 
 
@@ -28,30 +26,31 @@ const PeriodDetails:React.Fc = () => {
     const navigate = useNavigate();
 
     const [period,setPeriod] = useState<Period|null>(new Period(state["_id"],state["_name"],state["_description"], new Place(state._place["_name"],state._place["_id"],state._place["_urlPhoto"]) , state["_beginDate"], state["_endDate"], null , state._listUser.map(usr => new User(usr._id , usr._username , usr._email , null,false,null))));
-    const [activities , setActivities] = useState<Activities>();
+    const [activities , setActivities] = useState<Activities>(new Activities([]));
     const [users , setUser] = useState([]);
     const [loaded , setLoaded] = useState(false);
 
 
   const initActivities = async () => {
-      let activities = await activityStore.handleGetAllActivities(period.id);
+      let activities = await canLoadActivities.handleGetAllActivities(period.id);
       setActivities(activities);
+      console.log(activities);
   }
 
   const initUsers  = async () => {
-      let res = await periodStore.handleGetAllUser(period.id);
+      let res = await canGetAllUserNotInPeriod.handleGetAllUser(period.id);
       setUser(res);
     }
 
-    const deletePeriod = async () => {
-      await periodStore.handleDeletePeriod(period.id);
-      wait(5000);
+    const deletePeriod = async  () => {
+      canDeletePeriods.handleDeletePeriod(period.id);
+      await wait(3000);
       navigate("/Periods");
   }
 
 
    const handleAddPeople =  async (userId:string) => {
-        await periodStore.handleNewUserToPeriod(userId,period.id);
+        await canInsertUserToPeriod.handleNewUserToPeriod(userId,period.id);
         wait(3000);
 
     }
@@ -115,7 +114,7 @@ const PeriodDetails:React.Fc = () => {
                         </Card>
                         <Card>
                             <Typography variant="h4" gutterBottom>Activitées </Typography>
-                            <SimpleTable colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Debut"}, {id: 3, label: "Fin"}, {id: 4, label: "Adresse"}, {id: 5, label: "Actions"}]} lignes={activities}/>
+                            <SimpleTable colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Debut"}, {id: 3, label: "Fin"}, {id: 4, label: "Adresse"}, {id: 5, label: "Actions"}]} lignes={activities.activities}/>
                         </Card>
                         <Card>
                             <Typography variant="h4" gutterBottom>Météo</Typography>

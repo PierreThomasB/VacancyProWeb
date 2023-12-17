@@ -1,83 +1,50 @@
 import {api} from "../repositories/Api.ts";
-import {makeAutoObservable} from "mobx";
+import {action, computed, makeAutoObservable, makeObservable, override} from "mobx";
 import Period from "../models/Period.ts";
 import Place from "../models/Place.ts";
 import {sessionStore} from "./SessionStore.ts";
 import User from "../models/User.ts";
 import {List} from "@mui/material";
 import Periods from "../models/Periods.ts";
-
-
-class PeriodStore{
-    private _mode = 'signin'
-    private _errorMsg = undefined
-    private _severity = 'error'
-    private _open = false
-    private _period: Period = null;
+import {HasToasts} from "./Interface/HasToasts.ts";
+import {CanCreatePeriods} from "./Interface/Periods/CanCreatePeriods.ts";
+import {CanGetAllPeriods} from "./Interface/Periods/CanGetAllPeriods.ts";
 
 
 
+
+class PeriodStore extends HasToasts implements CanCreatePeriods , CanDeletePeriods, CanInsertUserToPeriod , CanGetAllUserNotInPeriod , CanGetAllPeriods{
 
 
     constructor() {
-        makeAutoObservable(this)
+        super();
+        makeObservable(this , {
+            handleNewPeriod : action,
+            handleDeletePeriod : action,
+            handleGetAllUser : action,
+            handleNewUserToPeriod : action,
+            handleGetAllPeriod : action,
+
+        })
+        }
+
+
+      errorMsgToast(): string {
+        return super.errorMsg;
     }
 
 
-    get period(): Period {
-        return this._period;
+      openToast(): boolean {
+        return super.open;
     }
 
-    set period(value: Period) {
-        this._period = value;
+      severityToast(): string {
+        return super.severity;
     }
 
-    get mode(): string {
-        return this._mode;
-    }
-
-    set mode(value: string) {
-        this._mode = value;
-    }
-
-
-    get errorMsg(): any {
-        return this._errorMsg;
-    }
-
-    set errorMsg(value: any) {
-        this._errorMsg = value;
-    }
-
-    get severity(): string {
-        return this._severity;
-    }
-
-    set severity(value: string) {
-        this._severity = value;
-    }
-
-    get open(): boolean {
-        return this._open;
-    }
-
-    set open(value: boolean) {
-        this._open = value;
-    }
-
-    onModeChange(mode: string) {
-        this.mode = mode
-    }
-
-
-
-
-
-    handleNewPeriod = async (name:string , description:string , place:Place,startDate:Date,endDate:Date )  => {
-
-
+    handleNewPeriod = async (name:string , description:string , place:Place,startDate:Date,endDate:Date ): Promise<boolean>  => {
         if(name === '' || name.length <= 3){
-            this.handleErrorMessage('Le champ "Nom" est obligatoire')
+            super.handleErrorMessage('Le champ "Nom" est obligatoire')
             return false;
         }
         if(description === '' || description.length <= 3){
@@ -85,11 +52,13 @@ class PeriodStore{
             return false;
         }
         if(place === null ){
-            this.handleErrorMessage('Veillez renseigner un lieux de vacances');
+            super.handleErrorMessage('Veillez renseigner un lieux de vacances');
+
             return false;
         }
         if(startDate === undefined || startDate === new Date() ){
-            this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
+            super.handleErrorMessage('Le champ "Date de debut" est obligatoire');
+
             return false ;
         }
         if(endDate === undefined || endDate === new Date() ){
@@ -120,8 +89,9 @@ class PeriodStore{
 
 
     handleDeletePeriod = async  (periodId:number) => {
-        await api.deletePeriod(periodId);
-        this.handleGoodMessage("Voyage supprimé avec succès")
+        let resp = await api.deletePeriod(periodId);
+
+            this.handleGoodMessage("Voyage supprimé avec succès")
     }
 
 
@@ -164,28 +134,13 @@ class PeriodStore{
             }
         }
     }
-
-
-    private handleErrorMessage(error: string){
-        this.open = true
-        this.errorMsg = error
-
-        setTimeout(() => {
-            this.open = false
-        }, 2500)
-    }
-
-    private handleGoodMessage(message: string){
-        this.open = true
-        this.errorMsg = message
-        this.severity = "info";
-
-
-        setTimeout(() => {
-            this.open = false
-            this.severity = "error";
-        }, 3000)
-    }
 }
 
-export const periodStore = new PeriodStore()
+
+
+const periodStore = new PeriodStore()
+export const canCreatePeriods: CanCreatePeriods = periodStore;
+export const canGetAllPeriods : CanGetAllPeriods = periodStore;
+export const canDeletePeriods : CanDeletePeriods = periodStore;
+export const canInsertUserToPeriod : CanInsertUserToPeriod = periodStore;
+export const canGetAllUserNotInPeriod : CanGetAllUserNotInPeriod = periodStore;

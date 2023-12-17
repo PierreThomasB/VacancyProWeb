@@ -19,7 +19,7 @@ import {PlaceInput} from "../../molecules/PlaceInput.tsx";
 import Activity from "../../../models/Activity.ts";
 import Place from "../../../models/Place.ts";
 import {useLocation, useNavigate} from "react-router-dom";
-import {activityStore} from "../../../stores/ActivityStore.ts";
+import {canCreateActivity} from "../../../stores/ActivityStore.ts";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {sessionStore} from "../../../stores/SessionStore.ts";
 import {periodStore} from "../../../stores/PeriodStore.ts";
@@ -44,7 +44,7 @@ function NewActivity ()   {
 
 
     const doPost = async () => {
-        if(activityStore.handleNewActivity(name,description,startDate,endDate,place,period)){
+        if(await canCreateActivity.handleNewActivity(name, description, startDate, endDate, place, period)){
             wait(3000);
             navigate("/Periods");
         }
@@ -105,7 +105,7 @@ function NewActivity ()   {
                             </Button>
                         </Grid>
                     </Grid>
-                    <ObservedSnackBar open={activityStore.open} message={activityStore.errorMsg} severity={activityStore.severity} />
+                    <ObservedSnackBar open={canCreateActivity.open} message={canCreateActivity.errorMsg} severity={canCreateActivity.severity} />
                 </Container>
 
             </LocalizationProvider>

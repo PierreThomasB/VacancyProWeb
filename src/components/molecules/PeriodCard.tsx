@@ -3,7 +3,6 @@ import {Button, Card, CardActions, CardContent, CardMedia, Typography} from "@mu
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Period from "../../models/Period.ts";
-import {periodStore} from "../../stores/PeriodStore.ts";
 
 
 export const PeriodCard = ({period}) => {
@@ -13,7 +12,6 @@ export const PeriodCard = ({period}) => {
 
 
     const navigateToDetail = () => {
-        periodStore.period = period;
         navigate("/PeriodDetails", {state : period });
     }
 
