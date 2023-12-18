@@ -49,7 +49,7 @@ export const DialogInput = ({buttonValue,titre,suggests,actionsWhenOpen }) => {
 
     return (
         <div>
-            <Button onClick={() => handleClickOpen()} placeholder={buttonValue}>{buttonValue}</Button>
+            <Button onClick={() => handleClickOpen()} >{buttonValue}</Button>
             <Dialog open={open} onClose={handleClose} >
                 <DialogTitle>{titre}</DialogTitle>
                 <DialogContent>

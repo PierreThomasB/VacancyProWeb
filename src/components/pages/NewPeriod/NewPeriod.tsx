@@ -42,22 +42,15 @@ function NewPeriod ()   {
 
 
     const doPost = async () => {
-        console.log(canCreatePeriods.openToast());
         if(await canCreatePeriods.handleNewPeriod(name,description,place,startDate,endDate)){
             await wait(3000);
             navigate("/periods");
-
         }
-
-
     }
 
-
     return (
-
      <form onSubmit={e => doPost()}>
          <ObservedNavBar/>
-
          <LocalizationProvider dateAdapter={AdapterDayjs}>
            <Container maxWidth={"sm"} >
               <Grid style={{marginTop:"10%" , textAlign:"center" , alignItems:"center"}} container spacing={4}>
@@ -98,7 +91,7 @@ function NewPeriod ()   {
                       </Grid>
 
                   </Grid>
-               <ObservedSnackBar open={canCreatePeriods.openToast()} message={canCreatePeriods.errorMsgToast()} severity={canCreatePeriods.severityToast()}/>
+               <ObservedSnackBar open={canCreatePeriods.open} message={canCreatePeriods.errorMsg} severity={canCreatePeriods.severity}/>
            </Container>
          </LocalizationProvider>
 

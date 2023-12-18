@@ -78,7 +78,7 @@ class AuthentificationStore {
         }
     }
 
-    handleSignIn(email: string, password: string) {
+   private handleSignIn(email: string, password: string) {
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')

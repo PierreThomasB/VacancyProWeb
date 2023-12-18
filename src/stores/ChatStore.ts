@@ -6,7 +6,7 @@ import User from "../models/User.ts";
 import ChatStoreInterface from "./Interface/Chat/ChatStoreInterface.ts";
 import {Messages} from "../models/Messages.ts";
 
-class ChatStore implements ChatStoreInterface{
+class ChatStore implements ChatStoreInterface {
     private _mode = 'signin'
     private _errorMsg = undefined
     private _severity = 'error'
@@ -17,28 +17,23 @@ class ChatStore implements ChatStoreInterface{
     }
 
 
-
-
-    async handleGetAllMessage(channel : string ) : Promise<Messages>{
-        let result =  await api.AllMessage(channel);
+    async handleGetAllMessage(channel: string): Promise<Messages> {
+        let result = await api.AllMessage(channel);
         let tempMessage = new Array<Message>();
         result.forEach(message => {
-            let user = new User(message.user["id"],message.user["userName"] , null,null,false,null);
-            let messageObj: Message = new Message(message.channel , message.message,message.date , user);
+            let messageObj: Message = new Message(message.channel, message.message, message.date, message.userName);
             tempMessage.push(messageObj);
         });
-        return new Messages(tempMessage) ;
+        return new Messages(tempMessage);
     }
 
 
-
-    async handleSendMessage(channel:string , message:string){
+    async handleSendMessage(channel: string, message: string) {
         const user = sessionStore.user;
+        let messageObj = new Message(channel, message, new Date(), user);
+         await api.newMessage(messageObj)
 
-        let messageObj = new Message(channel,message , new Date() , user);
-        await api.newMessage(messageObj);
     }
-
 
 }
 

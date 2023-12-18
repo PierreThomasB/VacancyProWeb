@@ -1,7 +1,6 @@
 import Period from "./Period.ts";
 
 export default class Periods{
-
     private readonly _periods: Array<Period>;
 
     constructor(periods : Array<Period>){
@@ -12,18 +11,25 @@ export default class Periods{
         return this._periods;
     }
 
-    get showOnlyPastedPeriods(){
+    get showOnlyPastedPeriods() : Period[]{
         return this._periods.filter(period => period.endDate.getTime() < new Date().getTime());
     }
     get showOnlyFuturePeriods(){
-        return this._periods.filter(period => period.endDate.getTime() > new Date().getTime());
+        return this._periods.filter(period => period.beginDate.getTime() > new Date().getTime() );
     }
-    get sortByPeriodsName(){
-        return this._periods.sort((a,b) => a.name.localeCompare(b.name));
+
+    get defaultSort(){
+        return this.sortByPeriodsDateDesc(this._periods);
     }
-    get sortByPeriodsDate(){
-        let res =  this._periods.sort((a,b) => a.beginDate.getTime() - b.beginDate.getTime());
+    sortByPeriodsDateAsc(periods : Period[]){
+      let res = periods.sort((a,b) => a.beginDate.getTime() - b.beginDate.getTime());
         console.log(res)
-        return res;
+      return res ;
     }
+    sortByPeriodsDateDesc(periods : Period[]){
+           let res =  periods.sort((a,b) => b.beginDate.getTime() - a.beginDate.getTime());
+        console.log(res)
+
+    return res; }
+
 }

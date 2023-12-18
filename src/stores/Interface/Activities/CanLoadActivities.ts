@@ -2,5 +2,5 @@ import Activities from "../../../models/Activities.ts";
 
 export interface CanLoadActivities {
 
-    handleGetAllActivities(periodId:number): Promise<Activities>;
+     handleGetAllActivities (periodId:number): Promise<Activities>;
 }

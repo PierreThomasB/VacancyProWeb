@@ -32,7 +32,7 @@ class SessionStore {
         }
     }
 
-    saveUser() {
+    private saveUser() {
         let token = JSON.stringify(this.user.token)
         localStorage.setItem('VacancyProUser', token)
     }

@@ -10,7 +10,7 @@ class Api {
     _base: string
 
     constructor() {
-        this._base = config.LocalUrl
+        this._base = config.ApiUrl
     }
 
     get base() {
@@ -29,12 +29,12 @@ class Api {
 
     /** CHATS **/
 
-    async newMessage(message:Message) {
+    async newMessage(message:Message) : Promise<any> {
         let data = JSON.stringify({
             Message:message.message,
             Channel:message.channel,
             Date:message.date,
-            User:message.user,
+            User:message.userName,
 
         });
         console.log(data);

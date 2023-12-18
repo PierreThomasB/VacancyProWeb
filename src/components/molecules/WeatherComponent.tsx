@@ -1,52 +1,42 @@
 // @ts-ignore
 import React, { useEffect, useState } from 'react';
 import {api} from "../../repositories/Api.ts";
+import {WeatherData, weatherStore} from "../../stores/WeatherStore.ts";
+import {Card, Typography} from "@mui/material";
 
-interface WeatherData {
-    location: {
-        name:string;
-    };
-    current: {
-        temperature: number;
-        weather_icons:[string];
-        weather_descriptions:[]
-        wind_speed:number,
-        presure:number,
-    };
-}
 
 export const WeatherComponent: React.FC = ({lieux}) => {
 
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+    const [loaded , setLoaded] = useState<boolean>(false);
 
 
     const getWeather = async () => {
-
-
-        try {
-            let res: WeatherData = await api.getMeteo(lieux);
+            let res = await weatherStore.getMeteo(lieux)
             setWeatherData(res);
-        }catch (error){
-
-        }
     };
 
 
     useEffect(() => {
-        getWeather();
+        getWeather().then(() => setLoaded(true));
     }, []);
 
-    return (
-        <div style={{display:"flex" , justifyContent:"center" , flexDirection:"column"}}>
-            {weatherData && (
-                <>
-                    <img alt={""} src={weatherData.current.weather_icons[0]}/>
-                    <p>Ville: {weatherData.location.name}</p>
-                    <p>Température: {weatherData.current.temperature}°C</p>
-                    <p>Description: {weatherData.current.weather_descriptions.at(0)}</p>
-                </>
-            )}
-        </div>
-    );
+
+    if(loaded) {
+        return (
+
+            <Card style={{minWidth:"20%" , flexDirection:"column", display:"flex",justifyContent:"center"}}>
+                    <Typography variant="h4" gutterBottom>{"Météo à "+weatherData.location.name}</Typography>
+
+
+                                <img alt={""} src={weatherData.current.weather_icons[0]} style={{maxWidth:"60%"}} />
+                                <p>Température: {weatherData.current.temperature}°C</p>
+                                <p>Description: {weatherData.current.weather_descriptions.at(0)}</p>
+
+
+
+                </Card>
+        );
+    }
 };
 

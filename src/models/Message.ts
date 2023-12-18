@@ -5,19 +5,19 @@ export default class Message {
     private readonly _channel:string;
     private readonly _message:string;
     private readonly _date:Date;
-    private readonly _user:User
+    private readonly _userName:string
 
 
-    constructor(channel: string, message: string , date:Date , user:User) {
+    constructor(channel: string, message: string , date:Date , user:string) {
         this._channel = channel;
         this._message = message;
         this._date = date;
-        this._user = user;
+        this._userName = user;
     }
 
 
-    get user(): User {
-        return this._user;
+    get userName(): string {
+        return this._userName;
     }
 
     get channel(): string {
@@ -32,15 +32,11 @@ export default class Message {
         return this._date;
     }
 
-    get userName(): string {
-        console.log(this._user._username);
-        return this._user._username;
-    }
 
      stringToColor() {
         let hash = 0;
         let i;
-        let userName = this.user.username
+        let userName = this.userName
         for (i = 0; i < userName; i += 1) {
             hash = userName.charCodeAt(i) + ((hash << 5) - hash);
         }

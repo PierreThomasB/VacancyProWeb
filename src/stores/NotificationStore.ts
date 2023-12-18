@@ -75,7 +75,7 @@ class NotificationStore {
 
 
 
-    handleErrorMessage(message: string) {
+    private handleErrorMessage(message: string) {
         this.open = true
         this.errorMsg = message
 

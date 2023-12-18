@@ -1,4 +1,4 @@
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 // @ts-ignore
 import React from "react";
 
@@ -14,32 +14,37 @@ interface Ligne {
 interface TableauProps {
     colonnes: Colonne[];
     lignes: Ligne[];
+    titre : string;
 }
 
 
 
-export const SimpleTable  : React.FC<TableauProps> = ({ colonnes , lignes }) => {
+export const SimpleTable  : React.FC<TableauProps> = ({ colonnes , lignes , titre }) => {
+    console.log(lignes)
     return (
-        <TableContainer  >
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {colonnes.map((colonne) => (
-                            <TableCell key={colonne.id}>{colonne.label}</TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {lignes.map((ligne, index) => (
-                        <TableRow key={index}>
+        <Card>
+            <Typography style={{textAlign:"center"}} variant="h4" gutterBottom>{titre}</Typography>
+            <TableContainer  >
+                <Table>
+                    <TableHead>
+                        <TableRow>
                             {colonnes.map((colonne) => (
-                                <TableCell key={colonne.id}>{ligne[colonne.id]}</TableCell>
+                                <TableCell key={colonne.id}>{colonne.label}</TableCell>
                             ))}
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {lignes.map((ligne, index) => (
+                            <TableRow key={index}>
+                                {colonnes.map((colonne) => (
+                                    <TableCell key={colonne.id}>{ligne[colonne.id]}</TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Card>
     );
 };
 

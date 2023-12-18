@@ -7,7 +7,7 @@ export default class Activities {
         this._activities = activities;
     }
 
-    get activities(): Array<Activity> {
+    get activities(): Activity[] {
         return this._activities;
     }
 

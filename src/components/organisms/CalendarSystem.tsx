@@ -5,6 +5,7 @@ import {google, outlook, office365, yahoo, ics } from "calendar-link";
 import {useNavigate} from "react-router-dom";
 import Period from "../../models/Period";
 import Activity from "../../models/Activity";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 
 
@@ -65,7 +66,7 @@ export const CalendarSystem = ({activity }) => {
 
     return (
         <div>
-            <Button onClick={handleAddcalendar}>Add to calendar</Button>
+            <Button onClick={handleAddcalendar}>< CalendarMonthIcon /></Button>
             <Dialog open={open} onClose={handleClose}>
                 <ListItem disableGutters key={"key"} style={{display:"flex",flexDirection:"column"}}>
                     {urls.map((url) => (
