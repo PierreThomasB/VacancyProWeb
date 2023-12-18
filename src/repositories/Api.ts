@@ -82,7 +82,7 @@ class Api {
             ListUser : period.listUser
         });
 
-        return fetch(`${this._base}`+"/api/Period/NewVacances",{
+        return fetch(`${this._base}`+"/Period/NewVacances",{
             method: 'POST',
             body: data,
             headers: {
@@ -103,7 +103,7 @@ class Api {
 
 
     async getPeriodByUser() {
-        return fetch(`${this._base}`+"/api/Period/PeriodbyUser",{
+        return fetch(`${this._base}`+"/Period/PeriodbyUser",{
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -120,7 +120,7 @@ class Api {
 
 
     async deletePeriod( id:number ){
-        return fetch(`${this._base}`+"/api/Period/Delete?id="+id,{
+        return fetch(`${this._base}`+"/Period/Delete?id="+id,{
             method: 'DELETE',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -159,7 +159,7 @@ class Api {
                 }}
         });
 
-        return fetch(`${this._base}`+"/api/Activity/NewActivity",{
+        return fetch(`${this._base}`+"/Activity/NewActivity",{
             method: 'POST',
             body: data,
             headers: {
@@ -174,7 +174,7 @@ class Api {
 
 
     async getActivityByPeriod(id:number)  {
-         return fetch(`${this._base}`+"/api/Activity/ActivityByPeriod?id="+id,{
+         return fetch(`${this._base}`+"/Activity/ActivityByPeriod?id="+id,{
             method: 'GET',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -201,7 +201,7 @@ class Api {
 
     async getMeteo(lieux : string ){
 
-        return fetch(`${this._base}`+"/api/Meteo/GetMeteo?lieu="+lieux,{
+        return fetch(`${this._base}`+"/Meteo/Meteo?lieu="+lieux,{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -230,7 +230,7 @@ class Api {
             email: email,
             password: password
         })
-        return fetch(`${this._base}/api/User/SignIn`, {
+        return fetch(`${this._base}/User/SignIn`, {
             method: 'POST',
             body: data,
             headers: {
@@ -247,7 +247,7 @@ class Api {
             Email: email,
             Password: password
         })
-        const re = await fetch(`${this._base}/api/User/SignUp`, {
+        const re = await fetch(`${this._base}/User/SignUp`, {
             method: 'POST',
             headers:{
                 'Access-Control-Allow-Origin': '*',
@@ -260,7 +260,7 @@ class Api {
     }
 
     async fetchUser(token: string): Promise<any> {
-        const resp = await fetch(`${this._base}/api/User`, {
+        const resp = await fetch(`${this._base}/User`, {
             headers: {
                 'Authorization': `bearer ${token}`
             }
@@ -276,7 +276,7 @@ class Api {
             subject: subject,
             message: message
         })
-        const re = await fetch(`${this._base}/api/Contact`, {
+        const re = await fetch(`${this._base}/Contact`, {
             method: 'POST',
             body: data,
             headers: {
@@ -291,7 +291,7 @@ class Api {
         let data = JSON.stringify({
             credentials: credentials
         })
-        let resp = await fetch(`${this.base}/api/User/Google`, {
+        let resp = await fetch(`${this.base}/User/Google`, {
             method: 'POST',
             body: data,
             headers: {
@@ -308,7 +308,7 @@ class Api {
             lastname: lastname,
             email: email
         })
-        const re = await fetch(`${this.base}/api/User/SignUp`, {
+        const re = await fetch(`${this.base}/User/SignUp`, {
             method: 'POST',
             body: data,
             headers: {
@@ -323,7 +323,7 @@ class Api {
         let data = JSON.stringify({
             email: email
         })
-        const re = await fetch(`${this.base}/api/User/SignIn`, {
+        const re = await fetch(`${this.base}/User/SignIn`, {
             method: 'POST',
             body: data,
             headers: {
@@ -336,7 +336,7 @@ class Api {
 
 
     async addUserToPeriod(userId:string , periodId:number){
-        return fetch(`${this.base}/api/Period/AddUser?userId=`+userId+"&period="+periodId, {
+        return fetch(`${this.base}/Period/AddUser?userId=`+userId+"&period="+periodId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ class Api {
 
 
     async getUserNotInPeriod(perioId:number) {
-        const re = await fetch(`${this.base}/api/User/ListUser?periodId=`+perioId, {
+        const re = await fetch(`${this.base}/User/ListUser?periodId=`+perioId, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -367,7 +367,7 @@ class Api {
     }
 
     async fetchUsersCount() {
-        const re = await fetch(`${this._base}/api/User/Count`);
+        const re = await fetch(`${this._base}/User/Count`);
         return await re.json();
     }
 
@@ -375,7 +375,7 @@ class Api {
         let data = JSON.stringify({
             date: date
         })
-        const re = await fetch(`${this._base}/api/User/InVacation`, {
+        const re = await fetch(`${this._base}/User/InVacation`, {
             method: 'POST',
             body: data,
             headers: {

@@ -37,9 +37,7 @@ function ChatSystem ({channel_name} ){
         const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
-
-            let user = new User(data.User.Id , data.User.UserName , data.User.Email,null,false,null);
-            let message = new Message(channel_name, data.Message, data.Date, user)
+            let message = new Message(channel_name, data.Message, data.Date, data.UserName)
             setChat(chat => chat.addMessage(message));
         });
         return pusher;
