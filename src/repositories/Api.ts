@@ -222,21 +222,19 @@ class Api {
 
 
     async getMeteo(lieux : string ){
-
-        return fetch(`${this._base}`+"/Meteo/Meteo?lieu="+lieux,{
+        return fetch(`${this._base}`+"/Meteo/Meteo/?lieu="+lieux,{
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
                 'Access-Control-Allow-Origin': '*',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re => {
-                if (re.ok) {
-                    return re.json()
-                }
-                throw new Error("Erreur dans la requète vers l'api météo");
-            })
-
+        }).then(re =>{
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète api pour les messages  "+re.statusText);
+        })
     }
 
 
@@ -259,7 +257,13 @@ class Api {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re => re.json())
+        }).then(re => {
+                if (re.ok) {
+                    re.json()
+                }
+                throw new Error("Erreur dans la requête sing in ");
+            }
+            )
     }
 
     async signUp(firstname:string, lastname:string, email: string, password:string) {
@@ -282,12 +286,17 @@ class Api {
     }
 
     async fetchUser(token: string): Promise<any> {
-        const resp = await fetch(`${this._base}/User`, {
+        return fetch(`${this._base}/User`, {
             headers: {
                 'Authorization': `bearer ${token}`
             }
+        }).then(re => {
+            if (re.ok) {
+                return re.json()
+            }
+            throw new Error("Erreur dans la requète vers l'api");
+
         })
-        return resp.status === 401 ? ({error: true, unauthorized: true}) : resp.json()
     }
 
     async sendContactForm(lastname: string, firstname: string, email: string, subject: string, message: string): Promise<any> {
@@ -389,22 +398,34 @@ class Api {
     }
 
     async fetchUsersCount() {
-        const re = await fetch(`${this._base}/User/Count`);
-        return await re.json();
+        return  fetch(`${this._base}/User/Count`).then((re ) => {
+            if(re.ok){
+                    return re.json();
+                }
+                throw new Error("Erreur dans la requète api "+re.statusText);
+            }
+
+        );
+
     }
 
     async fetchUsersCountInVacation(date: string) {
         let data = JSON.stringify({
             date: date
         })
-        const re = await fetch(`${this._base}/User/InVacation`, {
+        return fetch(`${this._base}/User/InVacation`, {
             method: 'POST',
             body: data,
             headers: {
                 'Content-Type': 'application/json'
             }
+        }).then(re => {
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète api "+re.statusText);
+
         })
-        return await re.json()
     }
 
 

@@ -31,16 +31,21 @@ class HomeStore {
         this.loadUsersCountInVacation(date)
     }
 
-    loadUsersCount() {
-        api.fetchUsersCount().then(data => {
-            this.usersCount = data
-        })
+    async loadUsersCount(){
+        try {
+            this.usersCount = await api.fetchUsersCount()
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    loadUsersCountInVacation(date: any) {
-        api.fetchUsersCountInVacation(date).then(data => {
+    async loadUsersCountInVacation(date: any) {
+        try {
+            let data = await api.fetchUsersCountInVacation(date)
             this.userCountPerPlace = new Map<string, string>(Object.entries(data))
-        })
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 

@@ -110,7 +110,7 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
             this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
             return false;
         }
-        if(place == null){
+        if(place.name === ''){
             this.handleErrorMessage('Le champ "Lieu" est obligatoire');
             return false;
         }

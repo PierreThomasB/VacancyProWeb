@@ -7,7 +7,7 @@ import {Alert, Button, Card, Container, Paper, Stack, Typography} from "@mui/mat
 import {SimpleTable} from "../../molecules/SimpleTable.tsx";
 import {DialogInput} from "../../molecules/DialogInput.tsx";
 import Period from "../../../models/Period.ts";
-import {WeatherComponent} from "../../molecules/WeatherComponent.tsx";
+import {WeatherComponent} from "../../organisms/WeatherComponent.tsx";
 import {DialogConfirmation} from "../../molecules/DialogConfirmation.tsx";
 import {DialogWay} from "../../molecules/DialogWay.tsx";
 import {ChatObserver} from "../../organisms/ChatSystem.tsx";
@@ -22,6 +22,7 @@ import Activity from "../../../models/Activity.ts";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
+import AddIcon from '@mui/icons-material/Add';
 
 
 const PeriodDetails:React.Fc = () => {
@@ -147,13 +148,19 @@ const PeriodDetails:React.Fc = () => {
                             }
 
                             ]}/>
-                            <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
+                             <div style={{display:"flex",flexDirection:"column" , justifyContent:"center"}}>
+                                {activities.size > 0 ? (
+                                    <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
+
+                                ):(
+                                    <Alert severity="warning">Aucune activité n'est prévue pour cette période</Alert>   )}
+                                <Button><Link to='/NewActivity' state={period}>Ajouter une activité </Link></Button>
+                             </div>
                             <WeatherComponent lieux={period.place.name}/>
                     </Stack>
                     <div style={{display: "flex", flexDirection: "row", gap: "1em", paddingTop: "2em"}}>
                         <DialogInput suggests={users} buttonValue={<PersonAddIcon/>} titre={"Ajouter des personnes"}
                                      actionsWhenOpen={handleAddPeople}/>
-                        <Button><Link to='/NewActivity' state={period}>Add an Activity</Link></Button>
                         <DialogConfirmation buttonValue={<DeleteIcon/>} actions={deletePeriod}
                                             titre={"Voulez vous vraiment supprimer l'activité"}/>
                         <DialogWay lieux={period.place.name} titre={"Itinéraire"} buttonValue={<ForkRightIcon/>}/>

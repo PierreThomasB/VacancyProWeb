@@ -12,7 +12,6 @@ import {useEffect, useState} from "react";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 // @ts-ignore
-import {api} from '../../../repositories/Api.ts'
 
 import Period from "../../../models/Period.ts";
 import {PlaceInput} from "../../molecules/PlaceInput.tsx";
@@ -21,8 +20,6 @@ import Place from "../../../models/Place.ts";
 import {useLocation, useNavigate} from "react-router-dom";
 import {canCreateActivity} from "../../../stores/ActivityStore.ts";
 import {wait} from "@testing-library/user-event/dist/utils";
-import {sessionStore} from "../../../stores/SessionStore.ts";
-import {periodStore} from "../../../stores/PeriodStore.ts";
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 
 

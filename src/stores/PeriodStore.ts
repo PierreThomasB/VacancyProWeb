@@ -82,7 +82,7 @@ class PeriodStore  implements CanCreatePeriods , CanDeletePeriods, CanInsertUser
             this.handleErrorMessage('Le champ "Description" est obligatoire')
             return false;
         }
-        if(place === null ){
+        if(place.name ==="" ){
             this.handleErrorMessage('Veillez renseigner un lieux de vacances');
 
             return false;

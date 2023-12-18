@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import {Button, Dialog, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import {google, outlook, office365, yahoo, ics } from "calendar-link";
 import {useNavigate} from "react-router-dom";
-import Period from "../../models/Period";
 import Activity from "../../models/Activity";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
@@ -15,6 +14,7 @@ interface Event{
     description: string,
     start:Date,
     allDay: true,
+    location:string
 
 }
 export const CalendarSystem = ({activity }) => {
@@ -35,20 +35,12 @@ export const CalendarSystem = ({activity }) => {
     }
 
 
-
-
-
-
-
-
-
-
     function handleAddcalendar() {
 
 
         let activityObj = activity as Activity
         console.log(activityObj);
-        const event : Event = {title : activityObj.name ,description : activityObj.description , start : activityObj.beginDate  , allDay : true };
+        const event : Event = {title : activityObj.name ,description : activityObj.description , start : activityObj.beginDate  , allDay : true , location: activityObj.place.name}
         let tempTab = []
         tempTab.push([google(event) , "Export to Google"]);
         tempTab.push([outlook(event) , "Export to Outlook"]);

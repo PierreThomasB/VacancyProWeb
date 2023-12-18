@@ -22,13 +22,15 @@ class SessionStore {
         }
     }
 
-    loadUser() {
+    async loadUser() {
         let token = JSON.parse(localStorage.getItem('VacancyProUser'))
         if (token) {
-            api.fetchUser(token)
-                .then(data => {
-                    if (!data.error) this.user = data
-                })
+            try {
+                let data = await api.fetchUser(token)
+                this.user = data
+            }catch (e) {
+                console.log(e)
+            }
         }
     }
 

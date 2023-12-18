@@ -18,4 +18,8 @@ export default class Activities {
     get sortByActivitiesDateAsc() {
         return this._activities.sort((a, b) => a.beginDate.getTime() - b.beginDate.getTime());
     }
+
+    get size () {
+        return this._activities.length;
+    }
 }
