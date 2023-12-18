@@ -430,7 +430,22 @@ class Api {
 
 
     }
+    async deleteNotification(notificationId: number) {
+        return await fetch(`${this._base}/Notification/`+notificationId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+        }).then((re) => {
+            if(re.ok){
+                return re.json();
+            }
+            throw new Error("Erreur dans la requête "+re.statusText);
+            }
 
+        )
+    }
 
 
 

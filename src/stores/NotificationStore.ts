@@ -2,8 +2,11 @@ import {makeAutoObservable} from "mobx";
 import {api} from "../repositories/Api.ts";
 import Notification from "../models/Notification.ts";
 import {sessionStore} from "./SessionStore.ts";
+import {CanDeleteNotifications} from "./Interface/Notifications/CanDeleteNotifications.ts";
+import {Notifications} from "../models/Notifications.ts";
+import {CanGetNotifications} from "./Interface/Notifications/CanGetNotifications.ts";
 
-class NotificationStore {
+class NotificationStore implements CanDeleteNotifications , CanGetNotifications{
 
     private _mode = 'signin'
     private _errorMsg = undefined
@@ -58,19 +61,30 @@ class NotificationStore {
 
     async handleGetNotifications(){
 
-        let result = [Notification];
+        let result = new Array<Notification>();
         try {
 
             let res = await api.getNotificationFromUser();
             result = res.map( notif => {
                 return new Notification(notif["id"],notif["contenu"] , notif["date"]);
             })
-            return result;
+            return new Notifications(result);
         }catch (error){
             this.handleErrorMessage(error.message);
         }
 
     }
+
+    async handleDeleteNotification(notificationId: number) {
+        try {
+            let res = await api.deleteNotification(notificationId);
+            return true;
+        } catch (error) {
+            this.handleErrorMessage(error.message);
+            return false;
+        }
+    }
+
 
 
 
@@ -99,4 +113,6 @@ class NotificationStore {
 
 }
 
-export  const notificationStore = new NotificationStore();
+const notificationStore = new NotificationStore();
+export const canGetNotifications: CanGetNotifications = notificationStore;
+export const canDeleteNotifications: CanDeleteNotifications = notificationStore;

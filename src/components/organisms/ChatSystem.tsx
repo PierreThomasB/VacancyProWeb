@@ -36,7 +36,7 @@ function ChatSystem ({channel_name}){
         channel.bind('my-event', function(data) {
             console.log(data);
             let message = new Message(channel_name, data.Message, data.Date, data.UserName)
-            setChat(new Messages([...chat.messages, message]));
+            setChat(prevChat => new Messages([...prevChat.messages, message]));
         });
         return pusher;
     }

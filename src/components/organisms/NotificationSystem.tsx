@@ -4,28 +4,32 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import React, {useEffect, useState} from "react";
 import {Badge, Box, Popper} from "@mui/material";
 import {ObservedSnackBar} from "../molecules/SnackBar.tsx";
-import {notificationStore} from "../../stores/NotificationStore.ts";
 import {NotificationComponent} from "../molecules/NotificationComponent.tsx";
 import Notification from "../../models/Notification.ts";
+import {Notifications} from "../../models/Notifications.ts";
+import {canGetNotifications} from "../../stores/NotificationStore.ts";
 
 
 function NotificationSystem (){
-    const [notifications , setNotifications] = useState<[]|null>([]);
+    const [notifications , setNotifications] = useState( new Notifications( []));
     const [open,setOpen] = useState<boolean>(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [loading , setLoading] = useState<boolean>(false);
 
 
 
 
     const getNotifications = async ()  => {
-        let res =  await   notificationStore.handleGetNotifications();
-        console.log(res);
-        // @ts-ignore
+        let res = await  canGetNotifications.handleGetNotifications();
         setNotifications(res);
     }
 
     useEffect(() => {
-        getNotifications()
+        getNotifications().then(
+            () => {
+                setLoading(true);
+            }
+        )
 
 
 
@@ -39,24 +43,26 @@ function NotificationSystem (){
 
 
 
-
+if(!loading){
+    return(
+    <div>loading</div>
+    )
+}
 
     return (
        <div>
-           <Badge badgeContent={notifications.length} color="secondary"  >
+           <Badge badgeContent={notifications.notificationsCount} color="secondary"  >
             <NotificationsOutlinedIcon onClick={setOpenPopper}  />
            </Badge>
            <Box style={{minWidth:"25%"}}>
                <Popper open={open} placement={"bottom" } anchorEl={anchorEl} >
-                       {notifications.map((notification : Notification) => {
+                       {notifications.notifications.map((notification : Notification) => {
                            return (
                                <NotificationComponent nom={notification.contenu} id={notification.id} />
                            )
                        })}
                </Popper>
            </Box>
-           <ObservedSnackBar open={notificationStore.open} message={notificationStore.errorMsg} severity={notificationStore.severity}/>
-
        </div>
     )
 

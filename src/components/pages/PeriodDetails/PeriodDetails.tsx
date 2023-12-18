@@ -135,9 +135,7 @@ const PeriodDetails:React.Fc = () => {
                         <ChatObserver channel_name={"channel_" + period.id}/>
                     </div>
                     <Stack direction="row" spacing={10} style={{display: "flex", flexDirection: "row"}}>
-                        <Card>
-                            <Typography variant="h4" gutterBottom>Informations</Typography>
-                            <SimpleTable colonnes={[{id: 1, label: "Date"}, {
+                            <SimpleTable titre={"Infos"} colonnes={[{id: 1, label: "Date"}, {
                                 id: 2,
                                 label: period.getdateFormat()
                             }]} lignes={[{1: "Description", 2: period.description}, {
@@ -149,7 +147,6 @@ const PeriodDetails:React.Fc = () => {
                             }
 
                             ]}/>
-                        </Card>
                             <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
                             <WeatherComponent lieux={period.place.name}/>
                     </Stack>
