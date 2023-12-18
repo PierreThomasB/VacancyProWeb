@@ -14,7 +14,7 @@ import {Messages} from "../../models/Messages.ts";
 
 
 
-function ChatSystem ({channel_name} ){
+function ChatSystem ({channel_name}){
 
 
     const [message, setMessage] = useState<string>('');
@@ -23,22 +23,20 @@ function ChatSystem ({channel_name} ){
     const open = Boolean(anchorEl);
 
 
-
-
-
-
-
     const getMessages = async () => {
         let res = await chatStore.handleGetAllMessage(channel_name);
         console.log(res);
         setChat(res);
     }
+
+
     const initPusher = () : Pusher => {
         const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
+            console.log(data);
             let message = new Message(channel_name, data.Message, data.Date, data.UserName)
-            setChat(chat => chat.addMessage(message));
+            setChat(new Messages([...chat.messages, message]));
         });
         return pusher;
     }
@@ -55,7 +53,7 @@ function ChatSystem ({channel_name} ){
     }, []);
 
     const handleSend = async () =>  {
-        chatStore.handleSendMessage(channel_name, message);
+        chatStore.handleSendMessage(channel_name, message );
         setMessage('');
 
     }
@@ -96,11 +94,13 @@ function ChatSystem ({channel_name} ){
         <Popover open={open} onClose={handleClose} >
             <Paper elevation={3} style={{ padding: '16px', maxWidth: '400px' }}>
                 <List>
-
-
-
-
-
+                    {chat.messages.map((msg, index) => {
+                        return (
+                            <ListItem key={index} >
+                                <MessageComponent  message ={msg as any}/>
+                            </ListItem>
+                        )
+                    })}
                 </List>
                 <TextField
                     label="Message"

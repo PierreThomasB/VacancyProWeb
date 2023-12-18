@@ -33,7 +33,7 @@ export const MessageComponent = ({message} ) => {
     return (
         <div style={{display:"flex",flexDirection:"column" }}>
             <div style={{display:"flex",flexDirection:"row" }}>
-                <Avatar {...stringAvatar(messageComp.userName.username)}  />
+                <Avatar {...stringAvatar(messageComp.userName)}  />
                 <p>{messageComp.message}</p>
             </div>
             <small>{getDate()}</small>

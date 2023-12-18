@@ -6,8 +6,9 @@ import Activity from "../models/Activity.ts";
 import Activities from "../models/Activities.ts";
 import {CanLoadActivities} from "./Interface/Activities/CanLoadActivities.ts";
 import {CanCreateActivity} from "./Interface/Activities/CanCreateActivity.ts";
+import {CanDeleteActivity} from "./Interface/Activities/CanDeleteActivity.ts";
 
-class ActivityStore  implements CanLoadActivities , CanCreateActivity {
+class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDeleteActivity {
     private _mode = 'signin'
     private _errorMsg = undefined
     private _severity = 'error'
@@ -62,6 +63,18 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity {
 
     onModeChange(mode: string) {
         this.mode = mode
+    }
+
+    async handleDeleteActivity(id: number): Promise<boolean> {
+
+        try{
+            await api.deleteActivity(id)
+            this.handleGoodMessage("Activitée supprimée avec succès");
+            return true;
+        }catch (error){
+            this.handleErrorMessage(error.message);
+            return false;
+        }
     }
 
 
@@ -156,3 +169,4 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity {
 const activityStore = new ActivityStore()
 export const canLoadActivities : CanLoadActivities = activityStore
 export const canCreateActivity : CanCreateActivity = activityStore
+export const canDeleteActivity : CanDeleteActivity = activityStore

@@ -1,42 +1,57 @@
 // @ts-ignore
 import React, { useEffect, useState } from 'react';
 import {api} from "../../repositories/Api.ts";
-import {WeatherData, weatherStore} from "../../stores/WeatherStore.ts";
 import {Card, Typography} from "@mui/material";
+
+
+interface WeatherData {
+    location: {
+        name:string;
+    };
+    current: {
+        temperature: number;
+        weather_icons:[string];
+        weather_descriptions:[]
+        wind_speed:number,
+        presure:number,
+    };
+}
 
 
 export const WeatherComponent: React.FC = ({lieux}) => {
 
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-    const [loaded , setLoaded] = useState<boolean>(false);
 
 
     const getWeather = async () => {
-            let res = await weatherStore.getMeteo(lieux)
-            setWeatherData(res);
+        //let res:WeatherData  = await api.getMeteo(lieux);
+        //setWeatherData(res);
     };
-
-
     useEffect(() => {
-        getWeather().then(() => setLoaded(true));
+        getWeather();
     }, []);
 
 
-    if(loaded) {
-        return (
+    /**
+     *
+     *  {weatherData && (
+     *                     <>
+     *                         <Typography variant="h4" gutterBottom>{"Météo à "+lieux}</Typography>
+     *                         <img alt={""} src={weatherData.current.weather_icons[0]}/>
+     *
+     *                         <p>Température: {weatherData.current.temperature}°C</p>
+     *                         <p>Description: {weatherData.current.weather_descriptions.at(0)}</p>
+     *                     </>
+     *                 )}
+     */
+    return (
+        <Card style={{minWidth:"20%" , flexDirection:"column", display:"flex",justifyContent:"center"}}>
 
-            <Card style={{minWidth:"20%" , flexDirection:"column", display:"flex",justifyContent:"center"}}>
-                    <Typography variant="h4" gutterBottom>{"Météo à "+weatherData.location.name}</Typography>
-
-
-                                <img alt={""} src={weatherData.current.weather_icons[0]} style={{maxWidth:"60%"}} />
-                                <p>Température: {weatherData.current.temperature}°C</p>
-                                <p>Description: {weatherData.current.weather_descriptions.at(0)}</p>
 
 
 
-                </Card>
-        );
-    }
+
+        </Card>
+    );
 };
 

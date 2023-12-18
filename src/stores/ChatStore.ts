@@ -18,20 +18,28 @@ class ChatStore implements ChatStoreInterface {
 
 
     async handleGetAllMessage(channel: string): Promise<Messages> {
-        let result = await api.AllMessage(channel);
-        let tempMessage = new Array<Message>();
-        result.forEach(message => {
-            let messageObj: Message = new Message(message.channel, message.message, message.date, message.userName);
-            tempMessage.push(messageObj);
-        });
-        return new Messages(tempMessage);
+        try {
+            let result = await api.AllMessage(channel);
+            let tempMessage = new Array<Message>();
+            result.forEach(message => {
+                let messageObj: Message = new Message(message.channel, message.message, message.date, message.userName);
+                tempMessage.push(messageObj);
+            });
+            return new Messages(tempMessage);
+        } catch (e) {
+            console.log(e);
+            return new Messages(new Array<Message>());
+        }
     }
 
 
     async handleSendMessage(channel: string, message: string) {
-        const user = sessionStore.user;
-        let messageObj = new Message(channel, message, new Date(), user);
-         await api.newMessage(messageObj)
+        let messageObj = new Message(channel, message, new Date(), "null");
+        try {
+            await api.newMessage(messageObj)
+        }catch (e) {
+            console.log(e)
+        }
 
     }
 

@@ -10,7 +10,7 @@ class Api {
     _base: string
 
     constructor() {
-        this._base = config.ApiUrl
+        this._base = config.LocalUrl
     }
 
     get base() {
@@ -34,10 +34,10 @@ class Api {
             Message:message.message,
             Channel:message.channel,
             Date:message.date,
-            User:message.userName,
+            UserName:message.userName,
 
         });
-        console.log(data);
+
 
         return fetch(`${this._base}`+"/Chat/NewMessage",{
             method: 'POST',
@@ -47,8 +47,12 @@ class Api {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re =>
-            re.json())
+        }).then(re => {
+            if (re.ok) {
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète api " + re.statusText);
+        })
     }
 
     async AllMessage(channel:string ) {
@@ -60,7 +64,10 @@ class Api {
                 "Authorization": `Bearer ${this.token}`,
             }
         }).then(re =>{
+            if(re.ok){
             return re.json();
+            }
+            throw new Error("Erreur dans la requète api pour les messages  "+re.statusText);
         })
     }
 
@@ -136,7 +143,6 @@ class Api {
     /** ACTIVITY **/
 
     async newActivity(activity: Activity) {
-        console.log(activity);
         let data = JSON.stringify({
             Id:activity.id,
             Name:activity.name,
@@ -189,6 +195,22 @@ class Api {
 
          }
     )
+    }
+
+    async deleteActivity(id: number) {
+        return fetch(`${this._base}`+"/Activity/"+id,{
+            method: 'DELETE',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`,
+            }
+        }).then(re => {
+            if(re.ok) {
+                return re.json();
+            }
+            throw new Error("Erreur dans la requète");
+        })
     }
 
 
@@ -410,18 +432,8 @@ class Api {
     }
 
 
-    async newNotificationToUser(notification : Notification) {
-        let data = JSON.stringify("");
-        const re = await fetch(`${this._base}/Notification/NotificationToUser`, {
-            method: 'POST',
-            body: data,
-            headers: {
-                'Content-Type': 'application/json',
-                "Authorization": `Bearer ${this.token}`
-            }
-        })
-        return await re.json()
 
-    }
+
+
 }
 export const api: Api = new Api()

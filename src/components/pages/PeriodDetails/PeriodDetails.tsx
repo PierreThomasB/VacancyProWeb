@@ -14,7 +14,7 @@ import {ChatObserver} from "../../organisms/ChatSystem.tsx";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {CalendarSystem} from "../../organisms/CalendarSystem.tsx";
 import {canDeletePeriods, canGetAllUserNotInPeriod, canInsertUserToPeriod} from "../../../stores/PeriodStore.ts";
-import {canLoadActivities} from "../../../stores/ActivityStore.ts";
+import {canDeleteActivity, canLoadActivities} from "../../../stores/ActivityStore.ts";
 import Place from "../../../models/Place.ts";
 import User from "../../../models/User.ts";
 import Activities from "../../../models/Activities.ts";
@@ -53,23 +53,31 @@ const PeriodDetails:React.Fc = () => {
 
 
    const handleAddPeople =  async (userId:string) => {
-        await canInsertUserToPeriod.handleNewUserToPeriod(userId,period.id);
-        wait(3000);
-
+         canInsertUserToPeriod.handleNewUserToPeriod(userId,period.id).then(
+                () => {
+                     window.location.reload();
+                }
+         )
+    }
+    const deleteActivity =  (activityId:number) => {
+          canDeleteActivity.handleDeleteActivity(activityId).then(
+                () => {
+                    window.location.reload();
+                }
+          )
     }
 
 
     //{1:act.name, 2:act.getdateFormat(),3:act.place.name, 4:<CalendarSystem period={act} />}
 
-    const getActivitiesFormat = () : Activity[] => {
-      let tab = []
-         activities.activities.forEach(activity =>{
-             tab.push({1:activity.name, 2:activity.getdateFormat(),3:activity.place.name, 4:<CalendarSystem activity={activity}/>})
-         }  )
-        return tab;
-    }
+    const getActivitiesFormat = () => {
+          let tab = []
+             activities.activities.forEach(activity =>{
+                 tab.push({1:activity.name, 2:activity.getdateFormat(),3:activity.place.name, 4:<CalendarSystem activity={activity}/> , 5 : <DialogConfirmation buttonValue={<DeleteIcon/>} actions={() => {deleteActivity(activity.id)}} titre={"Voulez vous vraiment supprimer l'activité"}/>})
+             } )
 
-
+            return tab;
+        }
 
 
 
@@ -135,9 +143,14 @@ const PeriodDetails:React.Fc = () => {
                             }]} lignes={[{1: "Description", 2: period.description}, {
                                 1: "Avec qui ?",
                                 2: period.userListName
-                            }]}/>
+                            },{
+                                1: "Lieu",
+                                2: period.place.name
+                            }
+
+                            ]}/>
                         </Card>
-                            <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Actions"}]} lignes={getActivitiesFormat()}/>
+                            <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
                             <WeatherComponent lieux={period.place.name}/>
                     </Stack>
                     <div style={{display: "flex", flexDirection: "row", gap: "1em", paddingTop: "2em"}}>

@@ -8,11 +8,11 @@ export default class Message {
     private readonly _userName:string
 
 
-    constructor(channel: string, message: string , date:Date , user:string) {
+    constructor(channel: string, message: string , date:Date , userName:string) {
         this._channel = channel;
         this._message = message;
         this._date = date;
-        this._userName = user;
+        this._userName = userName;
     }
 
 
