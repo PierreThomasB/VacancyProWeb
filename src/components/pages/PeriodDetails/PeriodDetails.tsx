@@ -59,12 +59,12 @@ const PeriodDetails:React.Fc = () => {
 
 
    const handleAddPeople =  async (userId:string) => {
-         canInsertUserToPeriod.handleNewUserToPeriod(userId,period.id).then(
-                () => {
-                     window.location.reload();
-                }
-         )
-    }
+       if (await canInsertUserToPeriod.handleNewUserToPeriod(userId, period.id)) {
+           await wait(2000);
+           window.location.reload();
+
+       }
+   }
     const deleteActivity = async  (activityId:number) => {
           if(await canDeleteActivity.handleDeleteActivity(activityId)){
                         await wait(2000);

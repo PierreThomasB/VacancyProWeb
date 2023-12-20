@@ -264,6 +264,7 @@ class Api {
                 "Authorization": `Bearer ${this.token}`,
             }
         }).then(re => {
+
                 if (re.ok) {
                    return re.json()
                 }

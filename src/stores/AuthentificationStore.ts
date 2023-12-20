@@ -63,8 +63,8 @@ class AuthentificationStore {
         switch (data.length) {
             case 2:
                 // @ts-ignore
-                this.handleSignIn(...data.values())
-                break
+                return this.handleSignIn(...data.values())
+
             case 3:
                 // @ts-ignore
                 this.handleSignUpProvider(...data.values())
@@ -78,7 +78,7 @@ class AuthentificationStore {
         }
     }
 
-   private handleSignIn(email: string, password: string) {
+   private  handleSignIn(email: string, password: string) {
         const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         if (email === '') {
             this.handleErrorMessage('Le champ "Adresse mail" est obligatoire')
@@ -90,7 +90,7 @@ class AuthentificationStore {
         }
         if (password === '') {
             this.handleErrorMessage('Le champ "Mot de passe" est obligatoire')
-            return
+            return false
         }
 
         try {
@@ -100,12 +100,14 @@ class AuthentificationStore {
                     else {
                         sessionStore.user = data
                         this.onModeChange('signin')
+                        return true;
                     }
                 })
         }catch (e) {
             this.handleErrorMessage(e)
         }
     }
+
 
     handleErrorMessage(message: string) {
         this.open = true
