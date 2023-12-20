@@ -11,6 +11,7 @@ import {sessionStore} from "./stores/SessionStore.ts";
 import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
 import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
 import PrivateRoute from "./PrivateRoutes.tsx";
+import {PageNotFoundComp} from "./components/pages/PageNotFound.tsx";
 
 function App() {
   //const routes = require('./routes.json')
@@ -58,8 +59,8 @@ function App() {
           <Route
               path={routes.PerdiodDetails}
               element={<PrivateRoute outlet={<PeriodDetailsObserver/>} /> }
-
           />
+             <Route outlet={<PageNotFoundComp/>} />
       </Routes>
     </Router>
   );
