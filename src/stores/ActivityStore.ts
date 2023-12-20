@@ -32,7 +32,7 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
         return this._mode;
     }
 
-    set mode(value: string) {
+   private set mode(value: string) {
         this._mode = value;
     }
 

@@ -1,3 +1,6 @@
 interface CanDeletePeriods {
-    handleDeletePeriod(periodId: number): void;
+    severity: string;
+    errorMsg: string;
+    open: boolean;
+    handleDeletePeriod(periodId: number): Promise<boolean>;
 }

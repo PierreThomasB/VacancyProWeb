@@ -1,4 +1,4 @@
-import {Link, Navigate, Route} from "react-router-dom";
+import { Navigate} from "react-router-dom";
 // @ts-ignore
 import React from "react";
 
@@ -11,9 +11,11 @@ export type PrivateRouteProps = {
 
 
 export default function PrivateRoute({ outlet}: PrivateRouteProps) : React.JSX.Element{
+    console.log(localStorage.getItem('VacancyProUser'))
 
 
-    return sessionStorage.getItem('user') ?
-        <Navigate to={'/403'}/> : outlet ;
+    return localStorage.getItem('VacancyProUser')  === null ?
+        <Navigate to={'/Authentication'}/> : outlet ;
 
 }
+

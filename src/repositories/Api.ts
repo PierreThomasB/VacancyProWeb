@@ -10,7 +10,7 @@ class Api {
     _base: string
 
     constructor() {
-        this._base = config.LocalUrl
+        this._base = config.ApiUrl
     }
 
     get base() {
@@ -134,7 +134,13 @@ class Api {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${this.token}`,
             }
-        }).then(re => re.json())
+        }).then(re => {
+                if (re.ok) {
+                    return re.json()
+                }
+                throw new Error("Erreur dans la requetes ");
+            }
+            )
     }
 
 
@@ -259,7 +265,7 @@ class Api {
             }
         }).then(re => {
                 if (re.ok) {
-                    re.json()
+                   return re.json()
                 }
                 throw new Error("Erreur dans la requête sing in ");
             }
@@ -452,7 +458,7 @@ class Api {
 
     }
     async deleteNotification(notificationId: number) {
-        return await fetch(`${this._base}/Notification/`+notificationId, {
+        return await fetch(`${this._base}/Notification/Notification/?id=`+notificationId, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

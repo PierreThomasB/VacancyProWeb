@@ -87,7 +87,7 @@ class PeriodStore  implements CanCreatePeriods , CanDeletePeriods, CanInsertUser
 
             return false;
         }
-        if(startDate === undefined || startDate === new Date() ){
+        if(startDate === undefined ){
             this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
 
             return false ;
@@ -97,7 +97,7 @@ class PeriodStore  implements CanCreatePeriods , CanDeletePeriods, CanInsertUser
             return false ;
 
         }
-        if(startDate >= endDate){
+        if(startDate > endDate){
             this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
             return false ;
 
@@ -120,9 +120,15 @@ class PeriodStore  implements CanCreatePeriods , CanDeletePeriods, CanInsertUser
 
 
     handleDeletePeriod = async  (periodId:number) => {
-        let resp = await api.deletePeriod(periodId);
+        try {
+             await api.deletePeriod(periodId);
+            this.handleGoodMessage("Vacances supprimé avec succès");
+            return true;
 
-            this.handleGoodMessage("Voyage supprimé avec succès")
+        }catch (error) {
+            this.handleErrorMessage(error.message);
+            return false;
+        }
     }
 
 

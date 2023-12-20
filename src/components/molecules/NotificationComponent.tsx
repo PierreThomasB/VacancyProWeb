@@ -10,7 +10,7 @@ export const NotificationComponent = ({nom , id}) => {
     function deleteNotification() {
         canDeleteNotifications.handleDeleteNotification(id).then(
             () => {
-                window.location.reload();
+
             }
         )
 
@@ -19,9 +19,8 @@ export const NotificationComponent = ({nom , id}) => {
     return (
 
         <div id={id} style={{backgroundColor:"white",minWidth:"100%" , minHeight:"50%" , display:"flex" , flexDirection:"row"}} >
-            <p className={"c"}>{nom}</p>
-            <Button  onClick={deleteNotification} />
-            <DeleteIcon/>
+            <p>{nom}</p>
+            <DeleteIcon onClick={deleteNotification}/>
             <hr/>
         </div>
     );

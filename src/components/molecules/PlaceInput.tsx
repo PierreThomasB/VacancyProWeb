@@ -2,18 +2,15 @@
 import React, {useState} from "react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import Place from "../../models/Place.ts";
+const config = require('../../config.json');
 
 
 
 
 export const PlaceInput  = ({updateLieu}) => {
 
-
-
-
     const [value,setValue ] = useState("");
-
-
+    const apiKey = config.GoogleAPiKey;
 
     const handleInputChange = (e) => {
 
@@ -35,7 +32,7 @@ export const PlaceInput  = ({updateLieu}) => {
                     }
                 }}
 
-                apiKey="AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s"
+                apiKey={apiKey}
             />
         </div>
 

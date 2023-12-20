@@ -37,13 +37,15 @@ function NewActivity ()   {
     const [place ,setPlace ] = useState(new Place("","",""));
     const [period,setPeriod] = useState(new Period(-1,"","",null,null,null,null , null));
 
+    const [disabled , setDisabled] = useState(false);
 
 
 
     const doPost = async () => {
         if(await canCreateActivity.handleNewActivity(name, description, startDate, endDate, place, period)){
-            wait(3000);
-            navigate("/Periods");
+            setDisabled(true)
+            await wait(3000);
+            navigate("/periods");
         }
     }
     const initPeriods = () => {
@@ -97,7 +99,7 @@ function NewActivity ()   {
                             />
                         </Grid>
                         <Grid item  style={{display:"flex" , alignItems:"center"}}>
-                            <Button size={"large"}  onClick={() => doPost()}>
+                            <Button size={"large"}  onClick={() => doPost()} disabled={disabled}>
                                 Valider
                             </Button>
                         </Grid>

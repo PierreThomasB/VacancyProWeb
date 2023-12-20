@@ -93,14 +93,18 @@ class AuthentificationStore {
             return
         }
 
-        api.signIn(email, password)
-            .then(data => {
-                if (data.error) this.handleErrorMessage(data.message)
-                else {
-                    sessionStore.user = data
-                    this.onModeChange('signin')
-                }
-            })
+        try {
+              api.signIn(email, password)
+                .then(data => {
+                    if (data.error) this.handleErrorMessage(data.message)
+                    else {
+                        sessionStore.user = data
+                        this.onModeChange('signin')
+                    }
+                })
+        }catch (e) {
+            this.handleErrorMessage(e)
+        }
     }
 
     handleErrorMessage(message: string) {

@@ -73,7 +73,7 @@ const ShowPeriod = () => {
             <div style={{margin:"1%"}}>
                 <ul style={{display:"flex", flexDirection:"row" , justifyContent:"space-around"}} >
                     <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Nouvelle période"} onClick={() => navigateToUrl("/newPeriod")}/></li>
-                    <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Upcomming trips"} onClick={handleOncomingTrips}/></li>
+                    <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Periodes futures"} onClick={handleOncomingTrips}/></li>
                     <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"Période passée "} onClick={handlePastedTrips}/></li>
                     <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"Toutes les périodes"} onClick={handleAllTrips}/></li>
                 </ul>

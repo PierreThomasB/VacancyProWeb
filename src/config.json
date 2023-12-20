@@ -1,5 +1,6 @@
 {
     "LocalUrl": "http://localhost:5053",
     "ApiUrl": "https://porthos-intra.cg.helmo.be/e190476",
-    "GoogleClientID": "839490257347-pil6fu37u4mrr4toa69um58srcolnokg.apps.googleusercontent.com"
+    "GoogleClientID": "839490257347-pil6fu37u4mrr4toa69um58srcolnokg.apps.googleusercontent.com",
+    "GoogleAPiKey" : "AIzaSyAeX0rGP22Zfco3WbT44TFHbKxqmPmIK_s"
 }

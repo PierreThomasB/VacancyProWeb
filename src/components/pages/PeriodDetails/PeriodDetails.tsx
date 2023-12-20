@@ -23,33 +23,38 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 import AddIcon from '@mui/icons-material/Add';
+import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 
 
 const PeriodDetails:React.Fc = () => {
     const {state} = useLocation();
     const navigate = useNavigate();
 
-    const [period,setPeriod] = useState<Period|null>(new Period(state["_id"],state["_name"],state["_description"], new Place(state._place["_name"],state._place["_id"],state._place["_urlPhoto"]) , state["_beginDate"], state["_endDate"], null , state._listUser.map(usr => new User(usr._id , usr._username , usr._email , null,false,null))));
+    const [period,setPeriod] = useState<Period|null>();
     const [activities , setActivities] = useState<Activities>(new Activities([]));
     const [users , setUser] = useState([]);
     const [loaded , setLoaded] = useState(0);
 
 
-  const initActivities = async () => {
+
+
+
+  const initActivities = async (period:Period) => {
       let activities = await canLoadActivities.handleGetAllActivities(period.id);
       setActivities(activities);
       console.log(activities);
   }
 
-  const initUsers  = async () => {
+  const initUsers  = async (period:Period) => {
       let res = await canGetAllUserNotInPeriod.handleGetAllUser(period.id);
       setUser(res);
     }
 
     const deletePeriod = async  () => {
-      canDeletePeriods.handleDeletePeriod(period.id);
-      await wait(3000);
-      navigate("/Periods");
+      if(await canDeletePeriods.handleDeletePeriod(period.id)){
+          await wait(3000);
+          navigate("/Periods");
+      }
   }
 
 
@@ -60,12 +65,11 @@ const PeriodDetails:React.Fc = () => {
                 }
          )
     }
-    const deleteActivity =  (activityId:number) => {
-          canDeleteActivity.handleDeleteActivity(activityId).then(
-                () => {
-                    window.location.reload();
-                }
-          )
+    const deleteActivity = async  (activityId:number) => {
+          if(await canDeleteActivity.handleDeleteActivity(activityId)){
+                        await wait(2000);
+                        window.location.reload();
+                    }
     }
 
 
@@ -84,19 +88,21 @@ const PeriodDetails:React.Fc = () => {
 
 
   useEffect(() => {
-      if(period !== null) {
-          console.log(period);
-          initActivities().then(
-                () => {
-                    setLoaded((val)=> val+1);
-                }
-          );
-          initUsers().then(
-                () => {
-                    setLoaded((val) =>  val+1);
-                }
-          );
-
+      if(state !== null) {
+          let period = new Period(state["_id"], state["_name"], state["_description"], new Place(state._place["_name"], state._place["_id"], state._place["_urlPhoto"]), state["_beginDate"], state["_endDate"], null, state._listUser.map(usr => new User(usr._id, usr._username, usr._email, null, false, null)))
+          setPeriod(period);
+              initActivities(period).then(
+                  () => {
+                      setLoaded((val) => val + 1);
+                  }
+              );
+              initUsers(period).then(
+                  () => {
+                      setLoaded((val) => val + 1);
+                  }
+              );
+      }else{
+          navigate("/Periods");
       }
   },[])
 
@@ -162,10 +168,12 @@ const PeriodDetails:React.Fc = () => {
                         <DialogInput suggests={users} buttonValue={<PersonAddIcon/>} titre={"Ajouter des personnes"}
                                      actionsWhenOpen={handleAddPeople}/>
                         <DialogConfirmation buttonValue={<DeleteIcon/>} actions={deletePeriod}
-                                            titre={"Voulez vous vraiment supprimer l'activité"}/>
+                                            titre={"Voulez vous vraiment supprimer la période de vacances"}/>
                         <DialogWay lieux={period.place.name} titre={"Itinéraire"} buttonValue={<ForkRightIcon/>}/>
                     </div>
                 </Container>
+                <ObservedSnackBar open={canDeletePeriods.open} message={canDeletePeriods.errorMsg}  severity={canDeletePeriods.severity} />
+                <ObservedSnackBar open={canDeleteActivity.open} message={canDeleteActivity.errorMsg}  severity={canDeleteActivity.severity} />
 
             </div>
 

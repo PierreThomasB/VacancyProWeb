@@ -38,11 +38,13 @@ function NewPeriod ()   {
     const [startDate , setStartDate] = useState();
     const [endDate , setEndDate] = useState();
     const [place ,setPlace ] = useState(null);
+    const [disabled , setDisabled] = useState(false);
 
 
 
     const doPost = async () => {
         if(await canCreatePeriods.handleNewPeriod(name,description,place,startDate,endDate)){
+            setDisabled(true);
             await wait(3000);
             navigate("/periods");
         }
@@ -85,7 +87,7 @@ function NewPeriod ()   {
                       }}/>
                   </Grid>
                       <Grid item  style={{display:"flex" , alignItems:"center"}}>
-                          <Button size={"large"}  onClick={() => doPost()}>
+                          <Button size={"large"}  onClick={() => doPost()} disabled={disabled}>
                               Valider
                           </Button>
                       </Grid>
