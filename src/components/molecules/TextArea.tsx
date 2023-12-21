@@ -2,7 +2,7 @@ import {TextField} from "@mui/material";
 // @ts-ignore
 import React, {useState} from "react";
 
-export const TextArea = ({id,label,onTextAreaChanged}) => {
+export const TextArea = ({id,label,onTextAreaChanged ,value}) => {
 
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -28,7 +28,7 @@ export const TextArea = ({id,label,onTextAreaChanged}) => {
 
 
         <div>
-            <TextField multiline={true} onChange={(newValue)=> check(newValue)} id={id} label={label} variant={"standard"} minRows={10} style={{minWidth:"100%"}}  />
+            <TextField multiline={true} value={value} onChange={(newValue)=> check(newValue)} id={id} label={label} variant={"standard"} minRows={10} style={{minWidth:"100%"}}  />
             <span id={id+"message"} style={{color:"red"}}>{errorMessage}</span>
         </div>
 

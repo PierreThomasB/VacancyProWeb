@@ -2,6 +2,8 @@ import Place from "./Place.ts";
 import Period from "./Period.ts";
 import {override} from "mobx";
 import HasRangeDates from "./HasRangeDates.ts";
+import * as dayjs from "dayjs";
+import {Dayjs} from "dayjs";
 
 export default class Activity extends HasRangeDates{
 
@@ -46,6 +48,22 @@ export default class Activity extends HasRangeDates{
 
     get period(): Period {
         return this._period;
+    }
+    dateFromCalendar(begin:boolean ) : Dayjs {
+        switch (begin) {
+            case false:
+                return this.dateBeginFormCalendar(this.beginDate);
+            case true:
+                return this.dateBeginFormCalendar(this.endDate)
+
+        }
+
+    }
+    private dateBeginFormCalendar(date : Date) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Mois commence à 0
+        const day = date.getDate().toString().padStart(2, '0');
+        return dayjs(year + '-' + month + '-' + day);
     }
    
 }

@@ -31,7 +31,6 @@ export const PlaceInput  = ({updateLieu}) => {
                         setValue(e);
                     }
                 }}
-
                 apiKey={apiKey}
             />
         </div>

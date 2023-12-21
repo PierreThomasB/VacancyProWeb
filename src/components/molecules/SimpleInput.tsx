@@ -5,7 +5,7 @@ import {useState} from "react";
 
 
 
-export const  SimpleInput = ({id,label , onInputChange}) => {
+export const  SimpleInput = ({id,label , onInputChange , value }) => {
 
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -38,6 +38,8 @@ export const  SimpleInput = ({id,label , onInputChange}) => {
                         label={label}
                         fullWidth
                         variant="standard"
+                        value={value}
+
                       />
                 <span id={id+"message"} style={{color:"red"}}>{errorMessage}</span>
         </div>

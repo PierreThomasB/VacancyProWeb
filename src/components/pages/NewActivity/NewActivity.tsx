@@ -75,10 +75,10 @@ function NewActivity ()   {
                             <Typography variant={"h4"}>Nouvelle activité</Typography>
                         </Grid>
                         <Grid item xs={12} >
-                            <SimpleInput id={"Nom"} label={"Nom"} onInputChange={(val:string) => setName(val)} ></SimpleInput>
+                            <SimpleInput value={""} id={"Nom"} label={"Nom"} onInputChange={(val:string) => setName(val)} ></SimpleInput>
                         </Grid>
                         <Grid item xs={12} >
-                            <TextArea id={"description"} label={"Description"} onTextAreaChanged={(val:string) => setDescription(val)}/>
+                            <TextArea value={""} id={"description"} label={"Description"} onTextAreaChanged={(val:string) => setDescription(val)}/>
                         </Grid>
                         <Grid item xs={6}>
                             <DesktopDatePicker

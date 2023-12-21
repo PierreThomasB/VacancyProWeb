@@ -8,5 +8,6 @@
     "Periods": "/Periods",
     "PerdiodDetails": "/PeriodDetails",
     "NewActivity":"/NewActivity",
-    "Message": "/Message"
+    "Message": "/Message",
+    "ActivityEdit": "/ActivityEdit"
 }

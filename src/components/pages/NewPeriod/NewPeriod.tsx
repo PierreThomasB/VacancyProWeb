@@ -60,10 +60,10 @@ function NewPeriod ()   {
                       <Typography variant={"h4"}>Nouvelle période de vacances</Typography>
                   </Grid>
                     <Grid item xs={12} >
-                        <SimpleInput id={"Nom"} label={"Nom"} onInputChange={(val) => setName(val)} ></SimpleInput>
+                        <SimpleInput value={name} id={"Nom"} label={"Nom"} onInputChange={(val) => setName(val)} ></SimpleInput>
                     </Grid>
                       <Grid item xs={12} >
-                          <TextArea id={"description"} label={"Description"} onTextAreaChanged={(val) => setDescription(val)}/>
+                          <TextArea value={""} id={"description"} label={"Description"} onTextAreaChanged={(val) => setDescription(val)}/>
                       </Grid>
                       <Grid item xs={6}>
                           <DesktopDatePicker

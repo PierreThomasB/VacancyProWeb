@@ -12,6 +12,8 @@ import {NewPeriodObserver} from "./components/pages/NewPeriod/NewPeriod.tsx";
 import {ShowPeriodObserver} from "./components/pages/ShowPeriod/ShowPeriod.tsx";
 import PrivateRoute from "./PrivateRoutes.tsx";
 import {PageNotFoundComp} from "./components/pages/PageNotFound.tsx";
+import {EditActivityObs, EditActivityObserver} from "./components/pages/EditActivity/EditActivity.tsx";
+import React from "react";
 
 function App() {
   //const routes = require('./routes.json')
@@ -60,6 +62,10 @@ function App() {
               path={routes.PerdiodDetails}
               element={<PrivateRoute outlet={<PeriodDetailsObserver/>} /> }
           />
+          <Route
+              path={routes.ActivityEdit}
+              element={<PrivateRoute outlet={<EditActivityObserver/>} /> }
+              />
              <Route outlet={<PageNotFoundComp/>} />
       </Routes>
     </Router>

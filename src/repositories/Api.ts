@@ -3,6 +3,7 @@ import Activity from "../models/Activity.ts";
 import Message from "../models/Message.ts";
 import {Dayjs} from "dayjs";
 import Notification from "../models/Notification.ts";
+import {ActivityEditDto} from "../stores/Dtos/ActivityEditDto.ts";
 
 const config = require(`../config.json`)
 
@@ -10,7 +11,7 @@ class Api {
     _base: string
 
     constructor() {
-        this._base = config.ApiUrl
+        this._base = config.LocalUrl
     }
 
     get base() {
@@ -127,7 +128,7 @@ class Api {
 
 
     async deletePeriod( id:number ){
-        return fetch(`${this._base}`+"/Period/Delete?id="+id,{
+        return fetch(`${this._base}`+"/Period?id="+id,{
             method: 'DELETE',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -181,6 +182,30 @@ class Api {
             }
         }).then(re =>
             re.json())
+    }
+
+    async editActivity( id:number , activity: ActivityEditDto ) {
+        let data = JSON.stringify({
+            'Name':activity.name,
+            'Description':activity.description,
+            "BeginDate" : activity.startDate,
+            "EndDate" : activity.endDate,
+        })
+        return fetch(`${this._base}`+"/Activity/"+id, {
+                body: data,
+                method:"PUT",
+                headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+            }
+            }).then(re => {
+                if(re.ok){
+                    return re.json();
+                }
+                throw new Error("Erreur dans la requète PUT " + re.statusText)
+        })
+
     }
 
 
@@ -374,7 +399,7 @@ class Api {
 
 
     async addUserToPeriod(userId:string , periodId:number){
-        return fetch(`${this.base}/Period/AddUser?userId=`+userId+"&period="+periodId, {
+        return fetch(`${this.base}/Period/NewUser?userId=`+userId+"&period="+periodId, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -474,7 +499,6 @@ class Api {
 
         )
     }
-
 
 
 

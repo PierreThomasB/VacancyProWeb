@@ -7,8 +7,10 @@ import Activities from "../models/Activities.ts";
 import {CanLoadActivities} from "./Interface/Activities/CanLoadActivities.ts";
 import {CanCreateActivity} from "./Interface/Activities/CanCreateActivity.ts";
 import {CanDeleteActivity} from "./Interface/Activities/CanDeleteActivity.ts";
+import {CanEditActivity} from "./Interface/Activities/CanEditActivity.ts";
+import {ActivityEditDto} from "./Dtos/ActivityEditDto.ts";
 
-class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDeleteActivity {
+class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDeleteActivity , CanEditActivity {
     private _mode = 'signin'
     private _errorMsg = undefined
     private _severity = 'error'
@@ -77,6 +79,40 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
         }
     }
 
+
+    async handleEditActivity(id:number , name:string , description:string , startDate:Date , endDate:Date ): Promise<boolean> {
+        if (name === '' || name.length < 2) {
+            this.handleErrorMessage('Le champ "nom" est obligatoire')
+            return false;
+        }
+
+        if (description === '' || description.length < 2) {
+            this.handleErrorMessage('Le champ description est obligatoire')
+            return false;
+        }
+        if(endDate == null){
+            this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
+            return false;
+        }
+
+        if(endDate == null  ){
+            this.handleErrorMessage('Le champ "Date de Fin" est obligatoire');
+            return false;
+        }
+        if(startDate > endDate){
+            this.handleErrorMessage('La date de debut doit etre plus récente que la date de fin');
+            return false;
+        }
+        try{
+            console.log(new ActivityEditDto(name,description,startDate,endDate));
+            await api.editActivity(id , new ActivityEditDto(name,description,startDate,endDate)  );
+            this.handleGoodMessage("Activitée modifiée avec succès");
+            return true;
+        }catch (error){
+            this.handleErrorMessage(error.message);
+            return false;
+        }
+    }
 
     async handleNewActivity(name: string, description: string, startDate: Date, endDate: Date, place: Place, period: Period)  {
 
@@ -170,3 +206,4 @@ const activityStore = new ActivityStore()
 export const canLoadActivities : CanLoadActivities = activityStore
 export const canCreateActivity : CanCreateActivity = activityStore
 export const canDeleteActivity : CanDeleteActivity = activityStore
+export const canEditActivity : CanEditActivity = activityStore

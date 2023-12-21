@@ -22,7 +22,7 @@ import Activity from "../../../models/Activity.ts";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
-import AddIcon from '@mui/icons-material/Add';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 
 
@@ -78,7 +78,7 @@ const PeriodDetails:React.Fc = () => {
     const getActivitiesFormat = () => {
           let tab = []
              activities.activities.forEach(activity =>{
-                 tab.push({1:activity.name, 2:activity.getdateFormat(),3:activity.place.name, 4:<CalendarSystem activity={activity}/> , 5 : <DialogConfirmation buttonValue={<DeleteIcon/>} actions={() => {deleteActivity(activity.id)}} titre={"Voulez vous vraiment supprimer l'activité"}/>})
+                 tab.push({1:activity.name, 2:activity.getdateFormat(),3:activity.place.name, 4:<CalendarSystem activity={activity}/> , 5: <Link to='/ActivityEdit' state={activity}><ModeEditIcon/></Link>  ,6 : <DialogConfirmation buttonValue={<DeleteIcon/>} actions={() => {deleteActivity(activity.id)}} titre={"Voulez vous vraiment supprimer l'activité"}/> })
              } )
 
             return tab;
@@ -156,7 +156,7 @@ const PeriodDetails:React.Fc = () => {
                             ]}/>
                              <div style={{display:"flex",flexDirection:"column" , justifyContent:"center"}}>
                                 {activities.size > 0 ? (
-                                    <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
+                                    <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Editer"},{id:6 , label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
 
                                 ):(
                                     <Alert severity="warning">Aucune activité n'est prévue pour cette période</Alert>   )}
