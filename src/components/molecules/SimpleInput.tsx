@@ -10,17 +10,17 @@ export const  SimpleInput = ({id,label , onInputChange , value }) => {
 
     const [errorMessage, setErrorMessage] = useState("");
 
-    const message = document.getElementById(id+'message');
 
 
     const check = (input) => {
+        console.log(input.target.value)
         const word = input.target.value;
         if (word.length < 3) {
             setErrorMessage("Le "+label+" doit contenir au moins 3 caractères ");
         } else {
             setErrorMessage("");
-            onInputChange(word);
         }
+        onInputChange(word);
     }
 
 

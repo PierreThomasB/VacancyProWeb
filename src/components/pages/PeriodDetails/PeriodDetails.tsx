@@ -61,7 +61,7 @@ const PeriodDetails:React.Fc = () => {
    const handleAddPeople =  async (userId:string) => {
        if (await canInsertUserToPeriod.handleNewUserToPeriod(userId, period.id)) {
            await wait(2000);
-           window.location.reload();
+           navigate("/Periods");
 
        }
    }

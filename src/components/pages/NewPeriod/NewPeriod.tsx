@@ -63,7 +63,7 @@ function NewPeriod ()   {
                         <SimpleInput value={name} id={"Nom"} label={"Nom"} onInputChange={(val) => setName(val)} ></SimpleInput>
                     </Grid>
                       <Grid item xs={12} >
-                          <TextArea value={""} id={"description"} label={"Description"} onTextAreaChanged={(val) => setDescription(val)}/>
+                          <TextArea value={description} id={"description"} label={"Description"} onTextAreaChanged={(val) => setDescription(val)}/>
                       </Grid>
                       <Grid item xs={6}>
                           <DesktopDatePicker

@@ -12,12 +12,14 @@ export const TextArea = ({id,label,onTextAreaChanged ,value}) => {
 
     const check = (input) => {
         const word = input.target.value;
+        console.log(word)
         if (word.length < 3) {
             setErrorMessage( 'Le nom doit contenir au moins 3 caractères.');
         } else {
             setErrorMessage("");
-            onTextAreaChanged(word);
+
         }
+        onTextAreaChanged(word);
     }
 
 
