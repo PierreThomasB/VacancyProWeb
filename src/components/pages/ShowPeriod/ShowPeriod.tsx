@@ -57,13 +57,18 @@ const ShowPeriod = () => {
         setShowedItems(periods.showOnlyFuturePeriods);
     }
     const handleSortByDateAsc = () => {
-        setShowedItems([])
-        setShowedItems(periods.sortByPeriodsDateAsc(showedItems))
+        let copiedItems = [...showedItems];
+        let sortedItems = periods.sortByPeriodsDateAsc(copiedItems);
+        setShowedItems(sortedItems);
+
     }
 
     const handleSortByDateDesc = () => {
-        setShowedItems([])
-        setShowedItems(periods.sortByPeriodsDateDesc(showedItems))
+        let copiedItems = [...showedItems];
+        let sortedItems = periods.sortByPeriodsDateDesc(copiedItems);
+        setShowedItems(sortedItems);
+
+       
     }
     if(!loaded) return (<div>loading</div>)
 
@@ -72,22 +77,22 @@ const ShowPeriod = () => {
             <ObservedNavBar/>
             <div style={{margin:"1%"}}>
                 <ul style={{display:"flex", flexDirection:"row" , justifyContent:"space-around"}} >
-                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/> <input  type={'submit'} value={"Nouvelle période"} onClick={() => navigateToUrl("/newPeriod")}/></li>
-                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/> <input  type={'submit'} value={"Periodes futures"} onClick={handleOncomingTrips}/></li>
-                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/>  <input  type={'submit'} value={"Période passée "} onClick={handlePastedTrips}/></li>
-                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/>  <input  type={'submit'} value={"Toutes les périodes"} onClick={handleAllTrips}/></li>
+                    <li><CalendarMonthIcon  fontSize={"large"}/> <input  type={'submit'} style={{cursor:"pointer"}} value={"Nouvelle période"} onClick={() => navigateToUrl("/newPeriod")}/></li>
+                    <li><CalendarMonthIcon  fontSize={"large"}/> <input  type={'submit'}  style={{cursor:"pointer"}} value={"Periodes futures"} onClick={handleOncomingTrips}/></li>
+                    <li><CalendarMonthIcon  fontSize={"large"}/>  <input  type={'submit'} style={{cursor:"pointer"}} value={"Période passée "} onClick={handlePastedTrips}/></li>
+                    <li><CalendarMonthIcon  fontSize={"large"}/>  <input  type={'submit'} style={{cursor:"pointer"}} value={"Toutes les périodes"} onClick={handleAllTrips}/></li>
                 </ul>
                 <ul style={{paddingTop:"1em" , display:"flex", flexDirection:"row" , justifyContent:"center" , marginTop:"2%"}}>
                     <li>Trier par date : </li>
-                    <li><ArrowDropDownIcon fontSize={"large"} /><input  type={'submit'} value={"Ascendant"} onClick={handleSortByDateAsc}/></li>
-                    <li><ArrowDropUpIcon fontSize={"large"} /><input  type={'submit'} value={"Descandant"} onClick={handleSortByDateDesc}/></li>
+                    <li><ArrowDropDownIcon fontSize={"large"} /><input  type={'submit'} style={{cursor:"pointer"}} value={"Ascendant"} onClick={handleSortByDateAsc}/></li>
+                    <li><ArrowDropUpIcon fontSize={"large"} /><input  type={'submit'} style={{cursor:"pointer"}} value={"Descandant"} onClick={handleSortByDateDesc}/></li>
                 </ul>
                 <Container sx={{padding:"2%"}} maxWidth="sm">
-
                     {
-                        showedItems.map(item => {
+                        showedItems.map((item ) => {
+                            console.log(item);
                         return(
-                          <PeriodCard period={item as any} />
+                          <PeriodCard key={item.id} period={item as any} />
                         );
                     })}
                 </Container>

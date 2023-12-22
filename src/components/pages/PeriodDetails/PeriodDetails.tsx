@@ -24,14 +24,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { set } from "date-fns";
 
 
 const PeriodDetails:React.Fc = () => {
     const {state} = useLocation();
     const navigate = useNavigate();
 
+
     const [period,setPeriod] = useState<Period|null>();
     const [activities , setActivities] = useState<Activities>(new Activities([]));
+    const [showedActivities , setShowedActivities] = useState<[]>([]);
     const [users , setUser] = useState([]);
     const [loaded , setLoaded] = useState(0);
 
@@ -42,6 +47,8 @@ const PeriodDetails:React.Fc = () => {
   const initActivities = async (period:Period) => {
       let activities = await canLoadActivities.handleGetAllActivities(period.id);
       setActivities(activities);
+      handleSortByDateAsc()
+
 
   }
 
@@ -72,18 +79,31 @@ const PeriodDetails:React.Fc = () => {
                     }
     }
 
+    const handleSortByDateAsc = () => {
+     let act =  activities.sortByDateAsc;
+     getActivitiesFormat(act);
+
+
+
+    }
+    const handleSortByDateDesc = () => {
+        let act =  activities.sortByDateDes;
+        getActivitiesFormat(act);
+    }
+
 
     //{1:act.name, 2:act.getdateFormat(),3:act.place.name, 4:<CalendarSystem period={act} />}
 
-    const getActivitiesFormat = () => {
+    const getActivitiesFormat = (activities : Activity[]) => {
+      console.log(activities)
           let tab = []
-             activities.activities.forEach(activity =>{
+             activities.forEach(activity =>{
                  tab.push({1:activity.name, 2:activity.getdateFormat(),3:activity.place.name, 4:<CalendarSystem activity={activity}/> , 5: <Link to='/ActivityEdit' state={activity}><ModeEditIcon/></Link>  ,6 : <DialogConfirmation buttonValue={<DeleteIcon/>} actions={() => {deleteActivity(activity.id)}} titre={"Voulez vous vraiment supprimer l'activité"}/> })
              } )
 
-            return tab;
+            // @ts-ignore
+        setShowedActivities(tab)
         }
-
 
 
 
@@ -94,8 +114,11 @@ const PeriodDetails:React.Fc = () => {
               initActivities(period).then(
                   () => {
                       setLoaded((val) => val + 1);
+
                   }
               );
+              handleSortByDateDesc()
+          console.log(showedActivities)
               initUsers(period).then(
                   () => {
                       setLoaded((val) => val + 1);
@@ -120,6 +143,7 @@ const PeriodDetails:React.Fc = () => {
 
 
     if(loaded) {
+
 
         return (
 
@@ -155,9 +179,13 @@ const PeriodDetails:React.Fc = () => {
 
                             ]}/>
                              <div style={{display:"flex",flexDirection:"column" , justifyContent:"center"}}>
+                                 <ul style={{paddingTop:"1em" , display:"flex", flexDirection:"row" , justifyContent:"center" , marginTop:"2%"}}>
+                                     <li>Trier par date : </li>
+                                     <li><ArrowDropDownIcon fontSize={"large"} /><input id={"boutonSimule"}  type={'submit'} style={{cursor:"pointer"}} value={"Ascendant"} onClick={handleSortByDateAsc}   /></li>
+                                     <li><ArrowDropUpIcon fontSize={"large"} /><input  type={'submit'} style={{cursor:"pointer"}} value={"Descandant"} onClick={handleSortByDateDesc}/></li>
+                                 </ul>
                                 {activities.size > 0 ? (
-                                    <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Editer"},{id:6 , label:"Supprimer"}]} lignes={getActivitiesFormat()}/>
-
+                                    <SimpleTable titre={"Activités"} colonnes={[{id: 1, label: "Nom"}, {id: 2, label: "Date"}, {id: 3, label: "Adresse"}, {id: 4, label: "Calendrier"},{id:5, label:"Editer"},{id:6 , label:"Supprimer"}]} lignes={showedActivities}/>
                                 ):(
                                     <Alert severity="warning">Aucune activité n'est prévue pour cette période</Alert>   )}
                                 <Button><Link to='/NewActivity' state={period}>Ajouter une activité </Link></Button>

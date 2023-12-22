@@ -22,4 +22,13 @@ export default class Activities {
     get size () {
         return this._activities.length;
     }
+
+    get sortByDateAsc() {
+        return this._activities.sort((a, b) => a.beginDate.getTime() - b.beginDate.getTime());
+    }
+
+    get sortByDateDes() {
+        return this._activities.sort((a, b) => b.beginDate.getTime() - a.beginDate.getTime());
+
+    }
 }
