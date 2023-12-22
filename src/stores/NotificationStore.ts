@@ -13,12 +13,18 @@ class NotificationStore implements CanDeleteNotifications , CanGetNotifications{
     private _severity = 'error'
     private _open = false
 
+    private _notifications = new Notifications(new Array<Notification>());
+
 
     constructor() {
 
         makeAutoObservable(this)
     }
 
+
+    get notifications(): Notifications {
+        return this._notifications;
+    }
 
     get mode(): string {
         return this._mode;
@@ -59,16 +65,16 @@ class NotificationStore implements CanDeleteNotifications , CanGetNotifications{
 
 
 
-    async handleGetNotifications(){
 
+    async handleGetNotifications(){
         let result = new Array<Notification>();
         try {
-
             let res = await api.getNotificationFromUser();
             result = res.map( notif => {
                 return new Notification(notif["id"],notif["contenu"] , notif["date"]);
             })
-            return new Notifications(result);
+            this._notifications = new Notifications(result);
+            return this._notifications;
         }catch (error){
             this.handleErrorMessage(error.message);
         }
@@ -78,6 +84,7 @@ class NotificationStore implements CanDeleteNotifications , CanGetNotifications{
     async handleDeleteNotification(notificationId: number) {
         try {
             let res = await api.deleteNotification(notificationId);
+            this._notifications.deleteNotification(notificationId);
             return true;
         } catch (error) {
             this.handleErrorMessage(error.message);

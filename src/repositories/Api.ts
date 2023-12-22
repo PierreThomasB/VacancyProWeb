@@ -487,7 +487,7 @@ class Api {
 
     }
     async deleteNotification(notificationId: number) {
-        return await fetch(`${this._base}/Notification/Notification/?id=`+notificationId, {
+        return await fetch(`${this._base}/Notification/`+notificationId, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

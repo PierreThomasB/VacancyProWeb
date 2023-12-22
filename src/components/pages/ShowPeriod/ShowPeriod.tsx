@@ -72,10 +72,10 @@ const ShowPeriod = () => {
             <ObservedNavBar/>
             <div style={{margin:"1%"}}>
                 <ul style={{display:"flex", flexDirection:"row" , justifyContent:"space-around"}} >
-                    <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Nouvelle période"} onClick={() => navigateToUrl("/newPeriod")}/></li>
-                    <li><CalendarMonthIcon fontSize={"large"}/> <input  type={'submit'} value={"Periodes futures"} onClick={handleOncomingTrips}/></li>
-                    <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"Période passée "} onClick={handlePastedTrips}/></li>
-                    <li><CalendarMonthIcon fontSize={"large"}/>  <input  type={'submit'} value={"Toutes les périodes"} onClick={handleAllTrips}/></li>
+                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/> <input  type={'submit'} value={"Nouvelle période"} onClick={() => navigateToUrl("/newPeriod")}/></li>
+                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/> <input  type={'submit'} value={"Periodes futures"} onClick={handleOncomingTrips}/></li>
+                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/>  <input  type={'submit'} value={"Période passée "} onClick={handlePastedTrips}/></li>
+                    <li><CalendarMonthIcon style={{cursor:"pointer"}} fontSize={"large"}/>  <input  type={'submit'} value={"Toutes les périodes"} onClick={handleAllTrips}/></li>
                 </ul>
                 <ul style={{paddingTop:"1em" , display:"flex", flexDirection:"row" , justifyContent:"center" , marginTop:"2%"}}>
                     <li>Trier par date : </li>

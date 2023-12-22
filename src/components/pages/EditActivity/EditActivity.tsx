@@ -63,9 +63,9 @@ function EditActivity () {
                 setName(activity.name);
                 setDescription(activity.description);
                 // @ts-ignore
-                setStartDate(activity.dateFromCalendar(true));
+                setStartDate(activity.dateFromCalendar(false));
                 // @ts-ignore
-                setEndDate(activity.dateFromCalendar(false));
+                setEndDate(activity.dateFromCalendar(true));
                 setLoaded(true);
             }
         }
