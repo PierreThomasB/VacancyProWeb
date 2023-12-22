@@ -150,8 +150,6 @@ class Api {
     /** ACTIVITY **/
 
     async newActivity(activity: Activity) {
-        console.log(activity.beginDate)
-        console.log(activity.endDate)
         let data = JSON.stringify({
             Id:activity.id,
             Name:activity.name,
@@ -173,8 +171,6 @@ class Api {
                     UrlPhoto: activity.period.place.urlPhoto
                 }}
         });
-        console.log(data)
-
         return fetch(`${this._base}`+"/Activity/NewActivity",{
             method: 'POST',
             body: data,

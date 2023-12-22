@@ -10,6 +10,7 @@ import {MessageComponent} from "../molecules/MessageComponent.tsx";
 import {chatStore} from "../../stores/ChatStore.ts";
 import User from "../../models/User.ts";
 import {Messages} from "../../models/Messages.ts";
+const config = require('../../config.json') ;
 
 
 
@@ -18,9 +19,21 @@ function ChatSystem ({channel_name}){
 
 
     const [message, setMessage] = useState<string>('');
-    const [chat, setChat] = useState<Messages>(new Messages(Array.from([])));
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const open = Boolean(anchorEl);
+    const [chat, setChat] = useState<Messages>(new Messages(Array.from([])));
+
+
+
+    const initPusher = () : Pusher => {
+        const pusher = new Pusher(config.PusherApiKey,{cluster: "eu" });
+        let channel : Channel = pusher.subscribe(channel_name);
+        channel.bind('my-event', function(data) {
+            let message = new Message(channel_name, data.Message, data.Date, data.UserName)
+            setChat(prevChat => new Messages([...prevChat.messages, message]));
+        });
+        return pusher;
+    }
 
 
     const getMessages = async () => {
@@ -29,15 +42,6 @@ function ChatSystem ({channel_name}){
     }
 
 
-    const initPusher = () : Pusher => {
-        const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
-        let channel : Channel = pusher.subscribe(channel_name);
-        channel.bind('my-event', function(data) {
-            let message = new Message(channel_name, data.Message, data.Date, data.UserName)
-            setChat(prevChat => new Messages([...prevChat.messages, message]));
-        });
-        return pusher;
-    }
 
 
     useEffect(() => {
