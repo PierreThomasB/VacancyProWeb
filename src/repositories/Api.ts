@@ -128,7 +128,7 @@ class Api {
 
 
     async deletePeriod( id:number ){
-        return fetch(`${this._base}`+"/Period?id="+id,{
+        return fetch(`${this._base}`+"/Period/"+id,{
             method: 'DELETE',
             headers: {
                 'Access-Control-Allow-Origin': '*',
