@@ -70,6 +70,38 @@ export default class Period extends HasRangeDates{
     }
 
 
+    comparerDatesSansHeure(date1, date2) {
+        const annee1 = date1.getFullYear();
+        const mois1 = date1.getMonth();
+        const jour1 = date1.getDate();
+
+        const annee2 = date2.getFullYear();
+        const mois2 = date2.getMonth();
+        const jour2 = date2.getDate();
+
+        if (annee1 > annee2) {
+            return 1;
+        } else if (annee1 < annee2) {
+            return -1;
+        }
+
+        if (mois1 > mois2) {
+            return 1;
+        } else if (mois1 < mois2) {
+            return -1;
+        }
+
+        if (jour1 > jour2) {
+            return 1;
+        } else if (jour1 < jour2) {
+            return -1;
+        }
+
+        // Les dates sont égales
+        return 0;
+    }
+
+
 
 
 

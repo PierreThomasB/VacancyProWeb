@@ -80,8 +80,8 @@ class Api {
             Id:period.id,
             Name:period.name,
             Description: period.description,
-            BeginDate: period.beginDate,
-            EndDate: period.endDate,
+            BeginDate: new Date(period.beginDate.getTime() - (period.beginDate.getTimezoneOffset() * 60000)).toJSON(),
+            EndDate: new Date(period.endDate.getTime() - (period.endDate.getTimezoneOffset() * 60000)).toJSON(),
             Place : {
                 Id:period.place.id,
                 Name:period.place.name,
@@ -150,12 +150,14 @@ class Api {
     /** ACTIVITY **/
 
     async newActivity(activity: Activity) {
+        console.log(activity.beginDate)
+        console.log(activity.endDate)
         let data = JSON.stringify({
             Id:activity.id,
             Name:activity.name,
             Description:activity.description,
-            BeginDate : activity.beginDate,
-            EndDate : activity.endDate,
+            BeginDate : new Date(activity.beginDate.getTime() - (activity.beginDate.getTimezoneOffset() * 60000)).toJSON(),
+            EndDate : new Date(activity.endDate.getTime() - (activity.beginDate.getTimezoneOffset() * 60000)).toJSON(),
             Place : {
                 Id:activity.place.id,
                 Name:activity.place.name,
@@ -171,6 +173,7 @@ class Api {
                     UrlPhoto: activity.period.place.urlPhoto
                 }}
         });
+        console.log(data)
 
         return fetch(`${this._base}`+"/Activity/NewActivity",{
             method: 'POST',
@@ -188,8 +191,8 @@ class Api {
         let data = JSON.stringify({
             'Name':activity.name,
             'Description':activity.description,
-            "BeginDate" : activity.startDate,
-            "EndDate" : activity.endDate,
+            "BeginDate" : new Date(activity.startDate.getTime() - (activity.startDate.getTimezoneOffset() * 60000)).toJSON(),
+            "EndDate" :  new Date(activity.endDate.getTime() - (activity.endDate.getTimezoneOffset() * 60000)).toJSON(),
         })
         return fetch(`${this._base}`+"/Activity/"+id, {
                 body: data,

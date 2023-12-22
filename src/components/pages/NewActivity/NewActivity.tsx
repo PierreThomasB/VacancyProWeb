@@ -21,6 +21,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {canCreateActivity} from "../../../stores/ActivityStore.ts";
 import {wait} from "@testing-library/user-event/dist/utils";
 import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
+import {Dayjs} from "dayjs";
 
 
 
@@ -32,8 +33,8 @@ function NewActivity ()   {
 
     const [name,setName] = useState("");
     const [description,setDescription] = useState("");
-    const [startDate , setStartDate] = useState();
-    const [endDate , setEndDate] = useState();
+    const [startDate , setStartDate] = useState<Dayjs>();
+    const [endDate , setEndDate] = useState<Dayjs>();
     const [place ,setPlace ] = useState(new Place("","",""));
     const [period,setPeriod] = useState(new Period(-1,"","",null,null,null,null , null));
 
@@ -42,7 +43,7 @@ function NewActivity ()   {
 
 
     const doPost = async () => {
-        if(await canCreateActivity.handleNewActivity(name, description, startDate, endDate, place, period)){
+        if(await canCreateActivity.handleNewActivity(name, description, startDate.toDate(), endDate.toDate(), place, period)){
             setDisabled(true)
             await wait(3000);
             navigate("/periods");
@@ -52,7 +53,7 @@ function NewActivity ()   {
         const periodObj = location.state;
         const place = new Place(periodObj._place._name,periodObj._place._id,periodObj._place._urlPhoto)
         const per = new Period(periodObj._id ,periodObj._name,periodObj._description,place,periodObj._beginDate,periodObj._endDate,null,periodObj._listUser );
-        console.log(per);
+
         setPeriod(per);
     }
 

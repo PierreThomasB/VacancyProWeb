@@ -20,7 +20,7 @@ interface TableauProps {
 
 
 export const SimpleTable  : React.FC<TableauProps> = ({ colonnes , lignes , titre }) => {
-    console.log(lignes)
+
     return (
         <Card>
             <Typography style={{textAlign:"center"}} variant="h4" gutterBottom>{titre}</Typography>

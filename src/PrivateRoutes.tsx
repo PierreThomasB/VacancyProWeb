@@ -11,7 +11,6 @@ export type PrivateRouteProps = {
 
 
 export default function PrivateRoute({ outlet}: PrivateRouteProps) : React.JSX.Element{
-    console.log(localStorage.getItem('VacancyProUser'))
 
 
     return localStorage.getItem('VacancyProUser')  === null ?

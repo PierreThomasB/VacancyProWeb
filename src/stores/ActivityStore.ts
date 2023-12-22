@@ -104,7 +104,6 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
             return false;
         }
         try{
-            console.log(new ActivityEditDto(name,description,startDate,endDate));
             await api.editActivity(id , new ActivityEditDto(name,description,startDate,endDate)  );
             this.handleGoodMessage("Activitée modifiée avec succès");
             return true;
@@ -129,12 +128,12 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
             this.handleErrorMessage('Le champ "Date de debut" est obligatoire');
             return false;
         }
-        if(period.beginDate > startDate){
+        if(period.comparerDatesSansHeure(startDate , period.beginDate) < 0 ){
             this.handleErrorMessage('Le champ "Date de début" doit etre compris dans la période');
             return false;
         }
 
-        if(period.endDate < endDate){
+        if(period.comparerDatesSansHeure(endDate , period.endDate) > 0 ){
             this.handleErrorMessage('Le champ "Date de Fin" doit etre compris dans la période ');
             return false;
         }
@@ -150,10 +149,9 @@ class ActivityStore  implements CanLoadActivities , CanCreateActivity , CanDelet
             this.handleErrorMessage('Le champ "Lieu" est obligatoire');
             return false;
         }
-
+        console.log(startDate)
         let activity: Activity = new Activity(-1, name, description, startDate, endDate, place, period as Period);
-
-
+        console.log(activity.beginDate)
         try{
             await api.newActivity(activity)
             this.handleGoodMessage("Activitée crée avec succès");

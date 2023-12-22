@@ -25,7 +25,6 @@ function ChatSystem ({channel_name}){
 
     const getMessages = async () => {
         let res = await chatStore.handleGetAllMessage(channel_name);
-        console.log(res);
         setChat(res);
     }
 
@@ -34,7 +33,6 @@ function ChatSystem ({channel_name}){
         const pusher = new Pusher('74f1716b51dbbc6c19ca',{cluster: "eu" });
         let channel : Channel = pusher.subscribe(channel_name);
         channel.bind('my-event', function(data) {
-            console.log(data);
             let message = new Message(channel_name, data.Message, data.Date, data.UserName)
             setChat(prevChat => new Messages([...prevChat.messages, message]));
         });
@@ -45,7 +43,6 @@ function ChatSystem ({channel_name}){
     useEffect(() => {
         getMessages();
         const pusher = initPusher();
-        console.log(chat)
         return () => {
             pusher.unsubscribe(channel_name);
         };

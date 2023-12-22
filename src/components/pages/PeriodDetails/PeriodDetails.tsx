@@ -42,7 +42,7 @@ const PeriodDetails:React.Fc = () => {
   const initActivities = async (period:Period) => {
       let activities = await canLoadActivities.handleGetAllActivities(period.id);
       setActivities(activities);
-      console.log(activities);
+
   }
 
   const initUsers  = async (period:Period) => {

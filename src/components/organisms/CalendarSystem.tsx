@@ -39,7 +39,7 @@ export const CalendarSystem = ({activity }) => {
 
 
         let activityObj = activity as Activity
-        console.log(activityObj);
+
         const event : Event = {title : activityObj.name ,description : activityObj.description , start : activityObj.beginDate  , allDay : true , location: activityObj.place.name}
         let tempTab = []
         tempTab.push([google(event) , "Export to Google"]);

@@ -49,8 +49,6 @@ function EditActivity () {
 
         let beginDateObj : Date = startDate.toDate();
         let endDateObj : Date = endDate.toDate();
-        console.log(beginDateObj);
-        console.log(endDateObj);
         if (await canEditActivity.handleEditActivity(id , name, description, beginDateObj, endDateObj )) {
             setDisabled(true)
             await wait(3000);

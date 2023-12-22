@@ -26,7 +26,7 @@ export const PlaceInput  = ({updateLieu}) => {
                 selectProps={{
                     value,
                     onChange: (e) => {
-                        console.log(e);
+
                         handleInputChange(e.value);
                         setValue(e);
                     }

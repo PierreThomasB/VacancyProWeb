@@ -27,7 +27,7 @@ class ChatStore implements ChatStoreInterface {
             });
             return new Messages(tempMessage);
         } catch (e) {
-            console.log(e);
+
             return new Messages(new Array<Message>());
         }
     }

@@ -27,7 +27,7 @@ const ShowPeriod = () => {
         if(result !== undefined ) {
             setPeriods(result);
             setShowedItems(result.defaultSort);
-            console.log(showedItems);
+
         }
     }
 

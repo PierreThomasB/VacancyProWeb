@@ -23,12 +23,12 @@ export default class Periods{
     }
     sortByPeriodsDateAsc(periods : Period[]){
       let res = periods.sort((a,b) => a.beginDate.getTime() - b.beginDate.getTime());
-        console.log(res)
+
       return res ;
     }
     sortByPeriodsDateDesc(periods : Period[]){
            let res =  periods.sort((a,b) => b.beginDate.getTime() - a.beginDate.getTime());
-        console.log(res)
+
 
     return res; }
 

@@ -22,6 +22,7 @@ import {ObservedSnackBar} from "../../molecules/SnackBar.tsx";
 import {authentificationStore} from "../../../stores/AuthentificationStore.ts";
 import {useNavigate} from "react-router-dom";
 import {wait} from "@testing-library/user-event/dist/utils";
+import {Dayjs} from "dayjs";
 
 
 function SendIcon() {
@@ -35,15 +36,15 @@ function NewPeriod ()   {
 
     const [name,setName] = useState("");
     const [description,setDescription] = useState("");
-    const [startDate , setStartDate] = useState();
-    const [endDate , setEndDate] = useState();
+    const [startDate , setStartDate] = useState<Dayjs>();
+    const [endDate , setEndDate] = useState<Dayjs>();
     const [place ,setPlace ] = useState(null);
     const [disabled , setDisabled] = useState(false);
 
 
 
     const doPost = async () => {
-        if(await canCreatePeriods.handleNewPeriod(name,description,place,startDate,endDate)){
+        if(await canCreatePeriods.handleNewPeriod(name,description,place,startDate.toDate(),endDate.toDate())){
             setDisabled(true);
             await wait(3000);
             navigate("/periods");
